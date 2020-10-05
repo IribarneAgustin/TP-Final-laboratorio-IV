@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Ambassador",
+        "adress": "C\u00f3rdoba 1673",
+        "ticketPrice": "300",
+        "capacity": "500"
+    },
+    {
+        "id": 2,
+        "name": "Cinemacenter",
+        "adress": "Diagonal pueyrred\u00f3n 3050",
+        "ticketPrice": "280",
+        "capacity": "500"
+    },
+    {
+        "id": 3,
+        "name": "Cine paseo Aldrey",
+        "adress": "Sarmiento 2685",
+        "ticketPrice": "350",
+        "capacity": "600"
+    }
+]

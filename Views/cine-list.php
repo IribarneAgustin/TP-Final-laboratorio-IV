@@ -24,41 +24,29 @@
         <table style="text-align:center;">
           <thead>
             <tr>
-              <th style="width: 15%;">Code</th>
-              <th style="width: 30%;">Brand</th>
-              <th style="width: 30%;">Model</th>
-              <th style="width: 15%;">Price</th>
-              <th style="width: 10%;">Action</th>
+              <th style="width: 15%;">Id</th>
+              <th style="width: 15%;">Name</th>
+              <th style="width: 30%;">Adress</th>
+              <th style="width: 30%;">Ticket Price</th>
+              <th style="width: 15%;">Capacity</th>
+              <th style="width: 10%;">Delete</th>
             </tr>
           </thead>
           <tbody>
+            <?php foreach($cineList as $value) { ?>
             <tr>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
+                <td> <?php echo $value->getId(); ?> </td>
+                <td> <?php echo $value->getName(); ?> </td>
+                <td> <?php echo $value->getAdress(); ?> </td>
+                <td> <?php echo $value->getTicketPrice(); ?> </td>
+                <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
-                  <button type="submit" class="btn" value=""> Remove </button>
+                  <button type="submit" name= "id" class="btn" value="<?php $value->getId(); ?>"> Remove </button>
                 </td>
               </tr>
-              <tr>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
-                <td>
-                  <button type="submit" class="btn" value=""> Remove </button>
-                </td>
-              </tr>
-              <tr>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
-                <td>Value</td>
-                <td>
-                  <button type="submit" class="btn" value=""> Remove </button>
-                </td>
-              </tr>
+
+            <?php } ?>
+
           </tbody>
         </table></form> 
       </div>

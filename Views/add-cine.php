@@ -19,30 +19,30 @@
 <main class="container clear"> 
     <div class="content"> 
       <div id="comments" >
-        <h2>ADD NEW CELLPHONE</h2>
-        <form action="" method="post"  style="background-color: #EAEDED;padding: 2rem !important;">
+        <h2>ADD NEW CINE</h2>
+        <form action="<?php echo FRONT_ROOT?>Cine/add" method=""  style="background-color: #EAEDED;padding: 2rem !important;">
           <table> 
             <thead>
               <tr>
-                <th>Code</th>
-                <th>Brand</th>
-                <th>Model</th>
-                <th>Price</th>
+                <th>Name</th>
+                <th>Adress</th>
+                <th>Ticket Price</th>
+                <th>Capacity</th>
               </tr>
             </thead>
             <tbody align="center">
               <tr>
-                <td style="max-width: 100px;">
-                  <input type="number" name="" min="1" max="999" size="30" required>
+                <td style="max-width: 300px;">
+                  <input type="text" name="name" size="30" required>
                 </td>
                 <td>
-                  <input type="text" name="" size="20" required>
+                  <input type="text" name="adress" size="30" required>
                 </td>
                 <td>
-                  <input type="text" name="" size="20" required>
+                  <input type="number" min=0 name="ticketPrice" size="10" required>
                 </td>     
                 <td>
-                  <input type="text" name="" size="10" required>
+                  <input type="number" min=0 name="capacity" size="10" required>
                 </td>         
               </tr>
               </tbody>
