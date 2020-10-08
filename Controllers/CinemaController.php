@@ -24,6 +24,7 @@ class CinemaController
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "cinema-list.php");
     }
+
     public function showAddView(){
         require_once(VIEWS_PATH . "add-cinema.php");
     }
@@ -41,5 +42,10 @@ class CinemaController
         $this->cinemaDAO->add($newCinema);
 
         $this->showAddView();
+    }
+
+    public function remove($cinemaId){
+        $this->cinemaDAO->remove($cinemaId);
+        $this->showList();
     }
 }

@@ -6,8 +6,8 @@ include('nav-bar.php');
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
+          <form action="remove" method="post">
             <h2 class="mb-4">Cinema List</h2>
-            <form action="Cinema/showList" method="get">
           <table class="table bg-light-alpha">
           <thead>
             <tr>
@@ -28,7 +28,7 @@ include('nav-bar.php');
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
-                  <button type="submit" name="btnRemove" class="btn btn-danger" value="<?php $value->getId(); ?>"> Remove </button>
+                  <button type="submit" name="cinemaId" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>
                 </td>
               </tr>
 

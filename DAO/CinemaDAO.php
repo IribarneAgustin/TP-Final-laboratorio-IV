@@ -22,6 +22,21 @@ class CinemaDAO implements ICinemaDAO
         array_push($this->cinemaList, $cinema);
         $this->saveData();
     }
+
+    public function remove($cinemaId){
+
+        $this->RetrieveData();
+
+        foreach($this->cinemaList as $cinemaValue){
+
+            if($cinemaValue->getId()==$cinemaId){
+                $key = array_search($cinemaValue, $this->cinemaList);
+                unset($this->cinemaList[$key]);
+            }
+        }
+        $this->SaveData();
+    }
+
     public function getAll()
     {
         $this->retrieveData();
