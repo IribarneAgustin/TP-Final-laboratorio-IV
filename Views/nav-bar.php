@@ -1,15 +1,14 @@
-<div class="wrapper row1">
-  <header id="header" class="clear"> 
-    <div id="logo" class="fl_left">
-      <h1>CINEMA</h1>
-    </div>
-    <nav id="mainav" class="fl_right">
-      <ul class="clear">
-        <li class="active"><a class="drop" href="#">Actions</a>
-          <ul>
-            <li><a href="../Cinema/showAddView">ADD</a></li>
-            <li><a href="../Cinema/showList">LIST/REMOVE</a></li>
-      </ul>
-    </nav>
-  </header>
-</div>
+
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+     <span class="navbar-text">
+          Cinema
+     </span>
+     <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Cinema/showList">LIST/REMOVE</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Cinema/showAddView">ADD</a>
+          </li>
+     </ul>
+</nav>

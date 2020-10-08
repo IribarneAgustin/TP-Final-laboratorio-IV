@@ -19,5 +19,19 @@
         "adress": "Sarmiento 2685",
         "ticketPrice": "350",
         "capacity": "600"
+    },
+    {
+        "id": 4,
+        "name": "asdasdasd",
+        "adress": "asdasdasd",
+        "ticketPrice": "123231231",
+        "capacity": "123231123"
+    },
+    {
+        "id": 5,
+        "name": "asdasds",
+        "adress": "asdasd",
+        "ticketPrice": "123213",
+        "capacity": "3123213"
     }
 ]

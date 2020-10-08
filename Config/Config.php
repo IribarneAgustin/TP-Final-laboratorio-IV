@@ -1,14 +1,12 @@
 <?php namespace Config;
 
-define("ROOT", dirname(__DIR__) . "/");
-//Path to your project's root folder
-define("FRONT_ROOT", "../");
+define("ROOT", dirname(__DIR__) . "/");   // raiz del proyecto definido como ROOT
+
+
+// Cambiar Valor del FRONT_ROOT por el Root Directory de su propio Proyecto
+define("FRONT_ROOT", "/TP-Final-laboratorio-IV/");
 define("VIEWS_PATH", "Views/");
-define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "layout/css/");
-define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
-define("IMG_PATH", VIEWS_PATH . "Views/layout/img/");
-?>
-
-
-
+define("CSS_PATH", FRONT_ROOT. "Assets/css/");
+define("JS_PATH", FRONT_ROOT. "Assets/js/");
+define("IMG_PATH", FRONT_ROOT. "Assets/img/");
 
