@@ -1,27 +1,14 @@
 <?php 
- include('header.php');
- include('nav-bar.php');
+include('header.php');
+include('nav-bar.php');
 ?>
-<!-- ################################################################################################ -->
-<div class="wrapper row2 bgded" style="background-image:url('../images/demo/backgrounds/1.png');">
-  <div class="overlay">
-    <div id="breadcrumb" class="clear"> 
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Add</a></li>
-        <li><a href="#">List - Remove</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<div class="wrapper row4">
-  <main class="hoc container clear"> 
-    <!-- main body -->
-    <div class="content"> 
-      <div class="scrollable">
-      <form action="Cinema/showList" method="get">
-        <table style="text-align:center;">
+
+<main class="py-5">
+     <section id="listado" class="mb-5">
+          <div class="container">
+            <h2 class="mb-4">Cinema List</h2>
+            <form action="Cinema/showList" method="get">
+          <table class="table bg-light-alpha">
           <thead>
             <tr>
               <th style="width: 15%;">Id</th>
@@ -41,7 +28,7 @@
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
-                  <button type="submit" name="id" class="btnRemove" value="<?php $value->getId(); ?>"> Remove </button>
+                  <button type="submit" name="btnRemove" class="btn btn-danger" value="<?php $value->getId(); ?>"> Remove </button>
                 </td>
               </tr>
 
