@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Add Cine</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="<?php echo CSS_PATH;?>layout.css" rel="stylesheet" type="text/css" media="all">
+     <!-- Required meta tags -->
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="Views/css/bootstrap.min.css">
+     <link rel="stylesheet" href="Views/css/estilos.css">
+
+     <title>Practico N° 5.1</title>
 </head>
-<body id="top">
+<body>

@@ -20,7 +20,7 @@
     <!-- main body -->
     <div class="content"> 
       <div class="scrollable">
-      <form action="" method="">
+      <form action="Cinema/showList" method="get">
         <table style="text-align:center;">
           <thead>
             <tr>
@@ -41,7 +41,7 @@
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
-                  <button type="submit" name= "id" class="btn" value="<?php $value->getId(); ?>"> Remove </button>
+                  <button type="submit" name="id" class="btnRemove" value="<?php $value->getId(); ?>"> Remove </button>
                 </td>
               </tr>
 

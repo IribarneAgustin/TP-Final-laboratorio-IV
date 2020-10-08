@@ -20,7 +20,7 @@
     <div class="content"> 
       <div id="comments" >
         <h2>ADD NEW CINEMA</h2>
-        <form action="<?php echo FRONT_ROOT?>Cine/add" method=""  style="background-color: #EAEDED;padding: 2rem !important;">
+        <form action="<?php echo FRONT_ROOT?>Cinema/add" method="post"  style="background-color: #EAEDED;padding: 2rem !important;">
           <table> 
             <thead>
               <tr>
