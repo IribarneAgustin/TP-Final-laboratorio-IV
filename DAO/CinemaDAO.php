@@ -8,7 +8,7 @@ class CinemaDAO implements ICinemaDAO
 {
 
     private $file;
-    private $cineList;
+    private $cinemaList;
 
     public function __construct()
     {
