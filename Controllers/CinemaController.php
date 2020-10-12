@@ -45,7 +45,31 @@ class CinemaController
     }
 
     public function remove($cinemaId){
+        if($id){
         $this->cinemaDAO->remove($cinemaId);
+        }
         $this->showList();
+    }
+
+    
+    public function Edit($id){
+        if($id){
+            $repo = new CinemaDAO();
+            $cinema = $repo->GetById($id);
+            require_once(VIEWS_PATH."cinema-edit.php");
+        }
+    }
+
+    
+    
+    public function Update()
+    {
+        if($_POST){
+            $updatedCinema=$_POST;
+            $repository = new CinemaDAO();
+            $cinema=$repository->GetById($updatedCinema["id"]);
+            $repository->Update($cinema, $updatedCinema);
+            $this->ShowList();
+        }
     }
 }
