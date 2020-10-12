@@ -104,4 +104,51 @@ class CinemaDAO implements ICinemaDAO
 
         file_put_contents($this->file, $jsonContent);
     }
+
+    public function Update(Cinema $cinema, $updatedCinema)
+    {
+        $this->retrieveData();
+        $newList = array();
+        foreach ($this->cinemaList as $cinema) {
+            if ($cinema->getId() != $updatedCinema["id"]) {
+                array_push($newList, $cinema);
+            } else {
+                if ($updatedCinema["name"] != $cinema->getName() && $updatedCinema["name"] != NULL) {
+                    $cinema->setName($updatedCinema["name"]);
+                }
+                if ($updatedCinema["capacity"] != $cinema->getCapacity() && $updatedCinema["capacity"] != NULL) {
+                    $cinema->setCapacity($updatedCinema["capacity"]);
+                }
+                if ($updatedcine["adress"] != $cine->getAdress() && $updatedcine["adress"] != NULL) {
+                    $cine->setAdress($updatedcine["adress"]);
+                }
+                if ($updatedcine["ticketPrice"] != $cine->getTicketPrice() && $updatedcine["ticketPrice"] != NULL) {
+                    $cine->setTicketPrice($updatedcine["ticketPrice"]);
+                }
+                array_push($newList, $cinema);
+            }
+        }
+
+        $this->cinemaList = $newList;
+        $this->SaveData();
+    }
+
+    public function GetById($idCinema)
+    {
+        $cinema = new Cinema;
+
+        $this->RetrieveData();
+        foreach ($this->cinemaList as $cinemas) {
+            if ($cinemas->getId() == $idCinema) {
+                $cinema = $cinemas;
+                break;
+            }
+        }
+        return $cinema;
+    }
+
+
+
+        
+
 }
