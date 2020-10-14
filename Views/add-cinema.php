@@ -40,4 +40,7 @@ include('nav-bar.php');
      </section>
 </main>
 
+<?php echo $message; ?>
+
+
 <?php include('footer.php') ?>

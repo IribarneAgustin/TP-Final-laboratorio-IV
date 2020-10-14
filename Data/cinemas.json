@@ -9,13 +9,13 @@
     {
         "id": 2,
         "name": "Cinemacenter",
-        "adress": "Agus",
+        "adress": "Alsina 1230",
         "ticketPrice": "280",
         "capacity": "500"
     },
     {
         "id": 3,
-        "name": "fran",
+        "name": "Cine paseo aldrey",
         "adress": "Sarmiento 2685",
         "ticketPrice": "6000",
         "capacity": "600"

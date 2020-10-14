@@ -78,6 +78,8 @@ include('nav-bar.php');
 </main>
 </div>
 
+<?php echo $message; ?>
+
 <?php
 include('footer.php');
 ?>

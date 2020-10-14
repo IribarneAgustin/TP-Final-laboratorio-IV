@@ -18,30 +18,34 @@ class CinemaController
         $this->cinemaDAO = new CinemaDAO();
     }
 
-    public function showList()
+    public function showList($message = '')
     {
 
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "cinema-list.php");
     }
 
-    public function showAddView()
+    public function showAddView($message = '')
     {
         require_once(VIEWS_PATH . "add-cinema.php");
     }
 
     public function add($name, $adress, $ticketPrice, $capacity)
     {
+        if ($this->cinemaDAO->existsName($name) == false) {
 
-        $newCinema = new Cinema();
-        $newCinema->setName($name);
-        $newCinema->setAdress($adress);
-        $newCinema->setTicketPrice($ticketPrice);
-        $newCinema->setCapacity($capacity);
+            $newCinema = new Cinema();
+            $newCinema->setName($name);
+            $newCinema->setAdress($adress);
+            $newCinema->setTicketPrice($ticketPrice);
+            $newCinema->setCapacity($capacity);
 
-        $this->cinemaDAO->add($newCinema);
-
-        $this->showAddView();
+            $this->cinemaDAO->add($newCinema);
+            $this->showAddView();
+        }
+        else{
+            $this->showAddView($message = "El nombre ingresado ya existe");
+        }
     }
 
     public function remove($cinemaId)
@@ -55,7 +59,6 @@ class CinemaController
 
     public function modify($id, $field, $newContent)
     {
-
 
         $toModify = $this->cinemaDAO->getById($id);
 
