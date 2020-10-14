@@ -25,7 +25,8 @@ class CinemaController
         require_once(VIEWS_PATH . "cinema-list.php");
     }
 
-    public function showAddView(){
+    public function showAddView()
+    {
         require_once(VIEWS_PATH . "add-cinema.php");
     }
 
@@ -38,38 +39,34 @@ class CinemaController
         $newCinema->setTicketPrice($ticketPrice);
         $newCinema->setCapacity($capacity);
 
-      
         $this->cinemaDAO->add($newCinema);
 
         $this->showAddView();
     }
 
-    public function remove($cinemaId){
-        if($id){
+    public function remove($cinemaId)
+    {
+
         $this->cinemaDAO->remove($cinemaId);
-        }
+
         $this->showList();
     }
 
-    
-    public function Edit($id){
-        if($id){
-            $repo = new CinemaDAO();
-            $cinema = $repo->GetById($id);
-            require_once(VIEWS_PATH."cinema-edit.php");
-        }
-    }
 
-    
-    
-    public function Update()
+    public function modify($id, $field, $newContent)
     {
-        if($_POST){
-            $updatedCinema=$_POST;
-            $repository = new CinemaDAO();
-            $cinema=$repository->GetById($updatedCinema["id"]);
-            $repository->Update($cinema, $updatedCinema);
-            $this->ShowList();
+
+
+        $toModify = $this->cinemaDAO->getById($id);
+
+        if (isset($toModify)) {
+
+            $myMetohd = "set" . $field;
+            $toModify->$myMetohd($newContent);
+
+            $this->cinemaDAO->update($toModify);
         }
+
+        $this->showList();
     }
 }

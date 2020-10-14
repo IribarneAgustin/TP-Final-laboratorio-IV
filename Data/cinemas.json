@@ -9,15 +9,15 @@
     {
         "id": 2,
         "name": "Cinemacenter",
-        "adress": "Diagonal pueyrred\u00f3n 3050",
+        "adress": "Agus",
         "ticketPrice": "280",
         "capacity": "500"
     },
     {
         "id": 3,
-        "name": "Cine paseo Aldrey",
+        "name": "fran",
         "adress": "Sarmiento 2685",
-        "ticketPrice": "350",
+        "ticketPrice": "6000",
         "capacity": "600"
     }
 ]
