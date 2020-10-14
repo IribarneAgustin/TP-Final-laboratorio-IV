@@ -23,13 +23,14 @@ class CinemaDAO implements ICinemaDAO
         $this->saveData();
     }
 
-    public function remove($cinemaId){
+    public function remove($cinemaId)
+    {
 
-        $this->RetrieveData();
+        $this->retrieveData();
 
-        foreach($this->cinemaList as $cinemaValue){
+        foreach ($this->cinemaList as $cinemaValue) {
 
-            if($cinemaValue->getId()==$cinemaId){
+            if ($cinemaValue->getId() == $cinemaId) {
                 $key = array_search($cinemaValue, $this->cinemaList);
                 unset($this->cinemaList[$key]);
             }
@@ -104,8 +105,22 @@ class CinemaDAO implements ICinemaDAO
 
         file_put_contents($this->file, $jsonContent);
     }
+    public function update(Cinema $modifiedCinema)
+    {
+        $this->retrieveData();
 
-    public function Update(Cinema $cinema, $updatedCinema)
+        foreach ($this->cinemaList as $value) {
+            if ($value->getId() == $modifiedCinema->getId()) {
+                $key = array_search($value, $this->cinemaList);
+                unset($this->cinemaList[$key]);
+                array_push($this->cinemaList, $modifiedCinema);
+            }
+        }
+        sort($this->cinemaList);
+        $this->saveData();
+    }
+    /*
+    public function Update(Cinema $cinema)
     {
         $this->retrieveData();
         $newList = array();
@@ -133,11 +148,12 @@ class CinemaDAO implements ICinemaDAO
         $this->SaveData();
     }
 
-    public function GetById($idCinema)
+*/
+    public function getById($idCinema)
     {
-        $cinema = new Cinema;
+        $cinema = new Cinema();
 
-        $this->RetrieveData();
+        $this->retrieveData();
         foreach ($this->cinemaList as $cinemas) {
             if ($cinemas->getId() == $idCinema) {
                 $cinema = $cinemas;
@@ -146,9 +162,4 @@ class CinemaDAO implements ICinemaDAO
         }
         return $cinema;
     }
-
-
-
-        
-
 }
