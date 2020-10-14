@@ -119,36 +119,21 @@ class CinemaDAO implements ICinemaDAO
         sort($this->cinemaList);
         $this->saveData();
     }
-    /*
-    public function Update(Cinema $cinema)
+
+    public function existsName($name)
     {
+        $exists = false;
+
         $this->retrieveData();
-        $newList = array();
-        foreach ($this->cinemaList as $cinema) {
-            if ($cinema->getId() != $updatedCinema["id"]) {
-                array_push($newList, $cinema);
-            } else {
-                if ($updatedCinema["name"] != $cinema->getName() && $updatedCinema["name"] != NULL) {
-                    $cinema->setName($updatedCinema["name"]);
-                }
-                if ($updatedCinema["capacity"] != $cinema->getCapacity() && $updatedCinema["capacity"] != NULL) {
-                    $cinema->setCapacity($updatedCinema["capacity"]);
-                }
-                if ($updatedcine["adress"] != $cine->getAdress() && $updatedcine["adress"] != NULL) {
-                    $cine->setAdress($updatedcine["adress"]);
-                }
-                if ($updatedcine["ticketPrice"] != $cine->getTicketPrice() && $updatedcine["ticketPrice"] != NULL) {
-                    $cine->setTicketPrice($updatedcine["ticketPrice"]);
-                }
-                array_push($newList, $cinema);
+        foreach ($this->cinemaList as $value) {
+            if ($value->getName() == $name) {
+                $exists = true;
             }
         }
-
-        $this->cinemaList = $newList;
-        $this->SaveData();
+        
+        return $exists;
     }
 
-*/
     public function getById($idCinema)
     {
         $cinema = new Cinema();
