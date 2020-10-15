@@ -6,11 +6,11 @@ include('nav-bar.php');
 <main class="py-5">
   <section id="listado" class="mb-5">
     <div class="container">
-      <form action="<?php echo FRONT_ROOT ?>Cinema/remove" method="post">
-        <h2 class="mb-4">Cinema List</h2>
-        <table class="table bg-light-alpha">
-          <thead>
-            <tr>
+      <h2 class="mb-4">Cinema List</h2>
+        <form action="<?php echo FRONT_ROOT ?>Cinema/remove" method="post" class="bg-light-alpha p-3">
+          <table class="table table-striped table-dark">
+            <thead class="thead-dark">
+              <tr>
               <th style="width: 15%;">Id</th>
               <th style="width: 15%;">Name</th>
               <th style="width: 30%;">Adress</th>
@@ -37,48 +37,35 @@ include('nav-bar.php');
           </tbody>
         </table>
       </form>
-      <form action="<?php echo FRONT_ROOT . "Cinema/modify" ?>" >
-        <h2 class="mb-4">Modify</h2>
-        <table class="table bg-light-alpha">
-          <thead>
-            <tr>
-              <th style="width: 35%;">Id</th>
-              <th style="width: 25%;">Field to modify</th>
-              <th style="width: 25%;">New value</th>
-              <th style="width: 25%;">Modify</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input type="number" name="id" min=0 required>
-              </td>
-              <td>
-                <select name="field" widht="150px" required>
+      <h2 class="mb-4">Modify</h2>
+      <form action="<?php echo FRONT_ROOT . "Cinema/modify" ?>" class="bg-light-alpha p-3">
+  <div class="form-row">
+    <div class="col">
+      <input type="number" name="id" min=0 class="form-control" placeholder="ID">
+    </div>
+    <div class="col">
+      <select name="field" class="form-control" placeholder="Field">
                   <option value="name">Name</option>
                   <option value="adress">Adress</option>
                   <option value="ticketPrice">Ticket Price</option>
                   <option value="capacity">Capacity</option>
                 </select>
-              </td>
-              <td>
-                <input type="" name="newValue" required>
-              </td>
-              <td>
-                <button type="submit" name="modify" class="btn btn-danger" value=""> Modify</button>
-              </td>
-            </tr>
-          </tbody>
+    </div>
+    <div class="col">
+      <input type="" name=newValue class="form-control" placeholder="New value">
+    </div>
 
-      </form>
+  <div class="col">
+     <button type="submit" name="modify" class="btn btn-danger" value=""> Modify</button>
+  </div>
+  </div>
+</form>
     </div>
     </div>
     <!-- / main body -->
     <div class="clear"></div>
 </main>
 </div>
-
-<?php echo $message; ?>
 
 <?php
 include('footer.php');

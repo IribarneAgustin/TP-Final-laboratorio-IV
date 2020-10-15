@@ -3,7 +3,7 @@
 
     class HomeController
     {
-        public function Index($message = "")
+        public function Index()
         {
             require_once(VIEWS_PATH."add-cinema.php");
         }        

@@ -18,14 +18,14 @@ class CinemaController
         $this->cinemaDAO = new CinemaDAO();
     }
 
-    public function showList($message = '')
+    public function showList()
     {
 
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "cinema-list.php");
     }
 
-    public function showAddView($message = '')
+    public function showAddView()
     {
         require_once(VIEWS_PATH . "add-cinema.php");
     }
@@ -44,7 +44,8 @@ class CinemaController
             $this->showAddView();
         }
         else{
-            $this->showAddView($message = "El nombre ingresado ya existe");
+            $this->showAddView();
+            echo '<script type="text/javascript"> alert("Nombre de cine ya existente")</script>';
         }
     }
 
@@ -73,3 +74,4 @@ class CinemaController
         $this->showList();
     }
 }
+?>
