@@ -7,7 +7,7 @@ include('nav-bar.php');
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Add Cinema</h2>
-               <form action="<?php echo FRONT_ROOT?>Cinema/add" method="post" class="bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Cinema/add" method="post" class="bg-light-alpha p-5">
                     <div class="row">
                          <div class="col-lg-3">
                               <div class="form-group">
@@ -36,6 +36,11 @@ include('nav-bar.php');
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
+               <?php 
+               if(isset($message) && $message != "") {echo "<div class='alert alert-danger' role='alert'> $message </div>";}
+               ?>
+               
+
           </div>
      </section>
 </main>

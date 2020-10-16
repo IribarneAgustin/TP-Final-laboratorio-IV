@@ -10,5 +10,9 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT;?>Cinema/showAddView">ADD</a>
           </li>
+          
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Movie/showList">Movies List</a>
+          </li>
      </ul>
 </nav>
