@@ -22,8 +22,7 @@ include('nav-bar.php');
                     <?php foreach ($moviesList as $value) { ?>
                         <tr>
                             <?php $id = $value->getId(); ?>
-                            <td> <?php echo "<img src= https://api.themoviedb.org/3/movie/$id/images?api_key=$key&language=en-US; ?> </td>"; ?>
-                            <td> <?php echo $value->getTitle(); ?> </td>
+                            <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getImg() . '">' ?> </td>                            <td> <?php echo $value->getTitle(); ?> </td>
                             <td> <?php echo $value->getReleaseDate(); ?> </td>
                             <td> <?php echo $value->getLanguage(); ?> </td>
                             <td> <?php echo $value->getOverview(); ?> </td>

@@ -13,7 +13,7 @@ include('nav-bar.php');
               <tr>
               <th style="width: 15%;">Id</th>
               <th style="width: 15%;">Name</th>
-              <th style="width: 30%;">Adress</th>
+              <th style="width: 30%;">Address</th>
               <th style="width: 30%;">Ticket Price</th>
               <th style="width: 15%;">Capacity</th>
               <th style="width: 10%;">Delete</th>
@@ -46,7 +46,7 @@ include('nav-bar.php');
     <div class="col">
       <select name="field" class="form-control" placeholder="Field">
                   <option value="name">Name</option>
-                  <option value="adress">Adress</option>
+                  <option value="adress">Address</option>
                   <option value="ticketPrice">Ticket Price</option>
                   <option value="capacity">Capacity</option>
                 </select>
