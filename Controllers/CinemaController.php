@@ -9,7 +9,6 @@ use Models\Cinema;
 class CinemaController
 {
 
-
     private $cinemaDAO;
 
 
@@ -18,14 +17,14 @@ class CinemaController
         $this->cinemaDAO = new CinemaDAO();
     }
 
-    public function showList()
+    public function showList($message="")
     {
 
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "cinema-list.php");
     }
 
-    public function showAddView()
+    public function showAddView($message="")
     {
         require_once(VIEWS_PATH . "add-cinema.php");
     }
@@ -44,8 +43,7 @@ class CinemaController
             $this->showAddView();
         }
         else{
-            $this->showAddView();
-            echo '<script type="text/javascript"> alert("Nombre de cine ya existente")</script>';
+            $this->showAddView($message = "Name already in use");
         }
     }
 
