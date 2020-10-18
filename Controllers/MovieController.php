@@ -20,6 +20,12 @@ class MovieController
         $moviesList = $this->moviesDAO->getAll();
         $key = $this->moviesDAO->getKey();
         require_once(VIEWS_PATH . "movie-list.php");
+    }
 
+    public function test()
+    {
+        $moviesList = $this->moviesDAO->getAll();
+
+        
     }
 }

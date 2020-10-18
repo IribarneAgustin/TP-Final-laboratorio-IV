@@ -9,6 +9,8 @@ class Movie{
     private $releaseDate;
     private $language;
     private $overview;
+    private $genres;
+
 
     public function __construct()
     {
@@ -78,6 +80,26 @@ class Movie{
     public function setReleaseDate($releaseDate)
     {
         $this->releaseDate = $releaseDate;
+
+    }
+    public function getGenresName(){
+        $genres = $this->genres;
+        $names = "";
+        foreach($genres as $value){
+            $names = $names.$value->getName()." ";
+        }
+        
+        return $names;
+    }
+
+    public function getGenres()
+    {
+        return $this->genres;
+    }
+
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
 
     }
 }
