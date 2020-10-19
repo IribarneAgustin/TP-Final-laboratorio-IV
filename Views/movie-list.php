@@ -3,11 +3,10 @@ include('header.php');
 include('nav-bar.php');
 ?>
 
-<!--<main class="py-5">-->
-<main class="movieList">
+<main class="py-4">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Movies List</h2>
+            <h2 class="mb-4">Movie List</h2>
             <table class="table table-striped table-dark">
                 <thead class="thead-dark">
                     <tr>
@@ -35,8 +34,6 @@ include('nav-bar.php');
                 </tbody>
             </table>
         </div>
-
-        <!-- / main body -->
         <div class="clear"></div>
 </main>
 </div>

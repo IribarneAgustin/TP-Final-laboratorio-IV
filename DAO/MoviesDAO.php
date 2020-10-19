@@ -77,9 +77,6 @@ class MoviesDAO implements IMoviesDAO
     }
 
 
-
-
-
     public function getGenresByIds($idsArray)
     {
 

@@ -84,7 +84,6 @@ class CinemaDAO implements ICinemaDAO
         }
     }
 
-
     public function saveData()
     {
 

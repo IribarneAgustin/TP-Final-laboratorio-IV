@@ -3,7 +3,7 @@ include('header.php');
 include('nav-bar.php');
 ?>
 
-<main class="py-5">
+<main class="py-4">
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Add Cinema</h2>

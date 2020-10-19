@@ -26,6 +26,14 @@ class MovieController
     {
         $moviesList = $this->moviesDAO->getAll();
 
-        
     }
+
+    public function sortByGenre()
+    {
+        
+        require_once(VIEWS_PATH . "movie-list.php");
+
+    }
+
+
 }

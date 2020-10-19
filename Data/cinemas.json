@@ -16,7 +16,7 @@
     {
         "id": 3,
         "name": "Cine paseo aldrey",
-        "adress": "Sarmiento 2685",
+        "adress": "value",
         "ticketPrice": "500",
         "capacity": "600"
     }
