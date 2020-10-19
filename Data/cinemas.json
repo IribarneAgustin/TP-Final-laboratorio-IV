@@ -1,14 +1,14 @@
 [
     {
         "id": 1,
-        "name": "Ambassador",
+        "name": "Cinemacenter",
         "adress": "C\u00f3rdoba 1673",
         "ticketPrice": "300",
         "capacity": "500"
     },
     {
         "id": 2,
-        "name": "Cinemacenter",
+        "name": "Ambassador",
         "adress": "Alsina 1230",
         "ticketPrice": "280",
         "capacity": "500"
@@ -16,7 +16,7 @@
     {
         "id": 3,
         "name": "Cine paseo aldrey",
-        "adress": "value",
+        "adress": "Sarmiento 2200",
         "ticketPrice": "500",
         "capacity": "600"
     }

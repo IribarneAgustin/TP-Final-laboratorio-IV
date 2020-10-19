@@ -35,13 +35,7 @@ class MovieController
             $this->showList();
         }
     }
-
-    public function test()
-    {
-        $moviesList = $this->moviesDAO->getAll();
-
-    }
-
+/*
     public function sortByGenre()
     {
         
@@ -49,5 +43,5 @@ class MovieController
 
     }
 
-
+*/
 }

@@ -17,14 +17,14 @@ class CinemaController
         $this->cinemaDAO = new CinemaDAO();
     }
 
-    public function showList($message="")
+    public function showList($message = "")
     {
 
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "cinema-list.php");
     }
 
-    public function showAddView($message="")
+    public function showAddView($message = "")
     {
         require_once(VIEWS_PATH . "add-cinema.php");
     }
@@ -41,8 +41,7 @@ class CinemaController
 
             $this->cinemaDAO->add($newCinema);
             $this->showAddView();
-        }
-        else{
+        } else {
             $this->showAddView($message = "Name already in use");
         }
     }
@@ -61,15 +60,20 @@ class CinemaController
 
         $toModify = $this->cinemaDAO->getById($id);
 
-        if (isset($toModify)) {
+        if ($field == "name" && $this->cinemaDAO->existsName($newContent) == true) {
+            $this->showList($message = "Name already in use");
 
-            $myMetohd = "set" . $field;
-            $toModify->$myMetohd($newContent);
+        } else {
 
-            $this->cinemaDAO->update($toModify);
+            if (isset($toModify)) {
+
+                $myMetohd = "set" . $field;
+                $toModify->$myMetohd($newContent);
+
+                $this->cinemaDAO->update($toModify);
+            }
+
+            $this->showList();
         }
-
-        $this->showList();
     }
 }
-?>
