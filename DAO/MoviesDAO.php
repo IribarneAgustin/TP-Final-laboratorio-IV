@@ -28,6 +28,12 @@ class MoviesDAO implements IMoviesDAO
         return $this->key;
     }
 
+    public function getGenreList()
+    {
+        $this->retrieveGenres();
+        return $this->genresList;
+    }
+
     public function retrieveDataNowPlaying()
     {
         $this->retrieveGenres();
@@ -112,4 +118,20 @@ class MoviesDAO implements IMoviesDAO
             }
         }
     }
+
+    public function getMoviesByGenre($genreId)
+    {
+        $this->retrieveDataNowPlaying();
+        $genreFilteredList = array();
+        foreach ($this->moviesList as $value){
+            $movieGenres = $value->getGenres();
+            foreach($movieGenres as $movieGenreId) {
+                if($movieGenreId == $genreId){
+                    array_push($genreFilteredList, $value);
+                }
+            }
+        }
+        return $genreFilteredList;
+    }
+
 }

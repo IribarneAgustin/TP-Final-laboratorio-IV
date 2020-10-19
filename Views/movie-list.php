@@ -5,12 +5,27 @@ include('nav-bar.php');
 
 <main class="py-4">
     <section id="listado" class="mb-5">
-        <div class="container">
+            <div class="container">
             <h2 class="mb-4">Movie List</h2>
+            <form action="<?php echo FRONT_ROOT ?>Movie/showFilteredList" method="get" class="bg-light-alpha">            
+            <div class="form-row">
+            <div class="col">
+                <select name="genre" id="genreId" class="form-control" placeholder="Select genre">
+                    <option selected="true" disable="disabled" value="">All genres</option>
+                    <?php foreach($genresList as $value){ ?>
+                    <option value="<?php echo $value->getId()?>" required><?php echo $value->getName();?></option>
+                    <?php }?>
+                </select>
+            </div>
+            <div class="col">
+            <button type="submit" class="btn btn-dark" value="genreId">Filter</button>
+            </div>
+            </div>
+            <br>
             <table class="table table-striped table-dark">
                 <thead class="thead-dark">
                     <tr>
-                        <th style="width: 10%;">Imagen</th>
+                        <th style="width: 10%;">Image</th>
                         <th style="width: 15%;">Title</th>
                         <th style="width: 10%;">Genre</th>
                         <th style="width: 15%;">Release Date</th>

@@ -55,8 +55,8 @@ include('nav-bar.php');
           <input type="" name=newValue class="form-control" placeholder="New value">
           </div>
           <div class="col">
-      <button type="submit" name="modify" class="btn btn-danger" value=""> Modify</button>
-      </div>
+          <button type="submit" name="modify" class="btn btn-danger" value=""> Modify</button>
+          </div>
       </div>
       </form>
     </div>
