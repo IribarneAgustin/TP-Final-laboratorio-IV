@@ -125,8 +125,8 @@ class MoviesDAO implements IMoviesDAO
         $genreFilteredList = array();
         foreach ($this->moviesList as $value){
             $movieGenres = $value->getGenres();
-            foreach($movieGenres as $movieGenreId) {
-                if($movieGenreId == $genreId){
+            foreach($movieGenres as $movieGenre) {
+                if($movieGenre->getId() == $genreId){
                     array_push($genreFilteredList, $value);
                 }
             }
