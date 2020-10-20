@@ -7,7 +7,7 @@
     {
         function Add(Room $room);
         function GetAll();
-        function Delete($idRoom);
+        function Remove($idRoom);
         function Update(Room $modifiedRoom);
     }
 ?>
