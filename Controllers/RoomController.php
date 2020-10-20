@@ -29,14 +29,12 @@ class RoomController
         require_once(VIEWS_PATH . "add-room.php");
     }
 
-    public function add($name, $adress, $ticketPrice, $capacity)
+    public function add($name,$capacity)
     {
         if ($this->roomDAO->existsName($name) == false) {
 
             $newroom = new room();
             $newroom->setName($name);
-            $newroom->setAdress($adress);
-            $newroom->setTicketPrice($ticketPrice);
             $newroom->setCapacity($capacity);
 
             $this->roomDAO->add($newRoom);

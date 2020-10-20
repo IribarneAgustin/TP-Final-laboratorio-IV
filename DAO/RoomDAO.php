@@ -131,7 +131,7 @@ class RoomDAO implements IRoomDAO
 
     public function getById($idRoom)
     {
-        $room = new Room()
+        $room = new Room();
 
         $this->retrieveData();
         foreach ($this->roomList as $rooms) {

@@ -9,7 +9,7 @@
 
         public function getId()
         {
-            return $this->idRoom;
+            return $this->id;
         }
 
         public function setId($id)
