@@ -13,6 +13,7 @@ include('nav-bar.php');
             <tr>
               <th style="width: 15%;">Id</th>
               <th style="width: 15%;">Name</th>
+              <th style="width: 15%;">Price</th>
               <th style="width: 15%;">Capacity</th>
               <th style="width: 10%;">Delete</th>
             </tr>
@@ -21,6 +22,8 @@ include('nav-bar.php');
             <?php foreach ($roomList as $value) { ?>
               <tr>
                 <td> <?php echo $value->getId(); ?> </td>
+                <td> <?php echo $value->getName(); ?> </td>
+                <td> <?php echo $value->getPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
                   <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>

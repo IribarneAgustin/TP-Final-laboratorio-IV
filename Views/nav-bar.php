@@ -14,11 +14,5 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT;?>Movie/showList">Movie List</a>
           </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Room/showList">Room List</a>
-          </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Room/showAddView">Add Room</a>
-          </li>
      </ul>
 </nav>

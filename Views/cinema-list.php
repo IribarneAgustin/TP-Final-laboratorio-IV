@@ -16,6 +16,7 @@ include('nav-bar.php');
               <th style="width: 30%;">Address</th>
               <th style="width: 30%;">Ticket Price</th>
               <th style="width: 15%;">Capacity</th>
+              <th colspan="2" class="text-center" style="width: 15%;">Rooms</th>
               <th style="width: 10%;">Delete</th>
             </tr>
           </thead>
@@ -27,6 +28,16 @@ include('nav-bar.php');
                 <td> <?php echo $value->getAdress(); ?> </td>
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
+                <td>
+                  <li class="list-group">
+                    <a class="btn btn-success" href="<?php echo FRONT_ROOT; ?>Room/showAddView/<?php echo $value->getId();?>">Add</a>
+                  </li>
+                </td>
+                <td>
+                  <li class="list-group">
+                    <a class="btn btn-primary" href="<?php echo FRONT_ROOT; ?>Room/showListByCinemaId/<?php echo $value->getId();?>">List</a>
+                  </li>
+                </td>
                 <td>
                   <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>
                 </td>
