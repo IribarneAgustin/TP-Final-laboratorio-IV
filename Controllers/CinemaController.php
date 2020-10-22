@@ -40,7 +40,7 @@ class CinemaController
             $newCinema->setCapacity($capacity);
 
             $this->cinemaDAO->add($newCinema);
-            $this->showAddView();
+            $this->showAddView($message = "Cinema added succesfully");
         } else {
             $this->showAddView($message = "Name already in use");
         }
@@ -51,7 +51,7 @@ class CinemaController
 
         $this->cinemaDAO->remove($cinemaId);
 
-        $this->showList();
+        $this->showList($message = "Cinema removed succesfully");
     }
 
 
@@ -73,7 +73,7 @@ class CinemaController
                 $this->cinemaDAO->update($toModify);
             }
 
-            $this->showList();
+            $this->showList($message = "Cinema modified succesfully");
         }
     }
 }
