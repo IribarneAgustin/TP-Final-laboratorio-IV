@@ -17,6 +17,12 @@ class RoomController
         $this->roomDAO = new RoomDAO();
     }
 
+    public function showListByCinemaId($cinemaId,$message = "")
+    {
+        $roomList = $this->roomDAO->getRoomsByCinemaId($cinemaId);
+        require_once(VIEWS_PATH . "room-list.php");
+    }
+
     public function showList($message = "")
     {
 
@@ -24,23 +30,28 @@ class RoomController
         require_once(VIEWS_PATH . "room-list.php");
     }
 
-    public function showAddView($message = "")
+    public function showAddView($cinemaId,$message='')
     {
         require_once(VIEWS_PATH . "add-room.php");
     }
 
-    public function add($name,$capacity)
+
+    public function add($cinemaId,$name,$capacity,$price)
     {
+
+        /*Corregir modificacion a solo los nombres de las salas del mismo cine */
         if ($this->roomDAO->existsName($name) == false) {
 
-            $newroom = new room();
-            $newroom->setName($name);
-            $newroom->setCapacity($capacity);
-
+            $newRoom = new Room();
+            $newRoom->setCinemaId($cinemaId);
+            $newRoom->setName($name);
+            $newRoom->setCapacity($capacity);
+            $newRoom->setPrice($price);
             $this->roomDAO->add($newRoom);
-            $this->showAddView();
+            $this->showAddView("Room added succesfully");
+
         } else {
-            $this->showAddView($message = "Name already in use");
+            $this->showAddView($cinemaId,$message = "Name already in use");
         }
     }
 
