@@ -4,20 +4,30 @@
         "name": "Cinemacenter",
         "adress": "C\u00f3rdoba 1673",
         "ticketPrice": "300",
-        "capacity": "500"
+        "capacity": "500",
+        "rooms": [
+            {
+                "id": 1,
+                "name": "Sala 2d",
+                "price": "300",
+                "capacity": "300"
+            }
+        ]
     },
     {
         "id": 2,
         "name": "Ambassador",
         "adress": "Alsina 1230",
         "ticketPrice": "280",
-        "capacity": "500"
+        "capacity": "500",
+        "rooms": []
     },
     {
         "id": 3,
         "name": "Cine paseo aldrey",
         "adress": "Sarmiento 2200",
         "ticketPrice": "500",
-        "capacity": "600"
+        "capacity": "600",
+        "rooms": []
     }
 ]

@@ -1,17 +1,19 @@
 <?php
+
 namespace Models;
 
-class Cinema{
+class Cinema
+{
 
     private $id;
     private $capacity;
     private $name;
     private $adress;
     private $ticketPrice;
+    private $rooms = array();
 
     public function __construct()
     {
-        
     }
 
     public function getId()
@@ -22,7 +24,6 @@ class Cinema{
     public function setId($id)
     {
         $this->id = $id;
-
     }
 
     public function getCapacity()
@@ -33,7 +34,6 @@ class Cinema{
     public function setCapacity($capacity)
     {
         $this->capacity = $capacity;
-
     }
 
 
@@ -46,9 +46,8 @@ class Cinema{
     public function setName($name)
     {
         $this->name = $name;
-
     }
- 
+
     public function getAdress()
     {
         return $this->adress;
@@ -58,7 +57,6 @@ class Cinema{
     public function setAdress($adress)
     {
         $this->adress = $adress;
-
     }
 
     public function getTicketPrice()
@@ -70,6 +68,19 @@ class Cinema{
     public function setTicketPrice($ticketPrice)
     {
         $this->ticketPrice = $ticketPrice;
+    }
 
+    public function getRooms()
+    {
+        return $this->rooms;
+    }
+    public function setRooms($rooms)
+    {
+        $this->rooms = $rooms;
+    }
+
+    public function addRoom(Room $room)
+    {
+        array_push($this->rooms, $room);
     }
 }

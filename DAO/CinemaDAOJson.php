@@ -3,8 +3,9 @@
 namespace DAO;
 
 use Models\Cinema as Cinema;
+use Models\Room as Room;
 
-class CinemaDAO implements ICinemaDAO
+class CinemaDAOJson implements ICinemaDAO
 {
 
     private $file;
@@ -78,6 +79,21 @@ class CinemaDAO implements ICinemaDAO
                     $cinema->setTicketPrice($valuesArray["ticketPrice"]);
                     $cinema->setCapacity($valuesArray["capacity"]);
 
+                    //Creo objetos room para agregarlos al cine  
+                    if (isset($valuesArray["rooms"])) {
+                        foreach ($valuesArray["rooms"] as $rooms) {
+
+                            $room = new Room();
+                            $room->setId($rooms['id']);
+                            $room->setName($rooms['name']);
+                            $room->setPrice($rooms['price']);
+                            $room->setCapacity($rooms['capacity']);
+
+                            $cinema->addRoom($room);
+                        }
+                    }
+
+
                     array_push($this->cinemaList, $cinema);
                 }
             }
@@ -96,6 +112,24 @@ class CinemaDAO implements ICinemaDAO
             $valuesArray["adress"] = $cinema->getAdress();
             $valuesArray["ticketPrice"] = $cinema->getTicketPrice();
             $valuesArray["capacity"] = $cinema->getCapacity();
+
+            /* Creo array asociativo para las rooms*/
+            $rooms = array();
+            foreach ($cinema->getRooms() as $room) {
+
+
+
+                $valuesRoom['id'] = $room->getId();
+                $valuesRoom['name'] = $room->getName();
+                $valuesRoom['price'] = $room->getPrice();
+                $valuesRoom['capacity'] = $room->getCapacity();
+
+                array_push($rooms, $valuesRoom);
+            }
+
+            if (isset($rooms)) {
+                $valuesArray["rooms"] = $rooms;
+            }
 
             array_push($arrayToEncode, $valuesArray);
         }
@@ -129,13 +163,13 @@ class CinemaDAO implements ICinemaDAO
                 $exists = true;
             }
         }
-        
+
         return $exists;
     }
 
     public function getById($idCinema)
     {
-        $cinema = new Cinema();
+        $cinema = false;
 
         $this->retrieveData();
         foreach ($this->cinemaList as $cinemas) {
@@ -145,5 +179,51 @@ class CinemaDAO implements ICinemaDAO
             }
         }
         return $cinema;
+    }
+
+    public function updateRoom($modifiedRoom)
+    {
+
+        $this->retrieveData();
+        foreach ($this->cinemaList as $cinema) {
+
+            $rooms = $cinema->getRooms();
+            foreach ($rooms as $room) {
+
+                if ($room->getId() == $modifiedRoom->getId()) {
+                    $key = array_search($room, $rooms);
+                    unset($rooms[$key]);
+                    array_push($rooms,$modifiedRoom);
+                    $cinema->setRooms($rooms);
+                    $this->saveData();
+                }
+            }
+
+         
+        }
+    }
+
+    public function removeRoom($roomId){
+
+        $this->retrieveData();
+        
+        foreach($this->cinemaList as $cinema){
+
+            $rooms = $cinema->getRooms();
+
+            foreach ($rooms as $room) {
+
+                if ($room->getId() == $roomId) {
+                    $key = array_search($room, $rooms);
+                    unset($rooms[$key]);
+                    $cinema->setRooms($rooms);
+                    $this->saveData();
+                }
+            }
+
+        }
+
+
+
     }
 }

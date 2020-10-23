@@ -2,8 +2,10 @@
 
 namespace Controllers;
 
-use DAO\CinemaDAO;
+use DAO\CinemaDAOJson;
+use DAO\RoomDAO;
 use Models\Cinema;
+use Models\Room;
 
 
 class CinemaController
@@ -14,7 +16,8 @@ class CinemaController
 
     public function __construct()
     {
-        $this->cinemaDAO = new CinemaDAO();
+        $this->cinemaDAO = new CinemaDAOJson();
+        $this->roomDAO = new RoomDAO();
     }
 
     public function showList($message = "")
@@ -38,9 +41,9 @@ class CinemaController
             $newCinema->setAdress($adress);
             $newCinema->setTicketPrice($ticketPrice);
             $newCinema->setCapacity($capacity);
-
             $this->cinemaDAO->add($newCinema);
             $this->showAddView($message = "Cinema added succesfully");
+            
         } else {
             $this->showAddView($message = "Name already in use");
         }
@@ -75,5 +78,27 @@ class CinemaController
 
             $this->showList($message = "Cinema modified succesfully");
         }
+    }
+    public function showRoomList($message=''){
+        require_once(VIEWS_PATH . "room-list.php");
+    }
+
+
+    public function addRoom($cinemaId, $name, $capacity, $price){
+
+        $cinema = $this->cinemaDAO->getById($cinemaId);       
+        
+        if ($cinema) {
+
+            $newRoom = new Room();
+            $newRoom->setName($name);
+            $newRoom->setCapacity($capacity);
+            $newRoom->setPrice($price);
+            $this->roomDAO->add($newRoom);
+            $this->CinemaDAO->addRoom($newRoom,$cinema);            
+            $this->showRoomList("Room added succesfully");
+
+        }
+
     }
 }
