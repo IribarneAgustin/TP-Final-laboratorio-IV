@@ -8,6 +8,7 @@ class Room
     private $name;
     private $price;
     private $capacity;
+    private $cinemaId;
 
     public function getId()
     {
@@ -37,6 +38,16 @@ class Room
     public function setCapacity($capacity)
     {
         $this->capacity = $capacity;
+    }
+
+    public function getCinemaId()
+    {
+        return $this->cinemaId;
+    }
+
+    public function setCinemaId($cinemaId)
+    {
+        $this->cinemaId = $cinemaId;
     }
 
     public function getPrice()

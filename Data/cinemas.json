@@ -2,32 +2,29 @@
     {
         "id": 1,
         "name": "Cinemacenter",
-        "adress": "C\u00f3rdoba 1673",
+        "address": "C\u00f3rdoba 1673",
         "ticketPrice": "300",
-        "capacity": "500",
-        "rooms": [
-            {
-                "id": 1,
-                "name": "Sala 2d",
-                "price": "300",
-                "capacity": "300"
-            }
-        ]
+        "capacity": "500"
     },
     {
         "id": 2,
         "name": "Ambassador",
-        "adress": "Alsina 1230",
+        "address": "Alsina 1230",
         "ticketPrice": "280",
-        "capacity": "500",
-        "rooms": []
+        "capacity": "500"
     },
     {
         "id": 3,
         "name": "Cine paseo aldrey",
-        "adress": "Sarmiento 2200",
+        "address": "Sarmiento 2200",
         "ticketPrice": "500",
-        "capacity": "600",
-        "rooms": []
+        "capacity": "600"
+    },
+    {
+        "id": 4,
+        "name": "Rodrigo Dantas",
+        "address": "hahaa",
+        "ticketPrice": "42",
+        "capacity": "21"
     }
 ]

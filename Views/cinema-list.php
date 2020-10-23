@@ -21,11 +21,12 @@ include('nav-bar.php');
             </tr>
           </thead>
           <tbody>
+
             <?php foreach ($cinemaList as $value) { ?>
               <tr>
                 <td> <?php echo $value->getId(); ?> </td>
                 <td> <?php echo $value->getName(); ?> </td>
-                <td> <?php echo $value->getAdress(); ?> </td>
+                <td> <?php echo $value->getAddress(); ?> </td>
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
@@ -57,7 +58,7 @@ include('nav-bar.php');
           <div class="col">
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
-              <option value="adress">Address</option>
+              <option value="address">Address</option>
               <option value="ticketPrice">Ticket Price</option>
               <option value="capacity">Capacity</option>
             </select>
@@ -72,7 +73,7 @@ include('nav-bar.php');
       </form>
       <?php
       if (isset($message) && $message != "") {
-        echo "<div class='alert alert-primary' role='alert'> $message </div>";
+        echo "<div class='alert alert-danger' role='alert'> $message </div>";
       }
       ?>
     </div>

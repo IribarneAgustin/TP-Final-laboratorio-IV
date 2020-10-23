@@ -73,6 +73,7 @@ class RoomDAO implements IRoomDAO
 
                     $room = new Room();
                     $room->setId($valuesArray["id"]);
+                    $room->setCinemaId($valuesArray["cinemaId"]);
                     $room->setName($valuesArray["name"]);
                     $room->setPrice($valuesArray["price"]);
                     $room->setCapacity($valuesArray["capacity"]);
@@ -91,6 +92,7 @@ class RoomDAO implements IRoomDAO
         foreach ($this->roomList as $room) {
 
             $valuesArray["id"] = $room->getId();
+            $valuesArray["cinemaId"] = $room->getCinemaId();
             $valuesArray["name"] = $room->getName();
             $valuesArray["price"] = $room->getPrice();
             $valuesArray["capacity"] = $room->getCapacity();
@@ -129,6 +131,18 @@ class RoomDAO implements IRoomDAO
         }
         
         return $exists;
+    }
+    public function getRoomsByCinemaId($cinemaId){
+
+        $this->retrieveData();        
+        $roomList = array();
+        foreach($this->roomList as $room){
+            if($room->getCinemaId() == $cinemaId){
+                array_push($roomList,$room);
+            }
+        }
+        
+        return $roomList;
     }
 
     public function getById($idRoom)
