@@ -3,23 +3,28 @@
 namespace Controllers;
 
 use DAO\roomDAO;
+use DAO\cinemaDAOJson;
 use Models\Room;
+use Models\Cinema;
 
 
 class RoomController
 {
 
     private $roomDAO;
+    private $cinemaDAO;
 
 
     public function __construct()
     {
         $this->roomDAO = new RoomDAO();
+        $this->cinemaDAO = new CinemaDAOJson();
     }
 
-    public function showListByCinemaId($cinemaId,$message = "")
+    public function showListByCinemaId($cinemaId, $message = "")
     {
-        $roomList = $this->roomDAO->getRoomsByCinemaId($cinemaId);
+        $cinema = $this->cinemaDAO->getById($cinemaId);
+        $roomList = $cinema->getRooms();
         require_once(VIEWS_PATH . "room-list.php");
     }
 
@@ -30,36 +35,34 @@ class RoomController
         require_once(VIEWS_PATH . "room-list.php");
     }
 
-    public function showAddView($cinemaId,$message='')
+    public function showAddView($cinemaId, $message = '')
     {
         require_once(VIEWS_PATH . "add-room.php");
     }
+    
+    public function add($cinemaId, $name, $capacity, $price){
 
-
-    public function add($cinemaId,$name,$capacity,$price)
-    {
-
-        /*Corregir modificacion a solo los nombres de las salas del mismo cine */
-        if ($this->roomDAO->existsName($name) == false) {
+        $cinema = $this->cinemaDAO->getById($cinemaId);       
+        /*Agregar control del nombre en el mismo cine */
+        if ($cinema) {
 
             $newRoom = new Room();
-            $newRoom->setCinemaId($cinemaId);
             $newRoom->setName($name);
             $newRoom->setCapacity($capacity);
             $newRoom->setPrice($price);
+            $cinema->addRoom($newRoom);
             $this->roomDAO->add($newRoom);
-            $this->showAddView("Room added succesfully");
+            $this->cinemaDAO->update($cinema);            
+            $this->showListByCinemaId($cinemaId,"Room added succesfully");
 
-        } else {
-            $this->showAddView($cinemaId,$message = "Name already in use");
         }
+
     }
 
     public function remove($roomId)
     {
-
         $this->roomDAO->remove($roomId);
-
+        $this->cinemaDAO->removeRoom($roomId);
         $this->showList();
     }
 
@@ -71,15 +74,14 @@ class RoomController
 
         if ($field == "name" && $this->roomDAO->existsName($newContent) == true) {
             $this->showList($message = "Name already in use");
-
         } else {
 
             if (isset($toModify)) {
 
                 $myMetohd = "set" . $field;
                 $toModify->$myMetohd($newContent);
-
                 $this->roomDAO->update($toModify);
+                $this->cinemaDAO->updateRoom($toModify);
             }
 
             $this->showList();
