@@ -5,7 +5,7 @@
     use Models\Cinema as Cinema;
     use DAO\Connection as Connection;
 
-    class CinemaDAODB implements ICinemaDAO
+    class CinemaDAOMySQL implements ICinemaDAO
     {
         private $connection;
         private $tableName = "cinema";
@@ -26,7 +26,7 @@
 
                 $this->connection->execute('nonQuery',$query, $parameters);
             }
-            catch(Exception $ex)
+            catch(\PDOException $ex)
             {
                 throw $ex;
             }
@@ -42,7 +42,7 @@
                 $this->connection = Connection::getInstance();
                 $this->connection->execute('nonQuery',$query);
                 }
-                catch(Exception $ex){
+                catch(\PDOException $ex){
                     throw $ex;
                 }
         }
@@ -55,7 +55,7 @@
                 $this->connection = Connection::getInstance();
                 $this->connection->execute('nonQuery',$query);
             }
-            catch(Exception $ex)
+            catch(\PDOException $ex)
             {
                throw $ex;
             }
@@ -91,7 +91,7 @@
 
                 return $cinemaList;
             }
-            catch(Exception $ex)
+            catch(\PDOException $ex)
             {
                 throw $ex;
             }
@@ -118,7 +118,7 @@
             }
             return $cinema;
             }
-            catch(Exception $ex)
+            catch(\PDOException $ex)
             {
                throw $ex;
             }
@@ -140,7 +140,7 @@
         }
         return $exists;
         }
-        catch(Exception $ex)
+        catch(\PDOException $ex)
         {
            throw $ex;
         }

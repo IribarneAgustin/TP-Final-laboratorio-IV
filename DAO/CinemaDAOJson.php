@@ -75,7 +75,7 @@ class CinemaDAOJson implements ICinemaDAO
                     $cinema = new Cinema();
                     $cinema->setId($valuesArray["id"]);
                     $cinema->setName($valuesArray["name"]);
-                    $cinema->setAdress($valuesArray["adress"]);
+                    $cinema->setAddress($valuesArray["address"]);
                     $cinema->setTicketPrice($valuesArray["ticketPrice"]);
                     $cinema->setCapacity($valuesArray["capacity"]);
 
@@ -109,7 +109,7 @@ class CinemaDAOJson implements ICinemaDAO
 
             $valuesArray["id"] = $cinema->getId();
             $valuesArray["name"] = $cinema->getName();
-            $valuesArray["adress"] = $cinema->getAdress();
+            $valuesArray["address"] = $cinema->getAddress();
             $valuesArray["ticketPrice"] = $cinema->getTicketPrice();
             $valuesArray["capacity"] = $cinema->getCapacity();
 
@@ -180,6 +180,7 @@ class CinemaDAOJson implements ICinemaDAO
         }
         return $cinema;
     }
+
 
     public function updateRoom($modifiedRoom)
     {
