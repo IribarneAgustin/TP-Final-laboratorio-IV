@@ -1,8 +1,9 @@
 [
     {
         "id": 1,
+        "cinemaId": "1",
         "name": "Sala 2d",
-        "price": "300",
-        "capacity": "300"
+        "price": "250",
+        "capacity": "25"
     }
 ]
