@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use DAO\CinemaDAOJson;
+use DAO\CinemaDAOMySQL;
 use DAO\RoomDAO;
 use Models\Cinema;
 use Models\Room;
@@ -16,7 +17,7 @@ class CinemaController
 
     public function __construct()
     {
-        $this->cinemaDAO = new CinemaDAOJson();
+        $this->cinemaDAO = new CinemaDAOMySQL();
         $this->roomDAO = new RoomDAO();
     }
 
