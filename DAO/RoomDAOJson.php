@@ -4,7 +4,7 @@ namespace DAO;
 
 use Models\Room as Room;
 
-class RoomDAO implements IRoomDAO
+class RoomDAOJson implements IRoomDAO
 {
 
     private $file;

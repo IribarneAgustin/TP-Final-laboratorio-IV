@@ -7,9 +7,19 @@ CREATE TABLE cinema
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     capacity INT NOT NULL,
-    addres VARCHAR(100) NOT NULL,
+    address VARCHAR(100) NOT NULL,
     ticketPrice INT NOT NULL
 
+);
+
+create table roomXcine(
+ id INT NOT NULL AUTO_INCREMENT,
+ idCinema INT NOT NULL,
+ idRoom INT NOT NULL,
+ 
+CONSTRAINT pk_idRxC primary key (id),
+CONSTRAINT fk_idCinema_rxc foreign key (idCinema) references cinema (id),
+CONSTRAINT fk_idRoom_rxc foreign key (idRoom) references room (id)
 );
 
 CREATE TABLE movie
@@ -45,6 +55,5 @@ CREATE TABLE room
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     price INT NOT NULL,
-    capacity INT NOT NULL,
+    capacity INT NOT NULL
 );
-
