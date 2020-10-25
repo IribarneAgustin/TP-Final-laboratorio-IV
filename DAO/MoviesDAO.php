@@ -134,4 +134,18 @@ class MoviesDAO implements IMoviesDAO
         return $genreFilteredList;
     }
 
+    public function getById($id){
+        $this->retrieveDataNowPlaying();
+        $movie = false;
+
+        foreach($this->moviesList as $movie){
+            if($movie->getId() == $id){
+                $moovie = $movie;
+                break;                 
+            }
+        }
+        return $moovie;
+
+    }
+
 }

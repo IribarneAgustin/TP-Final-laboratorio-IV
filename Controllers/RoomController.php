@@ -43,10 +43,11 @@ class RoomController
     {
         require_once(VIEWS_PATH . "add-room.php");
     }
-    
-    public function add($cinemaId, $name, $capacity, $price){
 
-        $cinema = $this->cinemaDAO->getById($cinemaId);  
+    public function add($cinemaId, $name, $capacity, $price)
+    {
+
+        $cinema = $this->cinemaDAO->getById($cinemaId);
 
         /*Agregar control del nombre en el mismo cine */
         if ($cinema) {
@@ -56,18 +57,16 @@ class RoomController
             $newRoom->setCapacity($capacity);
             $newRoom->setPrice($price);
             $this->roomDAO->add($newRoom);
-            $room= $this->roomDAO->getByName($name);
-            $this->roomXcinemaDAO->add($room,$cinema);            
-            $this->showListByCinemaId($cinemaId,"Room added succesfully");
-
+            $room = $this->roomDAO->getByName($name);
+            $this->roomXcinemaDAO->add($room, $cinema);
+            $this->showListByCinemaId($cinemaId, "Room added succesfully");
         }
-
     }
 
     public function remove($roomId)
     {
-     //   $this->roomDAO->remove($roomId);
-     //   $this->cinemaDAO->removeRoom($roomId);
+    //    $this->roomDAO->remove($roomId);
+        //   $this->cinemaDAO->removeRoom($roomId);
         $this->showList();
     }
 
@@ -75,21 +74,16 @@ class RoomController
     public function modify($id, $field, $newContent)
     {
 
-      //  $toModify = $this->roomDAO->getById($id);
+        //Validar que no modifique el mismo nombre que las otras salas que estan en el mismo cine
+        $toModify = $this->roomDAO->getById($id);
 
-      //  if ($field == "name" && $this->roomDAO->existsName($newContent) == true) {
-            $this->showList($message = "Name already in use");
-      //  } else {
+        if (isset($toModify)) {
 
-            if (isset($toModify)) {
-
-                $myMetohd = "set" . $field;
-                $toModify->$myMetohd($newContent);
-              //  $this->roomDAO->update($toModify);
-            //    $this->cinemaDAO->updateRoom($toModify);
-           // }
-
-            $this->showList();
+            $myMetohd = "set" . $field;
+            $toModify->$myMetohd($newContent);
+            $this->roomDAO->update($toModify);
         }
+
+        $this->showList();
     }
 }

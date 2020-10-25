@@ -4,48 +4,41 @@ namespace Models;
 
 class Billboard{
 
-    private $initDate;
-    private $finishDate;
-    private $movies;
+    private $id;
+    private $name;
+    private $status;
 
+    
     public function __construct()
-    {
-        
+    {        
     }
 
-    public function getInitDate()
+    public function getId()
     {
-        return $this->initDate;
+        return $this->id;
     }
 
-    public function setInitDate($initDate)
+    public function setId($id)
     {
-        $this->initDate = $initDate;
+        $this->id = $id;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function setName($name)
+    {
+        $this->name = $name;
 
     }
-
-    public function getFinishDate()
+    public function getStatus()
     {
-        return $this->finishDate;
+        return $this->status;
     }
 
-
-    public function setFinishDate($finishDate)
+    public function setStatus($status)
     {
-        $this->finishDate = $finishDate;
-
-    }
-
-
-    public function getMovies()
-    {
-        return $this->movies;
-    }
-
-
-    public function setMovies($movies)
-    {
-        $this->movies = $movies;
+        $this->status = $status;
 
     }
 }

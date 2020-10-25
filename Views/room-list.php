@@ -44,6 +44,7 @@ include('nav-bar.php');
           <div class="col">
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
+              <option value="price">Price</option>
               <option value="capacity">Capacity</option>
             </select>
           </div>
