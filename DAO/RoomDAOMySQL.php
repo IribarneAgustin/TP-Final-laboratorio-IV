@@ -86,6 +86,62 @@ class RoomDAOMySQL// implements IRoomDAO
         }
     }
 
+    public function getById($idRoom){
+        
+        try {
+
+            $room = false;
+
+            $query = "SELECT * FROM room WHERE id='$idRoom'";
+            $resultSet = $this->connection->execute('query',$query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $room = new Room();
+                    $room->setId($row["id"]);
+                    $room->setName($row["name"]);
+                    $room->setPrice($row["price"]);
+                    $room->setCapacity($row["capacity"]);
+    
+                }
+            }
+
+            return $room;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+
+
+
+    }
+
+    public function update($modifiedRoom){
+
+        try {
+            
+            $id = $modifiedRoom->getId();
+            $name = $modifiedRoom->getName();
+            $price = $modifiedRoom->getPrice();
+            $capacity = $modifiedRoom->getCapacity();
+
+
+            $query = "UPDATE $this->tableName SET name='$name',price= '$price',capacity= '$capacity' WHERE id='$id'";
+            $this->connection->execute('nonQuery', $query);
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+
+
+    }
+
+  /*  public function remove(){
+
+        
+
+
+    }
+*/
 
 
 
