@@ -57,7 +57,7 @@ include('nav-bar.php');
           <div class="col">
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
-              <option value="adress">Address</option>
+              <option value="address">Address</option>
               <option value="ticketPrice">Ticket Price</option>
               <option value="capacity">Capacity</option>
             </select>

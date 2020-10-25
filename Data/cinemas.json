@@ -28,5 +28,13 @@
                 "capacity": "123"
             }
         ]
+    },
+    {
+        "id": 3,
+        "name": "IPA",
+        "address": "123",
+        "ticketPrice": "321",
+        "capacity": "23",
+        "rooms": []
     }
 ]

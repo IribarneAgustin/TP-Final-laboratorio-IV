@@ -9,5 +9,6 @@
         function GetAll();
         function Remove($idRoom);
         function Update(Room $modifiedRoom);
+        function getById($idRoom);
     }
 ?>

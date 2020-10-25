@@ -6,9 +6,9 @@ class Cinema
 {
 
     private $id;
-    private $capacity;
     private $name;
     private $address;
+    private $capacity;
     private $ticketPrice;
     private $rooms = array();
 
