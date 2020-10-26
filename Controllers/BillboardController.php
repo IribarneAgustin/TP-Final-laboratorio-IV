@@ -2,80 +2,66 @@
 
 namespace Controllers;
 
-use DAO\BillboardDAOMySQL;
+use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
-use DAO\MovieXbillboardDAOMySQL;
-use Models\Billboard;
+use DAO\BillboardDAO;
+use Models\Cinema;
 
 class BillboardController
 {
 
     private $moviesDAO;
+    private $cinemaDAO;
     private $billboardDAO;
-    private $movieXbillboardDAO;
 
 
     public function __construct()
     {
-        $this->moviesDAO = new MoviesDAO();
-        $this->billboardDAO = new BillboardDAOMySQL();
-        $this->movieXbillboardDAO = new MovieXbillboardDAOMySQL();
+        $this->billboardDAO = new billboardDAO();
     }
 
     public function showFilteredList($genreId)
     {
-        if($genreId!=""){
-            $moviesList = $this->moviesDAO->getMoviesByGenre($genreId);
-            $genresList = $this->moviesDAO->getGenreList();
-            $key = $this->moviesDAO->getKey();
-            require_once(VIEWS_PATH . "add-to-billboard.php");
-        }
-        else{
-            $this->showAddMovieView();
-        }
+        //Filtrar usando tabla de PeliculasXgenero y JOIN con PeliculasXcine***********
+
+        //if($genreId!=""){
+        //    $moviesList = $this->moviesDAO->getMoviesByGenre($genreId);
+        //    $genresList = $this->moviesDAO->getGenreList();
+        //    $key = $this->moviesDAO->getKey();
+        //    require_once(VIEWS_PATH . "add-to-cinema.php");
+        //}
+        //else{
+        //    $this->showAddMovieView();
+        //}
     }
-    public function showBillboardList($message = ''){
-        $billboardList = $this->billboardDAO->getAll();
-        require_once(VIEWS_PATH . "billboard-list.php");
+    public function showBillboardMovieList($idCinema, $message = ''){
+        $BillboardMovieList = $this->billboardDAO->getMoviesByCinemaId($idCinema);
+        require_once(VIEWS_PATH . "billboardMovies-list.php");
 
     }
-    public function showAddView(){
-        require_once(VIEWS_PATH . "add-billboard.php");
-    }
 
-    public function add($billboardName){
-        //Validar que no exista el nombre
-        $billboard = new Billboard();
-        $billboard->setName($billboardName);
-        $billboard->setStatus(true);
-        $this->billboardDAO->add($billboard);
-        $this->showBillboardList("Billboard added succesfully");
-        
-    }
-
-    public function showAddMovieView()
+    public function showAddView()
     {
         $genresList = $this->moviesDAO->getGenreList();
         $moviesList= $this->moviesDAO->getAll();
-        $billboardList = $this->billboardDAO->getAll();
-        require_once(VIEWS_PATH . "add-to-billboard.php");
+        $cinemaList = $this->cinemaDAO->getAll();
+        require_once(VIEWS_PATH . "add-movieToCinemaBillboard.php");
     
     }
 
-    public function addMovieToBillboard($billboardId,$movieId){
-
+    public function add(Cinema $cinema, Movie $movie)
+    }
         //Validar que no se encuentre en la cartelera
-        $billboard = $this->billboardDAO->getById($billboardId);
-        $movie = $this->moviesDAO->getById($movieId);
-        $this->movieXbillboardDAO->add($billboard,$movie);
+        $this->billboardDAO->add($cinema,$movie);
+        $this->showBillboardMovieList("Movie added to cinema succesfully");
  
     }
 
-    public function billboardAdminView($billboardId){
+    public function billboardAdminView($cinemaId){
         
-        $billboard = $this->billboardDAO->getById($billboardId);
-        $moviesList = $this->movieXbillboardDAO->getMoviesByBillboardId($billboardId);
-        $gernesList = $this->moviesDAO->getGenreList();
+        $cinema = $this->cinemaDAO->getById($cinemaId);
+        $moviesList = $this->billboardDAO->getMoviesBycinemaId($cinemaId);
+        $genresList = $this->moviesDAO->getGenreList();
         require_once(VIEWS_PATH. "movie-list.php");
 
 

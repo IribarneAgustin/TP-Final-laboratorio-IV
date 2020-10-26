@@ -10,7 +10,6 @@ class Cinema
     private $address;
     private $capacity;
     private $ticketPrice;
-    private $rooms = array();
 
     public function __construct()
     {

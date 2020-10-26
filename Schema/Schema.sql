@@ -12,16 +12,6 @@ CREATE TABLE cinema
 
 );
 
-create table roomXcine(
- id INT NOT NULL AUTO_INCREMENT,
- idCinema INT NOT NULL,
- idRoom INT NOT NULL,
- 
-CONSTRAINT pk_idRxC primary key (id),
-CONSTRAINT fk_idCinema_rxc foreign key (idCinema) references cinema (id),
-CONSTRAINT fk_idRoom_rxc foreign key (idRoom) references room (id)
-);
-
 CREATE TABLE movie
 (
     id INT NOT NULL PRIMARY KEY,
@@ -55,27 +45,23 @@ CREATE TABLE user
 CREATE TABLE room
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idCinema INT NOT NULL;
     name VARCHAR(20) NOT NULL,
     price INT NOT NULL,
     capacity INT NOT NULL
+
+    CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id),
 );
 
-CREATE TABLE billboard(
-idBillboard INT NOT NULL auto_increment,
-name VARCHAR(30) NOT NULL,
-status boolean not null,
-constraint pk_idBillboard primary key (idBillboard)
-);
+CREATE TABLE movieXcinema
+(
+    idMovieXcinema INT NOT NULL auto_increment,
+    idMovie int not null,
+    idCinema int not null,
+    initDate date not null,
+    status boolean not null,
 
-
-CREATE TABLE movieXbillboard(
-idMovieXbillboard INT NOT NULL auto_increment,
-idMovie int not null,
-idBillboard int not null,
-initDate date not null,
-status boolean not null,
-
-CONSTRAINT pk_idMovieXbillboard primary key (idMovieXbillboard),
-CONSTRAINT fk_idMovie_mxb foreign key (idMovie) references movie (id),
-CONSTRAINT fk_idBillboard_mxb foreign key (idBillboard) references billboard (idBillboard)
+    CONSTRAINT pk_idMovieXcinema primary key (idMovieXcinema),
+    CONSTRAINT fk_idMovie_mxc foreign key (idMovie) references movie (id),
+    CONSTRAINT fk_idCinema_mxc foreign key (idCinema) references cinema (idCinema)
 );

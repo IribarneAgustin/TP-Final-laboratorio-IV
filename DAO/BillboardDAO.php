@@ -1,36 +1,32 @@
 <?php
 namespace DAO;
 use Models\Movie;
-use Models\Billboard;
+use Models\Cinema;
 
-class MovieXbillboardDAOMySQL{
+class BillboardDAO implements IBillboardDAO {
 
     private $connection;
-    private $tableName = "movieXbillboard";
+    private $tableName = "movieXcinema";
 
     public function __construct()
     {
         $this->connection = new Connection();
     }
-    public function add(Billboard $billboard, Movie $movie)
+    public function add(Cinema $cinema, Movie $movie)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (idMovie, idBillboard, initDate, status) VALUES (:idMovie, :idBillboard, :initDate,:status);";
+            $query = "INSERT INTO " . $this->tableName . " (idMovie, idCinema) VALUES (:idMovie, :idBillboard);";
 
             $parameters["idMovie"] = $movie->getId();
-            $parameters["idBillboard"] = $billboard->getId();
-            $parameters["initDate"] = date("d/m/y");
-            $parameters["status"] = true;
-
-            
+            $parameters["idCinema"] = $cinema->getId();
             $this->connection->execute("nonQuery",$query, $parameters);
         } catch (\PDOException $ex) {
             throw $ex;
         }
     }
-    public function getMoviesByBillboardId($billboardId){
+    public function getMoviesByCinemaId($cinemaId){
         try {
-            $query = "SELECT m.id, m.title, m.img, m.realeseDate, m.language,m.overview, m.genres FROM movie as m JOIN " .$this->tableName. " as mxb on m.id = mxb.idMovie WHERE mxb.idBillboard =".$billboardId;
+            $query = "SELECT * FROM movie as m JOIN " .$this->tableName. " as mxc on m.id = mxc.idMovie WHERE mxc.cinemaId =".$cinemaId;
             $resultSet = $this->connection->execute('query',$query);
             $moviesList = array();
             foreach ($resultSet as $row) {

@@ -1,9 +1,11 @@
 <?php
 namespace DAO;
-use Models\Billboard;
+use Models\Cinema;
+use Models\Room;
+
 interface IBillboardDAO{
 
-    public function add(Billboard $billboard);
+    public function add(Movie $movie, Cinema $cinema);
 
 
 }

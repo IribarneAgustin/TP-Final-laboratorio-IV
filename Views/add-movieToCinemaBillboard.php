@@ -22,7 +22,7 @@ include('nav-bar.php');
                     </div>
                 </div>
             </form>
-            <form action="<?php echo FRONT_ROOT ?>Billboard/addMovieToBillboard" method="get" class="bg-light-alpha">
+            <form action="<?php echo FRONT_ROOT ?>Billboard/add" method="get" class="bg-light-alpha">
                 <br>
                 <table class="table table-striped table-dark">
                     <thead class="thead-dark">
@@ -50,17 +50,17 @@ include('nav-bar.php');
                                 <td> <?php echo $value->getOverview(); ?> </td>
                                 <td>
                                     <div class="col">
-                                        <select name="billboardId"  class="form-control" style="width: 100%;"placeholder="Select billboard">
-                                            <?php foreach ($billboardList as $billboard) { ?>
-                                                <?php $billboardId = $billboard->getId(); ?>
-                                                <option name="billboardId" value="<?php echo $billboardId ?>" required><?php echo $billboard->getName(); ?></option>
+                                        <select name="cinemaId"  class="form-control" style="width: 100%;"placeholder="Select Cinema">
+                                            <?php foreach ($cinemaList as $cinema) { ?>
+                                                <?php $cinemaId = $cinema->getId(); ?>
+                                                <option name="cinemaId" value="<?php echo $cinemaId ?>" required><?php echo $cinema->getName(); ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                 </td>
                                 <td>
                                     <input type="hidden" name = movieId value="<?php echo $id; ?>" class="btn btn-success btn-lg"></button>
-                                    <button  type="submit" class="btn btn-success btn-lg">Add to billboard</button>
+                                    <button  type="submit" class="btn btn-success btn-lg">Add to Cinema Billboard</button>
                                 </td>
 
                             <?php } ?>
