@@ -33,6 +33,8 @@ CREATE TABLE movie
     genres VARCHAR(100) NOT NULL
 );
 
+insert into movie (id,title,img,realeseDate,language,overview,genres) values (413518,1,1,1,1,1,1)
+
 CREATE TABLE genre
 (   id INT NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
@@ -56,4 +58,24 @@ CREATE TABLE room
     name VARCHAR(20) NOT NULL,
     price INT NOT NULL,
     capacity INT NOT NULL
+);
+
+CREATE TABLE billboard(
+idBillboard INT NOT NULL auto_increment,
+name VARCHAR(30) NOT NULL,
+status boolean not null,
+constraint pk_idBillboard primary key (idBillboard)
+);
+
+
+CREATE TABLE movieXbillboard(
+idMovieXbillboard INT NOT NULL auto_increment,
+idMovie int not null,
+idBillboard int not null,
+initDate date not null,
+status boolean not null,
+
+CONSTRAINT pk_idMovieXbillboard primary key (idMovieXbillboard),
+CONSTRAINT fk_idMovie_mxb foreign key (idMovie) references movie (id),
+CONSTRAINT fk_idBillboard_mxb foreign key (idBillboard) references billboard (idBillboard)
 );

@@ -74,6 +74,9 @@ class BillboardController
     public function billboardAdminView($billboardId){
         
         $billboard = $this->billboardDAO->getById($billboardId);
+        $moviesList = $this->movieXbillboardDAO->getMoviesByBillboardId($billboardId);
+        $gernesList = $this->moviesDAO->getGenreList();
+        require_once(VIEWS_PATH. "movie-list.php");
 
 
     }
