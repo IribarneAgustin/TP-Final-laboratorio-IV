@@ -30,18 +30,22 @@ class MovieXbillboardDAOMySQL{
     }
     public function getMoviesByBillboardId($billboardId){
         try {
-            $query = "SELECT * FROM " . $this->tableName . " WHERE " . "id$this->tableName  ='$billboardId'";
-
+            $query = "SELECT m.id, m.title, m.img, m.realeseDate, m.language,m.overview, m.genres FROM movie as m JOIN " .$this->tableName. " as mxb on m.id = mxb.idMovie WHERE mxb.idBillboard =".$billboardId;
             $resultSet = $this->connection->execute('query',$query);
-            $billboard = NULL;
+            $moviesList = array();
             foreach ($resultSet as $row) {
 
-                $billboard = new Billboard();
-                $billboard->setId($row["idBillboard"]);
-                $billboard->setName($row["name"]);
-                $billboard->setStatus($row["status"]);
+                $movie = new Movie();
+                $movie->setId($row["id"]);
+                $movie->setTitle($row["title"]);
+                $movie->setImg($row["img"]);
+                $movie->setReleaseDate($row["realeseDate"]);
+                $movie->setLanguage($row["language"]);
+                $movie->setOverview($row["overview"]);
+                $movie->setGenres($row["genres"]);
+                array_push($moviesList,$movie);
             }
-            return $billboard;
+            return $moviesList;
         } catch (\PDOException $ex) {
             throw $ex;
         }
