@@ -11,7 +11,7 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT;?>Cinema/showAddView">Add Cinema</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT;?>MovieXcinema/showAddView">Add to billboard</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Billboard/showAddView">Add to billboard</a>
           </li>
      </ul>
 </nav>

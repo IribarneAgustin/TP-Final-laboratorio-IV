@@ -12,7 +12,8 @@ class BillboardDAO implements IBillboardDAO {
     {
         $this->connection = new Connection();
     }
-    public function add(Cinema $cinema, Movie $movie)
+
+    public function add(Movie $movie, Cinema $cinema)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (idMovie, idCinema) VALUES (:idMovie, :idBillboard);";

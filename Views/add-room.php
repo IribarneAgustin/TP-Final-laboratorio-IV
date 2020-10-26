@@ -33,11 +33,8 @@ include('nav-bar.php');
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
-               <?php
-               if (isset($message) && $message != "") {
-                   
-                    echo "<div class='alert alert-danger' role='alert'> $message </div>";
-               }
+               <?php 
+               if(isset($message) && $message != "") {echo "<div class='alert alert-primary' role='alert'> $message </div>";}
                ?>
 
 

@@ -8,7 +8,6 @@ class Cinema
     private $id;
     private $name;
     private $address;
-    private $capacity;
     private $ticketPrice;
 
     public function __construct()
@@ -24,17 +23,6 @@ class Cinema
     {
         $this->id = $id;
     }
-
-    public function getCapacity()
-    {
-        return $this->capacity;
-    }
-
-    public function setCapacity($capacity)
-    {
-        $this->capacity = $capacity;
-    }
-
 
     public function getName()
     {
@@ -63,23 +51,9 @@ class Cinema
         return $this->ticketPrice;
     }
 
-
     public function setTicketPrice($ticketPrice)
     {
         $this->ticketPrice = $ticketPrice;
     }
 
-    public function getRooms()
-    {
-        return $this->rooms;
-    }
-    public function setRooms($rooms)
-    {
-        $this->rooms = $rooms;
-    }
-
-    public function addRoom(Room $room)
-    {
-        array_push($this->rooms, $room);
-    }
 }

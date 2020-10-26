@@ -27,12 +27,6 @@ include('nav-bar.php');
                                    <input type="number" name="ticketPrice" size="10" class="form-control" min="0" required>
                               </div>
                          </div>
-                         <div class="col-lg-3">
-                              <div class="form-group">
-                                   <label for="">Capacity</label>
-                                   <input type="number" name="capacity" size="10" class="form-control" min="0" required>
-                              </div>
-                         </div>
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>

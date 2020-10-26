@@ -17,7 +17,7 @@ class BillboardController
 
     public function __construct()
     {
-        $this->billboardDAO = new billboardDAO();
+        $this->billboardDAO = new BillboardDAO();
     }
 
     public function showFilteredList($genreId)
@@ -34,7 +34,9 @@ class BillboardController
         //    $this->showAddMovieView();
         //}
     }
-    public function showBillboardMovieList($idCinema, $message = ''){
+
+    public function showBillboardMovieList($idCinema, $message = '')
+    {
         $BillboardMovieList = $this->billboardDAO->getMoviesByCinemaId($idCinema);
         require_once(VIEWS_PATH . "billboardMovies-list.php");
 
@@ -50,7 +52,7 @@ class BillboardController
     }
 
     public function add(Cinema $cinema, Movie $movie)
-    }
+    {
         //Validar que no se encuentre en la cartelera
         $this->billboardDAO->add($cinema,$movie);
         $this->showBillboardMovieList("Movie added to cinema succesfully");

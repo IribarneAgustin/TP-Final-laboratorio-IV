@@ -13,7 +13,6 @@ include('nav-bar.php');
             <tr>
               <th style="width: 15%;">Id</th>
               <th style="width: 15%;">Name</th>
-              <th style="width: 15%;">Price</th>
               <th style="width: 15%;">Capacity</th>
               <th style="width: 10%;">Delete</th>
             </tr>
@@ -23,7 +22,6 @@ include('nav-bar.php');
               <tr>
                 <td> <?php echo $value->getId(); ?> </td>
                 <td> <?php echo $value->getName(); ?> </td>
-                <td> <?php echo $value->getPrice(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
                   <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>
@@ -44,7 +42,6 @@ include('nav-bar.php');
           <div class="col">
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
-              <option value="price">Price</option>
               <option value="capacity">Capacity</option>
             </select>
           </div>
@@ -58,7 +55,7 @@ include('nav-bar.php');
       </form>
       <?php
       if (isset($message) && $message != "") {
-        echo "<div class='alert alert-danger' role='alert'> $message </div>";
+        echo "<div class='alert alert-primary' role='alert'> $message </div>";
       }
       ?>
     </div>

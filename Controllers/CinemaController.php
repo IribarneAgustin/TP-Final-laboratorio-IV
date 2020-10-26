@@ -4,10 +4,7 @@ namespace Controllers;
 
 use DAO\CinemaDAOJson;
 use DAO\CinemaDAOMySQL;
-use DAO\RoomDAO;
-use DAO\RoomDAOMySQL;
 use Models\Cinema;
-use Models\Room;
 
 
 class CinemaController
@@ -33,7 +30,7 @@ class CinemaController
         require_once(VIEWS_PATH . "add-cinema.php");
     }
 
-    public function add($name, $address, $ticketPrice, $capacity)
+    public function add($name, $address, $ticketPrice)
     {
         if ($this->cinemaDAO->existsName($name) == false) {
 
@@ -41,8 +38,6 @@ class CinemaController
             $newCinema->setName($name);
             $newCinema->setAddress($address);
             $newCinema->setTicketPrice($ticketPrice);
-            $newCinema->setCapacity($capacity);
-           
             $this->cinemaDAO->add($newCinema);
             $this->showAddView($message = "Cinema added succesfully");
             
@@ -55,7 +50,6 @@ class CinemaController
     {
 
         $this->cinemaDAO->remove($cinemaId);
-
         $this->showList($message = "Cinema removed succesfully");
     }
 
@@ -72,8 +66,8 @@ class CinemaController
 
             if (isset($toModify)) {
 
-                $myMetohd = "set" . $field;
-                $toModify->$myMetohd($newContent);
+                $myMethod = "set" . $field;
+                $toModify->$myMethod($newContent);
 
                 $this->cinemaDAO->update($toModify);
             }

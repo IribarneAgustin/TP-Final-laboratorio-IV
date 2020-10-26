@@ -6,9 +6,7 @@ class Room
 {
     private $id;
     private $name;
-    private $price;
     private $capacity;
-
 
     public function getId()
     {
@@ -38,16 +36,5 @@ class Room
     public function setCapacity($capacity)
     {
         $this->capacity = $capacity;
-    }
-
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-
-    public function setPrice($price)
-    {
-        $this->price = $price;
     }
 }

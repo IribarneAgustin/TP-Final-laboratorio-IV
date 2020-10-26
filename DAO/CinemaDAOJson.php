@@ -77,8 +77,6 @@ class CinemaDAOJson implements ICinemaDAO
                     $cinema->setName($valuesArray["name"]);
                     $cinema->setAddress($valuesArray["address"]);
                     $cinema->setTicketPrice($valuesArray["ticketPrice"]);
-                    $cinema->setCapacity($valuesArray["capacity"]);
-
                     //Creo objetos room para agregarlos al cine  
                     if (isset($valuesArray["rooms"])) {
                         foreach ($valuesArray["rooms"] as $rooms) {
@@ -87,8 +85,6 @@ class CinemaDAOJson implements ICinemaDAO
                             $room->setId($rooms['id']);
                             $room->setName($rooms['name']);
                             $room->setPrice($rooms['price']);
-                            $room->setCapacity($rooms['capacity']);
-
                             $cinema->addRoom($room);
                         }
                     }
@@ -111,8 +107,6 @@ class CinemaDAOJson implements ICinemaDAO
             $valuesArray["name"] = $cinema->getName();
             $valuesArray["address"] = $cinema->getAddress();
             $valuesArray["ticketPrice"] = $cinema->getTicketPrice();
-            $valuesArray["capacity"] = $cinema->getCapacity();
-
             /* Creo array asociativo para las rooms*/
             $rooms = array();
             foreach ($cinema->getRooms() as $room) {
@@ -121,7 +115,6 @@ class CinemaDAOJson implements ICinemaDAO
 
                 $valuesRoom['id'] = $room->getId();
                 $valuesRoom['name'] = $room->getName();
-                $valuesRoom['price'] = $room->getPrice();
                 $valuesRoom['capacity'] = $room->getCapacity();
 
                 array_push($rooms, $valuesRoom);

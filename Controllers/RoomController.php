@@ -3,32 +3,22 @@
 namespace Controllers;
 
 use DAO\roomDAO;
-use DAO\cinemaDAOJson;
-use DAO\CinemaDAOMySQL;
 use DAO\RoomDAOMySQL;
-use DAO\RoomXcinemaDAOMySQL;
 use Models\Room;
-use Models\Cinema;
-
 
 class RoomController
 {
 
     private $roomDAO;
-    private $cinemaDAO;
-    private $roomXcinemaDAO;
-
 
     public function __construct()
     {
         $this->roomDAO = new RoomDAOMySQL();
-        $this->cinemaDAO = new CinemaDAOMySQL();
-        $this->roomXcinemaDAO = new RoomXcinemaDAOMySQL();
     }
 
     public function showListByCinemaId($cinemaId, $message = "")
     {
-        $roomList = $this->roomXcinemaDAO->getRoomsByCinemaId($cinemaId);
+        $roomList = $this->roomDAO->getRoomsByCinemaId($cinemaId);
         require_once(VIEWS_PATH . "room-list.php");
     }
 
@@ -44,30 +34,24 @@ class RoomController
         require_once(VIEWS_PATH . "add-room.php");
     }
 
-    public function add($cinemaId, $name, $capacity, $price)
+    public function add($cinemaId, $name, $capacity)
     {
-
-        $cinema = $this->cinemaDAO->getById($cinemaId);
-
-        /*Agregar control del nombre en el mismo cine */
-        if ($cinema) {
-
+        if ($this->roomDAO->existsName($name,$cinemaId) == false) {
             $newRoom = new Room();
             $newRoom->setName($name);
             $newRoom->setCapacity($capacity);
-            $newRoom->setPrice($price);
-            $this->roomDAO->add($newRoom);
+            $this->roomDAO->add($newRoom,$cinemaId);
             $room = $this->roomDAO->getByName($name);
-            $this->roomXcinemaDAO->add($room, $cinema);
-            $this->showListByCinemaId($cinemaId, "Room added succesfully");
+            $this->showAddView($cinemaId, "Room added succesfully");       
+        } else {
+            $this->showAddView($cinemaId, "Name already in use");
         }
     }
 
     public function remove($roomId)
     {
-    //    $this->roomDAO->remove($roomId);
-        //   $this->cinemaDAO->removeRoom($roomId);
-        $this->showList();
+        $this->roomDAO->remove($roomId);
+        $this->showList($message = "Room removed succesfully");
     }
 
 

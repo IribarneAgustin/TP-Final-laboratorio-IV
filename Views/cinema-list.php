@@ -11,13 +11,12 @@ include('nav-bar.php');
         <table class="table table-striped table-dark">
           <thead class="thead-dark">
             <tr>
-              <th style="width: 15%;">Id</th>
-              <th style="width: 15%;">Name</th>
-              <th style="width: 30%;">Address</th>
-              <th style="width: 30%;">Ticket Price</th>
-              <th style="width: 15%;">Capacity</th>
-              <th colspan="2" class="text-center" style="width: 15%;">Rooms</th>
-              <th style="width: 10%;">Delete</th>
+              <th style="width: 16%;">Id</th>
+              <th style="width: 16%;">Name</th>
+              <th style="width: 16%;">Address</th>
+              <th style="width: 16%;">Ticket Price</th>
+              <th colspan="2" class="text-center" style="width: 16%;">Rooms</th>
+              <th style="width: 16%;">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -27,7 +26,6 @@ include('nav-bar.php');
                 <td> <?php echo $value->getName(); ?> </td>
                 <td> <?php echo $value->getAddress(); ?> </td>
                 <td> <?php echo $value->getTicketPrice(); ?> </td>
-                <td> <?php echo $value->getCapacity(); ?> </td>
                 <td>
                   <li class="list-group">
                     <a class="btn btn-success" href="<?php echo FRONT_ROOT; ?>Room/showAddView/<?php echo $value->getId();?>">Add</a>
@@ -59,7 +57,6 @@ include('nav-bar.php');
               <option value="name">Name</option>
               <option value="address">Address</option>
               <option value="ticketPrice">Ticket Price</option>
-              <option value="capacity">Capacity</option>
             </select>
           </div>
           <div class="col">

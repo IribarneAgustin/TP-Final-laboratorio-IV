@@ -19,10 +19,9 @@ class CinemaDAOMySQL implements ICinemaDAO
     public function add(Cinema $cinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (name, address, capacity, ticketPrice) VALUES (:name, :address, :capacity, :ticketPrice);";
+            $query = "INSERT INTO " . $this->tableName . " (name, address, ticketPrice) VALUES (:name, :address, :ticketPrice);";
 
             $parameters["name"] = $cinema->getName();
-            $parameters["capacity"] = $cinema->getCapacity();
             $parameters["address"] = $cinema->getAddress();
             $parameters["ticketPrice"] = $cinema->getTicketPrice();
 
@@ -32,8 +31,6 @@ class CinemaDAOMySQL implements ICinemaDAO
         }
     }
 
-
-
     public function update(Cinema $modifiedCinema)
     {
         try {
@@ -41,10 +38,9 @@ class CinemaDAOMySQL implements ICinemaDAO
             $name = $modifiedCinema->getName();
             $address = $modifiedCinema->getAddress();
             $ticketPrice = $modifiedCinema->getTicketPrice();
-            $capacity = $modifiedCinema->getCapacity();
             $id = $modifiedCinema->getId();
 
-            $query = "UPDATE $this->tableName SET name='$name',address= '$address',ticketPrice= '$ticketPrice',capacity='$capacity' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',address= '$address',ticketPrice='$ticketPrice' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -76,7 +72,6 @@ class CinemaDAOMySQL implements ICinemaDAO
                     $cinema = new Cinema();
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["name"]);
-                    $cinema->setCapacity($row["capacity"]);
                     $cinema->setAddress($row["address"]);
                     $cinema->setTicketPrice($row["ticketPrice"]);
 
@@ -103,7 +98,6 @@ class CinemaDAOMySQL implements ICinemaDAO
                 $cinema = new Cinema();
                 $cinema->setId($row["id"]);
                 $cinema->setName($row["name"]);
-                $cinema->setCapacity($row["capacity"]);
                 $cinema->setAddress($row["address"]);
                 $cinema->setTicketPrice($row["ticketPrice"]);
             }
@@ -112,7 +106,6 @@ class CinemaDAOMySQL implements ICinemaDAO
             throw $ex;
         }
     }
-
 
     public function existsName($name)
     {

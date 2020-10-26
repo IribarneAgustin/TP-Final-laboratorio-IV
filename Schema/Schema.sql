@@ -6,10 +6,8 @@ CREATE TABLE cinema
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    capacity INT NOT NULL,
     address VARCHAR(100) NOT NULL,
     ticketPrice INT NOT NULL
-
 );
 
 CREATE TABLE movie
@@ -23,7 +21,7 @@ CREATE TABLE movie
     genres VARCHAR(100) NOT NULL
 );
 
-insert into movie (id,title,img,realeseDate,language,overview,genres) values (413518,1,1,1,1,1,1)
+insert into movie (id,title,img,realeseDate,language,overview,genres) values (413518,1,1,1,1,1,1);
 
 CREATE TABLE genre
 (   id INT NOT NULL PRIMARY KEY,
@@ -45,12 +43,10 @@ CREATE TABLE user
 CREATE TABLE room
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    idCinema INT NOT NULL;
+    idCinema INT NOT NULL,
     name VARCHAR(20) NOT NULL,
-    price INT NOT NULL,
-    capacity INT NOT NULL
-
-    CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id),
+    capacity INT NOT NULL,
+    CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id)
 );
 
 CREATE TABLE movieXcinema
