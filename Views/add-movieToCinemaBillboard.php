@@ -13,7 +13,8 @@ include('nav-bar.php');
                         <select name="genre" id="genreId" class="form-control" placeholder="Select genre">
                             <option selected="true" disable="disabled" value="">All genres</option>
                             <?php foreach ($genresList as $value) { ?>
-                                <option value="<?php echo $value->getId() ?>" required><?php echo $value->getName(); ?></option>
+                            <option value="<?php echo $value->getId() ?>" required><?php echo $value->getName(); ?>
+                            </option>
                             <?php } ?>
                         </select>
                     </div>
@@ -22,57 +23,48 @@ include('nav-bar.php');
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="container">
+            <br>
             <form action="<?php echo FRONT_ROOT ?>Billboard/add" method="get" class="bg-light-alpha">
-                <br>
-                <table class="table table-striped table-dark">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th style="width: 10%;">Image</th>
-                            <th style="width: 15%;">Title</th>
-                            <th style="width: 10%;">Genre</th>
-                            <th style="width: 15%;">Release Date</th>
-                            <th style="width: 10%;">Language</th>
-                            <th style="width: 30%;">Overview</th>
-                            <th style="width: 50%;">Cinema</th>
-                            <th style="width: 10%;">Add</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($moviesList as $value) { ?>
-                            <tr>
+                <div class="row row-cols-1 row-cols-md-4">
+                    <?php foreach ($moviesList as $value) { ?>
+                    <div class="col-lg-4 d-flex align-items-stretch">
+                        <div class="card">
+                            <img src="https://image.tmdb.org/t/p/w220_and_h330_face/<?php echo $value->getImg()?>"
+                                class="card-img-top">
+                            <div class="card-body">
                                 <?php $id = $value->getId(); ?>
-                                
-                                <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getImg() . '">' ?> </td>
-                                <td> <?php echo $value->getTitle(); ?> </td>
-                                <td> <?php echo $value->getGenresName(); ?> </td>
-                                <td> <?php echo $value->getReleaseDate(); ?> </td>
-                                <td> <?php echo $value->getLanguage(); ?> </td>
-                                <td> <?php echo $value->getOverview(); ?> </td>
-                                <td>
-                                    <div class="col">
-                                        <select name="cinemaId"  class="form-control" style="width: 100%;"placeholder="Select Cinema">
-                                            <?php foreach ($cinemaList as $cinema) { ?>
-                                                <?php $cinemaId = $cinema->getId(); ?>
-                                                <option name="cinemaId" value="<?php echo $cinemaId ?>" required><?php echo $cinema->getName(); ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type="hidden" name = movieId value="<?php echo $id; ?>" class="btn btn-success btn-lg"></button>
-                                    <button  type="submit" class="btn btn-success btn-lg">Add to Cinema Billboard</button>
-                                </td>
-
-                            <?php } ?>
-
-                    </tbody>
-                </table>
+                                <h5 class="card-title"> <?php echo $value->getTitle(); ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Genres</h6>
+                                <p class="card-text"><?php echo $value->getGenresName(); ?></p>
+                                <h6 class="card-subtitle mb-2 text-muted">Release Date</h6>
+                                <p class="card-text"><?php echo $value->getReleaseDate(); ?> </p>
+                                <h6 class="card-subtitle mb-2 text-muted">Language</h6>
+                                <p class="card-text"><?php echo $value->getLanguage(); ?></p>
+                                <h6 class="card-subtitle mb-2 text-muted">Overview</h6>
+                                <p class="card-text"><?php echo $value->getOverview(); ?></p>
+                            </div>
+                            <div class="card-footer">
+                                <select name="cinemaId" class="form-control" style="width: 100%;"
+                                    placeholder="Select Cinema">
+                                    <?php foreach ($cinemaList as $cinema) { ?>
+                                    <?php $cinemaId = $cinema->getId(); ?>
+                                    <option name="cinemaId" value="<?php echo $cinemaId ?>" required>
+                                        <?php echo $cinema->getName(); ?></option>
+                                    <?php } ?>
+                                </select>
+                                <input type="hidden" name=movieId value="<?php echo $id; ?>"
+                                    class="btn btn-success btn-lg"></button>
+                                <br>
+                                <button type="submit" class="btn btn-success">Add to Cinema Billboard</button>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
             </form>
         </div>
-        <div class="clear"></div>
 </main>
-</div>
 
-<?php
-include('footer.php');
-?>
+<?php include('footer.php') ?>
