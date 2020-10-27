@@ -15,7 +15,7 @@ CREATE TABLE movie
     id INT NOT NULL PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     img VARCHAR(100) NOT NULL,
-    realeseDate VARCHAR(100) NOT NULL,
+    realeaseDate VARCHAR(100) NOT NULL,
     language VARCHAR(100) NOT NULL,
     overview VARCHAR(100) NOT NULL,
     genres VARCHAR(100) NOT NULL
@@ -50,6 +50,17 @@ CREATE TABLE room
     CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id)
 );
 
+CREATE TABLE movieshow
+(
+    id INT NOT NULL PRIMARY KEY,
+    idRoom INT NOT NULL,
+    idMovie INT NOT NULL,
+    date VARCHAR(100) NOT NULL,
+    time VARCHAR(100) NOT NULL,
+    ticketsSold INT NOT NULL,
+    CONSTRAINT fk_idRoom foreign key (idRoom) references room (id),
+    CONSTRAINT fk_idMovie foreign key (idMovie) references movie (id)
+);
 
 CREATE TABLE movieXcinema
 (
@@ -57,7 +68,6 @@ CREATE TABLE movieXcinema
     idMovie int not null,
     idCinema int not null,
     status boolean not null,
-
     CONSTRAINT pk_idMovieXcinema primary key (idMovieXcinema),
     CONSTRAINT fk_idMovie_mxc foreign key (idMovie) references movie (id),
     CONSTRAINT fk_idCinema_mxc foreign key (idCinema) references cinema (id)

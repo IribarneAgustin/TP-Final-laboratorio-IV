@@ -32,7 +32,7 @@ class BillboardDAO implements IBillboardDAO
     public function getMoviesByCinemaId($cinemaId)
     {
         try {
-            $query = "SELECT * FROM movie as m JOIN " . $this->tableName . " as mxc on m.id = mxc.idMovie WHERE mxc.cinemaId =" . $cinemaId;
+            $query = "SELECT * FROM movie as m JOIN " . $this->tableName . " as mxc ON m.id = mxc.idMovie WHERE mxc.cinemaId =" . $cinemaId;
             $resultSet = $this->connection->execute('query', $query);
             $moviesList = array();
             foreach ($resultSet as $row) {
