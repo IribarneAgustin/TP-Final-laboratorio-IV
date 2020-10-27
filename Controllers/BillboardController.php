@@ -6,6 +6,7 @@ use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
 use DAO\BillboardDAO;
 use Models\Cinema;
+use Models\Movie;
 
 class BillboardController
 {
@@ -18,6 +19,8 @@ class BillboardController
     public function __construct()
     {
         $this->billboardDAO = new BillboardDAO();
+        $this->moviesDAO = new MoviesDAO();
+        $this->cinemaDAO = new CinemaDAOMySQL();
     }
 
     public function showFilteredList($genreId)
@@ -37,36 +40,36 @@ class BillboardController
 
     public function showBillboardMovieList($idCinema, $message = '')
     {
-        $BillboardMovieList = $this->billboardDAO->getMoviesByCinemaId($idCinema);
+        $billboardMovieList = $this->billboardDAO->getMoviesByCinemaId($idCinema);
         require_once(VIEWS_PATH . "billboardMovies-list.php");
-
     }
 
     public function showAddView()
     {
         $genresList = $this->moviesDAO->getGenreList();
-        $moviesList= $this->moviesDAO->getAll();
+        $moviesList = $this->moviesDAO->getAll();
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "add-movieToCinemaBillboard.php");
-    
     }
 
-    public function add(Cinema $cinema, Movie $movie)
+    public function add($cinemaId, $movieId)
     {
-        //Validar que no se encuentre en la cartelera
-        $this->billboardDAO->add($cinema,$movie);
-        $this->showBillboardMovieList("Movie added to cinema succesfully");
- 
+
+        $cinema = $this->cinemaDAO->getById($cinemaId);
+        $movie = $this->moviesDAO->getById($movieId);
+
+        if ($this->billboardDAO->onBillboard($movie, $cinema) == false) {          
+            $this->billboardDAO->add($movie, $cinema);
+            $this->showBillboardMovieList($cinemaId,"Movie added to billboard succesfully");
+        }
     }
 
-    public function billboardAdminView($cinemaId){
-        
+    public function billboardAdminView($cinemaId)
+    {
+
         $cinema = $this->cinemaDAO->getById($cinemaId);
         $moviesList = $this->billboardDAO->getMoviesBycinemaId($cinemaId);
         $genresList = $this->moviesDAO->getGenreList();
-        require_once(VIEWS_PATH. "movie-list.php");
-
-
+        require_once(VIEWS_PATH . "movie-list.php");
     }
-
 }

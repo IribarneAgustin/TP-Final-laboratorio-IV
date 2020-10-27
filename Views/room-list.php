@@ -14,6 +14,7 @@ include('nav-bar.php');
               <th style="width: 15%;">Id</th>
               <th style="width: 15%;">Name</th>
               <th style="width: 15%;">Capacity</th>
+              <th style="width: 15%;">Price</th>
               <th style="width: 10%;">Delete</th>
             </tr>
           </thead>
@@ -23,6 +24,7 @@ include('nav-bar.php');
                 <td> <?php echo $value->getId(); ?> </td>
                 <td> <?php echo $value->getName(); ?> </td>
                 <td> <?php echo $value->getCapacity(); ?> </td>
+                <td> <?php echo $value->getPrice(); ?> </td>
                 <td>
                   <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>
                 </td>
@@ -41,8 +43,9 @@ include('nav-bar.php');
           </div>
           <div class="col">
             <select name="field" class="form-control" placeholder="field">
-              <option value="name">Name</option>
-              <option value="capacity">Capacity</option>
+              <option value="Name">Name</option>
+              <option value="Capacity">Capacity</option>
+              <option value="Price">Price</option>
             </select>
           </div>
           <div class="col">

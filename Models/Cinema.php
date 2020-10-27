@@ -8,7 +8,6 @@ class Cinema
     private $id;
     private $name;
     private $address;
-    private $ticketPrice;
 
     public function __construct()
     {
@@ -46,14 +45,5 @@ class Cinema
         $this->address = $address;
     }
 
-    public function getTicketPrice()
-    {
-        return $this->ticketPrice;
-    }
-
-    public function setTicketPrice($ticketPrice)
-    {
-        $this->ticketPrice = $ticketPrice;
-    }
 
 }

@@ -1,9 +1,12 @@
 <?php
+
 namespace DAO;
+
 use Models\Movie;
 use Models\Cinema;
 
-class BillboardDAO implements IBillboardDAO {
+class BillboardDAO implements IBillboardDAO
+{
 
     private $connection;
     private $tableName = "movieXcinema";
@@ -16,19 +19,21 @@ class BillboardDAO implements IBillboardDAO {
     public function add(Movie $movie, Cinema $cinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (idMovie, idCinema) VALUES (:idMovie, :idBillboard);";
+            $query = "INSERT INTO " . $this->tableName . " (idMovie, idCinema, status) VALUES (:idMovie, :idCinema, :status);";
 
             $parameters["idMovie"] = $movie->getId();
             $parameters["idCinema"] = $cinema->getId();
-            $this->connection->execute("nonQuery",$query, $parameters);
+            $parameters["status"] = true;
+            $this->connection->execute("nonQuery", $query, $parameters);
         } catch (\PDOException $ex) {
             throw $ex;
         }
     }
-    public function getMoviesByCinemaId($cinemaId){
+    public function getMoviesByCinemaId($cinemaId)
+    {
         try {
-            $query = "SELECT * FROM movie as m JOIN " .$this->tableName. " as mxc on m.id = mxc.idMovie WHERE mxc.cinemaId =".$cinemaId;
-            $resultSet = $this->connection->execute('query',$query);
+            $query = "SELECT * FROM movie as m JOIN " . $this->tableName . " as mxc on m.id = mxc.idMovie WHERE mxc.cinemaId =" . $cinemaId;
+            $resultSet = $this->connection->execute('query', $query);
             $moviesList = array();
             foreach ($resultSet as $row) {
 
@@ -40,15 +45,34 @@ class BillboardDAO implements IBillboardDAO {
                 $movie->setLanguage($row["language"]);
                 $movie->setOverview($row["overview"]);
                 $movie->setGenres($row["genres"]);
-                array_push($moviesList,$movie);
+                array_push($moviesList, $movie);
             }
             return $moviesList;
         } catch (\PDOException $ex) {
             throw $ex;
         }
-
-
     }
 
+    public function onBillboard(Movie $movie, Cinema $cinema)
+    {
+        try {
 
+            $movieId = $movie->getId();
+            $cinemaId = $cinema->getId();
+            $exist = false;
+            $query = "SELECT * FROM " . $this->tableName . " WHERE  idMovie=".$movieId." AND idCinema=".$cinemaId;
+
+            $resultSet = $this->connection->execute('query', $query);
+            
+            if($resultSet != null){
+                $exist = true;
+            }
+
+
+           
+            return $exist;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
 }

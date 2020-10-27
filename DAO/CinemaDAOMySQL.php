@@ -19,11 +19,10 @@ class CinemaDAOMySQL implements ICinemaDAO
     public function add(Cinema $cinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (name, address, ticketPrice) VALUES (:name, :address, :ticketPrice);";
+            $query = "INSERT INTO " . $this->tableName . " (name, address) VALUES (:name, :address);";
 
             $parameters["name"] = $cinema->getName();
             $parameters["address"] = $cinema->getAddress();
-            $parameters["ticketPrice"] = $cinema->getTicketPrice();
 
             $this->connection->execute("nonQuery",$query, $parameters);
         } catch (\PDOException $ex) {
@@ -37,10 +36,9 @@ class CinemaDAOMySQL implements ICinemaDAO
 
             $name = $modifiedCinema->getName();
             $address = $modifiedCinema->getAddress();
-            $ticketPrice = $modifiedCinema->getTicketPrice();
             $id = $modifiedCinema->getId();
 
-            $query = "UPDATE $this->tableName SET name='$name',address= '$address',ticketPrice='$ticketPrice' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',address= '$address' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -73,7 +71,6 @@ class CinemaDAOMySQL implements ICinemaDAO
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["name"]);
                     $cinema->setAddress($row["address"]);
-                    $cinema->setTicketPrice($row["ticketPrice"]);
 
                     array_push($cinemaList, $cinema);
                 }
@@ -99,7 +96,6 @@ class CinemaDAOMySQL implements ICinemaDAO
                 $cinema->setId($row["id"]);
                 $cinema->setName($row["name"]);
                 $cinema->setAddress($row["address"]);
-                $cinema->setTicketPrice($row["ticketPrice"]);
             }
             return $cinema;
         } catch (\PDOException $ex) {

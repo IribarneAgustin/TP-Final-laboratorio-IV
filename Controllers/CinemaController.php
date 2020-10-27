@@ -30,14 +30,13 @@ class CinemaController
         require_once(VIEWS_PATH . "add-cinema.php");
     }
 
-    public function add($name, $address, $ticketPrice)
+    public function add($name, $address)
     {
         if ($this->cinemaDAO->existsName($name) == false) {
 
             $newCinema = new Cinema();
             $newCinema->setName($name);
             $newCinema->setAddress($address);
-            $newCinema->setTicketPrice($ticketPrice);
             $this->cinemaDAO->add($newCinema);
             $this->showAddView($message = "Cinema added succesfully");
             

@@ -18,11 +18,12 @@ class RoomDAOMySQL// implements IRoomDAO
     public function add(Room $room, $idCinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity) VALUES (:idCinema, :name, :capacity);";
+            $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity, price) VALUES (:idCinema, :name, :capacity, :price);";
 
             $parameters["idCinema"] = $idCinema;
             $parameters["name"] = $room->getName();
             $parameters["capacity"] = $room->getCapacity();
+            $parameters["price"] = $room->getPrice();
 
             $this->connection->execute("nonQuery",$query, $parameters);
 
@@ -47,6 +48,7 @@ class RoomDAOMySQL// implements IRoomDAO
                     $room->setId($row["id"]);
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
 
                     array_push($roomList, $room);
                 }
@@ -74,6 +76,7 @@ class RoomDAOMySQL// implements IRoomDAO
                     $room->setId($row["id"]);
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
     
                 }
             }
@@ -100,6 +103,7 @@ class RoomDAOMySQL// implements IRoomDAO
                     $room->setId($row["id"]);
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
     
                 }
             }
@@ -117,8 +121,9 @@ class RoomDAOMySQL// implements IRoomDAO
             $id = $modifiedRoom->getId();
             $name = $modifiedRoom->getName();
             $capacity = $modifiedRoom->getCapacity();
+            $price = $modifiedRoom->getPrice();
 
-            $query = "UPDATE $this->tableName SET name='$name',capacity= '$capacity' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',capacity= '$capacity',price= '$price' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -129,7 +134,7 @@ class RoomDAOMySQL// implements IRoomDAO
     public function getRoomsByCinemaId($idCinema)
     {
         try {
-            $query = "SELECT room.id, room.name, room.capacity FROM room WHERE room.idCinema=$idCinema";
+            $query = "SELECT room.id, room.name, room.capacity, room.price FROM room WHERE room.idCinema=$idCinema";
 
             $resultSet = $this->connection->execute('query', $query);
 
@@ -142,6 +147,7 @@ class RoomDAOMySQL// implements IRoomDAO
                 $room->setId($row["id"]);
                 $room->setName($row["name"]);
                 $room->setCapacity($row["capacity"]);
+                $room->setPrice($row["price"]);
                 array_push($roomList,$room);
             }
 
@@ -178,5 +184,34 @@ class RoomDAOMySQL// implements IRoomDAO
             throw $ex;
         }
     }
+
+
+    public function getCinemaId($roomId){
+
+        try {
+
+            $room = false;
+
+            $query = "SELECT idCinema FROM room WHERE id='$roomId'";
+            $resultSet = $this->connection->execute('query',$query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+                    
+                    $idCinema = $row['idCinema'];
+
+
+                }
+            }
+
+            return $idCinema;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+        
+
+
+    }
+
 
 }
