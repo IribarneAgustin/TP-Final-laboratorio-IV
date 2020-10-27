@@ -1,13 +1,13 @@
 CREATE DATABASE cinemadb;
 
+
 USE cinemadb;
 
 CREATE TABLE cinema
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    address VARCHAR(100) NOT NULL,
-    ticketPrice INT NOT NULL
+    address VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE movie
@@ -46,18 +46,19 @@ CREATE TABLE room
     idCinema INT NOT NULL,
     name VARCHAR(20) NOT NULL,
     capacity INT NOT NULL,
+    price INT NOT NULL,
     CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id)
 );
+
 
 CREATE TABLE movieXcinema
 (
     idMovieXcinema INT NOT NULL auto_increment,
     idMovie int not null,
     idCinema int not null,
-    initDate date not null,
     status boolean not null,
 
     CONSTRAINT pk_idMovieXcinema primary key (idMovieXcinema),
     CONSTRAINT fk_idMovie_mxc foreign key (idMovie) references movie (id),
-    CONSTRAINT fk_idCinema_mxc foreign key (idCinema) references cinema (idCinema)
+    CONSTRAINT fk_idCinema_mxc foreign key (idCinema) references cinema (id)
 );

@@ -34,12 +34,13 @@ class RoomController
         require_once(VIEWS_PATH . "add-room.php");
     }
 
-    public function add($cinemaId, $name, $capacity)
+    public function add($cinemaId, $name,$price, $capacity)
     {
         if ($this->roomDAO->existsName($name,$cinemaId) == false) {
             $newRoom = new Room();
             $newRoom->setName($name);
             $newRoom->setCapacity($capacity);
+            $newRoom->setPrice($price);
             $this->roomDAO->add($newRoom,$cinemaId);
             $room = $this->roomDAO->getByName($name);
             $this->showAddView($cinemaId, "Room added succesfully");       
@@ -66,8 +67,12 @@ class RoomController
             $myMetohd = "set" . $field;
             $toModify->$myMetohd($newContent);
             $this->roomDAO->update($toModify);
+            $cinemaId = $this->roomDAO->getCinemaId($toModify->getId());
+            $this->showListByCinemaId($cinemaId);
+        }else{
+            $this->showList();
         }
 
-        $this->showList();
+        
     }
 }

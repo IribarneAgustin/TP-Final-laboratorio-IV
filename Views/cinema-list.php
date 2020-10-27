@@ -14,7 +14,6 @@ include('nav-bar.php');
               <th style="width: 16%;">Id</th>
               <th style="width: 16%;">Name</th>
               <th style="width: 16%;">Address</th>
-              <th style="width: 16%;">Ticket Price</th>
               <th colspan="2" class="text-center" style="width: 16%;">Rooms</th>
               <th style="width: 16%;">Delete</th>
             </tr>
@@ -25,7 +24,6 @@ include('nav-bar.php');
                 <td> <?php echo $value->getId(); ?> </td>
                 <td> <?php echo $value->getName(); ?> </td>
                 <td> <?php echo $value->getAddress(); ?> </td>
-                <td> <?php echo $value->getTicketPrice(); ?> </td>
                 <td>
                   <li class="list-group">
                     <a class="btn btn-success" href="<?php echo FRONT_ROOT; ?>Room/showAddView/<?php echo $value->getId();?>">Add</a>
@@ -56,7 +54,6 @@ include('nav-bar.php');
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
               <option value="address">Address</option>
-              <option value="ticketPrice">Ticket Price</option>
             </select>
           </div>
           <div class="col">

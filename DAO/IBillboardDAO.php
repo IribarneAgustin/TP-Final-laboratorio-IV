@@ -2,6 +2,7 @@
 namespace DAO;
 use Models\Cinema;
 use Models\Room;
+use Models\Movie;
 
 interface IBillboardDAO{
 

@@ -19,7 +19,7 @@ include('nav-bar.php');
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($billboardList as $value) { ?>
+            <?php foreach ($billboardMovieList as $value) { ?>
               <tr>
                 <td> <?php echo $value->getId(); ?> </td>
                 <td> <?php echo $value->getName(); ?> </td>

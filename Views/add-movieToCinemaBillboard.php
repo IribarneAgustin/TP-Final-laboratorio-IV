@@ -33,7 +33,7 @@ include('nav-bar.php');
                             <th style="width: 15%;">Release Date</th>
                             <th style="width: 10%;">Language</th>
                             <th style="width: 30%;">Overview</th>
-                            <th style="width: 50%;">Bilboard</th>
+                            <th style="width: 50%;">Cinema</th>
                             <th style="width: 10%;">Add</th>
                         </tr>
                     </thead>

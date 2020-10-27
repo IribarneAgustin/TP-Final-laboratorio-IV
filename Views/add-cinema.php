@@ -21,12 +21,6 @@ include('nav-bar.php');
                                    <input type="text" name="address" size="30" class="form-control" required>
                               </div>
                          </div>
-                         <div class="col-lg-3">
-                              <div class="form-group">
-                                   <label for="">Ticket Price</label>
-                                   <input type="number" name="ticketPrice" size="10" class="form-control" min="0" required>
-                              </div>
-                         </div>
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
