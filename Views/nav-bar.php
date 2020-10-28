@@ -13,5 +13,11 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT;?>Billboard/showAddView">Add to billboard</a>
           </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>MovieShow/showList">Billboard admin</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Movie/showList">Movies</a>
+          </li>
      </ul>
 </nav>
