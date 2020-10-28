@@ -28,7 +28,7 @@ include('nav-bar.php');
             <br>
             <form action="<?php echo FRONT_ROOT ?>Billboard/addView" method="get" class="bg-light-alpha">
                 <div class="row row-cols-1 row-cols-md-4">
-                    <?php foreach ($moviesList as $value) { ?>
+                    <?php foreach ($movieShow as $value) { ?>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="<?php echo $value->getId(); ?>" id="defaultCheck1">
                             <div class="col-lg-4 d-flex align-items-stretch">

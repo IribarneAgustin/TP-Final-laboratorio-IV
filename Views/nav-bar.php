@@ -17,7 +17,7 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT;?>MovieShow/showList">Billboard admin</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Movie/showList">Movies</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT;?>Billboard/showList">Billboard</a>
           </li>
      </ul>
 </nav>

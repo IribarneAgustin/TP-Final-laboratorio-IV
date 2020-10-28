@@ -45,12 +45,13 @@ include('nav-bar.php');
             </div>
 
 
-            <label class="col-2 col-form-label" for="date">Date</label><br>
+            <label class="form-group" for="date">Date</label><br>
             <input name="date" type="date" class="col-2 col-form-label" id="date" value="" required>
 
 
-            <div class="form-group row">
-                <label for="time" class="col-2 col-form-label">Time</label>
+            <div class="form-group">
+                <br>
+                <label for="time" class="col-2 col-form-label" >Time</label>
                 <div class="col-10">
                     <br>
                     <input name="time" class="form-control" type="time" id="time" required>
