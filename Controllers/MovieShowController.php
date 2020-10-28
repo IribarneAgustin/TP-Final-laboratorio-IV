@@ -36,6 +36,7 @@ class MovieShowController
     public function add($movieId, $roomId, $date, $time)
     {
         //hacer validaciones
+        
         $newMovieShow = new movieShow();
         $newMovieShow->setDate($date);
         $newMovieShow->setTime($time);

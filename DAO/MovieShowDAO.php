@@ -38,6 +38,38 @@ class MovieShowDAO //implements IMovieShowDAO
         }
     }
 
+    public function getMovies(){
+        try {
+            $movieList = array();
+
+            $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie join movieShow on movieshow.idmovie = movie.id";
+            $resultSet = $this->connection->execute('query',$query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movie = new Movie();
+                    $movie->setId($row["id"]);
+                    $movie->setTitle($row["title"]);
+                    $movie->setImg($row["img"]);
+                    $movie->setReleaseDate($row["realeseDate"]);
+                    $movie->setLanguage($row["language"]);
+                    $movie->setOverview($row["overview"]);
+
+                    array_push($movieList, $movie);
+                }
+            }
+
+            return $movieList;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+
+
+    }
+
+    
+
     public function getAll()
     {
         try {
