@@ -2,9 +2,8 @@
 include_once('header.php');
 ?>
 
-
 <body>
-  <div class="container">
+  <div class="bg">
     <div class="row">
       <div class="col-md-5 mx-auto">
         <div id="first">

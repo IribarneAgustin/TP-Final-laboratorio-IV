@@ -144,7 +144,7 @@ class MoviesDAO implements IMoviesDAO
                 break;                 
             }
         }
-        return $moovie;
+        return $movie;
 
     }
 

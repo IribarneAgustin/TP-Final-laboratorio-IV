@@ -22,7 +22,7 @@
     
             if (($user != null) && ($user->getPassword() === $password)) {
                 $_SESSION['loggedUser'] = $user;
-                require_once(VIEWS_PATH . "add-cellphone.php");
+                require_once(VIEWS_PATH . "add-cinema.php");
             } else {
                
                 $this->Index("Datos ingresados incorrectamente");
