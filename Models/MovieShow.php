@@ -5,9 +5,9 @@ namespace Models;
 class MovieShow
 {
     private $id;
-    private $ticketsSold;
     private $date;
     private $time;
+    private $ticketsSold;
 
     public function getId()
     {

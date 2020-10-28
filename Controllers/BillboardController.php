@@ -23,20 +23,6 @@ class BillboardController
         $this->cinemaDAO = new CinemaDAOMySQL();
     }
 
-    public function showFilteredList($genreId)
-    {
-        //Filtrar usando tabla de PeliculasXgenero y JOIN con PeliculasXcine***********
-
-        //if($genreId!=""){
-        //    $moviesList = $this->moviesDAO->getMoviesByGenre($genreId);
-        //    $genresList = $this->moviesDAO->getGenreList();
-        //    $key = $this->moviesDAO->getKey();
-        //    require_once(VIEWS_PATH . "add-to-cinema.php");
-        //}
-        //else{
-        //    $this->showAddMovieView();
-        //}
-    }
 
     public function showBillboardMovieList($idCinema, $message = '')
     {
@@ -49,7 +35,7 @@ class BillboardController
         $genresList = $this->moviesDAO->getGenreList();
         $moviesList = $this->moviesDAO->getAll();
         $cinemaList = $this->cinemaDAO->getAll();
-        require_once(VIEWS_PATH . "add-movieToCinemaBillboard.php");
+        require_once(VIEWS_PATH . "add-movieToBillboard.php");
     }
 
     public function add($cinemaId, $movieId)
@@ -59,6 +45,7 @@ class BillboardController
         $movie = $this->moviesDAO->getById($movieId);
 
         if ($this->billboardDAO->onBillboard($movie, $cinema) == false) {          
+            
             $this->billboardDAO->add($movie, $cinema);
             $this->showBillboardMovieList($cinemaId,"Movie added to billboard succesfully");
         }
