@@ -88,7 +88,7 @@ class MovieShowDAO //implements IMovieShowDAO
                     $movieShow->setTicketsSold($row["ticketsSold"]);
 
                     $movie = new Movie();
-                    $movie->setId($row["id"]);
+                    $movie->setId($row["idMovie"]);
                     $movie->setTitle($row["title"]);
                     $movie->setImg($row["img"]);
                     $movie->setReleaseDate($row["realeseDate"]);
@@ -96,7 +96,7 @@ class MovieShowDAO //implements IMovieShowDAO
                     $movie->setOverview($row["overview"]);
 
                     $room = new Room();
-                    $room->setId($row["id"]);
+                    $room->setId($row["idRoom"]);
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
