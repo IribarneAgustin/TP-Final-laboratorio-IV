@@ -2,12 +2,15 @@
 namespace DAO;
 
 use Models\MovieShow;
+use Models\Room;
+use Models\Movie;
 
 class MovieShowDAO //implements IMovieShowDAO
 {
 
     private $connection;
     private $tableName = "movieshow";
+  
 
     public function __construct()
     {
@@ -27,6 +30,7 @@ class MovieShowDAO //implements IMovieShowDAO
             $parameters["time"] = $movieShow->getTime();
             $parameters["ticketsSold"] = $movieShow->getTicketsSold();
 
+
             $this->connection->execute("nonQuery",$query, $parameters);
 
         } catch (\PDOException $ex) {
@@ -39,8 +43,7 @@ class MovieShowDAO //implements IMovieShowDAO
         try {
             $movieShowList = array();
 
-            $query = "SELECT * FROM " . $this->tableName;
-
+            $query = "SELECT * FROM movieshow join movie on movieshow.idmovie = movie.id join room on room.id = movieshow.idRoom";
             $resultSet = $this->connection->execute('query',$query);
 
             if (!empty($resultSet)) {
@@ -51,6 +54,24 @@ class MovieShowDAO //implements IMovieShowDAO
                     $movieShow->setDate($row["date"]);
                     $movieShow->setTime($row["time"]);
                     $movieShow->setTicketsSold($row["ticketsSold"]);
+
+                    $movie = new Movie();
+                    $movie->setId($row["id"]);
+                    $movie->setTitle($row["title"]);
+                    $movie->setImg($row["img"]);
+                    $movie->setReleaseDate($row["realeseDate"]);
+                    $movie->setLanguage($row["language"]);
+                    $movie->setOverview($row["overview"]);
+
+                    $room = new Room();
+                    $room->setId($row["id"]);
+                    $room->setName($row["name"]);
+                    $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
+
+                    $movieShow->setMovie($movie);
+                    $movieShow->setRoom($room);
+            
 
                     array_push($movieShowList, $movieShow);
                 }

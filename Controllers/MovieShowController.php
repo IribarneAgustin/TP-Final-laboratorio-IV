@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
 use DAO\MovieShowDAO;
 use DAO\MovieShowDAOMySQL;
@@ -13,12 +14,14 @@ class MovieShowController
 
     private $movieShowDAO;
     private $moviesDAO;
+    private $cinemasDAO;
 
     public function __construct()
     {
         $this->movieShowDAO = new movieShowDAO();
         $this->moviesDAO = new MoviesDAO();
         $this->roomDAO = new RoomDAOMySQL();
+        $this->cinemasDAO = new CinemaDAOMySQL();
     }
 
     public function addView($movieId,$cinemaId)
@@ -37,13 +40,14 @@ class MovieShowController
         $newMovieShow->setDate($date);
         $newMovieShow->setTime($time);
         $newMovieShow->setTicketsSold(0);
-    
         $this->movieShowDAO->add($newMovieShow, $roomId, $movieId);
+        $this->showList("Movie show added succesfully");
     }
 
 
-    public function showList(){
+    public function showList($message = ''){
         $movieShowList = $this->movieShowDAO->getAll();
+        $cinemaList = $this->cinemasDAO->getAll();
         require_once(VIEWS_PATH . "billboard-admin.php");
     }
 

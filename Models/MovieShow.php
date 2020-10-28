@@ -8,6 +8,8 @@ class MovieShow
     private $date;
     private $time;
     private $ticketsSold;
+    private $room;
+    private $movie;
 
     public function getId()
     {
@@ -49,5 +51,24 @@ class MovieShow
         $this->time = $time;
     }
 
+    public function getRoom()
+    {
+        return $this->room;
+    }
 
+ 
+    public function setRoom(Room $room)
+    {
+        $this->room = $room;
+    }
+
+    public function getMovie()
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(Movie $movie)
+    {
+        $this->movie = $movie;
+    }
 }

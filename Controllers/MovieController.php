@@ -3,16 +3,19 @@
 namespace Controllers;
 
 use DAO\MoviesDAO;
+use DAO\MoviesDAOMySQL;
 
 class MovieController
 {
 
     private $moviesDAO;
+    private $moviesDAOMySQL;
 
 
     public function __construct()
     {
         $this->moviesDAO = new MoviesDAO();
+        $this->moviesDAOMySQL = new MoviesDAOMySQL();
     }
 
     public function showList()
@@ -21,6 +24,13 @@ class MovieController
         $genresList = $this->moviesDAO->getGenreList();
         $key = $this->moviesDAO->getKey();
         require_once(VIEWS_PATH . "movie-list.php");
+    }
+    public function addAll(){
+        $moviesList = $this->moviesDAO->getAll();
+        foreach($moviesList as $value){
+            $this->moviesDAOMySQL->add($value);
+        }
+
     }
 
     public function showFilteredList($genreId)

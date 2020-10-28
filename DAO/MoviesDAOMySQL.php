@@ -4,6 +4,7 @@
     use DAO\IMovieDAO as IMovieDAO;
     use Models\Movie as Movie;
     use DAO\Connection as Connection;
+    use \Exception as Exception;
 
     class MoviesDAOMySQL implements IMoviesDAO
     {
@@ -16,18 +17,17 @@
             $this->key = "1f3979c9e201dad1503dce45eda6e92c";
         }
 
-        public function Add(Movie $movie)
+        public function add(Movie $movie)
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (id, title, img, realeseDate, language, overview, genres) VALUES (:id, :title, :realeseDate, :language, :overview, :genres);";
+                $query = "INSERT INTO ".$this->tableName." (id, title, img, realeseDate, language, overview) VALUES (:id, :title, :img ,:realeseDate, :language, :overview);";
                 $parameters["id"] = $movie->getId();
                 $parameters["title"] = $movie->getTitle();
                 $parameters["img"] = $movie->getImg();
-                $parameters["releaseDate"] = $movie->getReleaseDate();
+                $parameters["realeseDate"] = $movie->getReleaseDate();
                 $parameters["language"] = $movie->getLanguage();
                 $parameters["overview"] = $movie->getOverview();
-                $parameters["genres"] = $movie->getGenres();
             
 
 
@@ -42,7 +42,7 @@
         }
         
         
-        public function Delete($id)
+        public function delete($id)
         {   
             try
             {
@@ -56,7 +56,7 @@
             }
         }          
 
-        public function GetAll()
+        public function getAll()
         {
             try
             {
@@ -77,7 +77,6 @@
                     $movie->setReleaseDate($row["releaseDate"]);
                     $movie->setLanguage($row["language"]);
                     $movie->setOverview($row["overview"]);
-                    $movie->setGenres($row["genres"]);
                 
 
                     array_push($movieList, $movie);
