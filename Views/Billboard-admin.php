@@ -32,7 +32,7 @@ include('nav-bar.php');
                                 <td> <?php echo $value->getRoom()->getName(); ?> </td>
                                 <td> <?php echo $this->cinemasDAO->getById($value->getRoom()->getId())->getName(); ?> </td>
                                 <td> <?php echo $value->getMovie()->getTitle(); ?> </td>
-                                <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getMovie()->getImg() . '">' ?> </td>      
+                                <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getMovie()->getImg() . '">' ?> </td>
                                 <td>
                                     <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $value->getId(); ?>"> Remove </button>
                                 </td>
@@ -43,6 +43,11 @@ include('nav-bar.php');
                     </tbody>
                 </table>
             </form>
+            <?php
+            if (isset($message) && $message != "") {
+                echo "<div class='alert alert-danger' role='alert'> $message </div>";
+            }
+            ?>
         </div>
     </section>
 </main>
