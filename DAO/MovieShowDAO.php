@@ -7,7 +7,7 @@ use Models\Room;
 use Models\Movie;
 use \Exception as Exception;
 
-class MovieShowDAO //implements IMovieShowDAO
+class MovieShowDAO implements IMovieShowDAO
 {
 
     private $connection;
@@ -22,13 +22,14 @@ class MovieShowDAO //implements IMovieShowDAO
     public function getMoviesByDate($date)
     {
         try {
-            
+
             $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie JOIN movieshow on movieshow.idmovie = movie.id WHERE movieshow.date ='$date'";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute('query', $query);
             $movie = NULL;
             $moviesList = array();
             foreach ($resultSet as $row) {
+
                 $movie = new Movie();
                 $movie->setId($row['id']);
                 $movie->setTitle($row['title']);
@@ -42,6 +43,16 @@ class MovieShowDAO //implements IMovieShowDAO
             }
 
             return $moviesList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function remove($id)
+    {
+        try {
+            $query = "DELETE FROM " . $this->tableName . " WHERE " . $this->tableName . ".id ='$id'";
+            $this->connection->Execute('nonQuery', $query);
         } catch (Exception $ex) {
             throw $ex;
         }

@@ -4,23 +4,21 @@ namespace Controllers;
 
 use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
-use DAO\BillboardDAO;
 use DAO\MoviesDAOMySQL;
 use DAO\MovieShowDAO;
-use Models\Cinema;
-use Models\Movie;
+
 
 class BillboardController
 {
 
-    private $moviesDAO;
+    private $moviesDAOMySQL;
     private $cinemaDAO;
-    private $billboardDAO;
+    private $movieshowDAO;
+
 
 
     public function __construct()
     {
-        $this->billboardDAO = new BillboardDAO();
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieshowDAO = new MovieShowDAO();
@@ -44,11 +42,23 @@ class BillboardController
         $genresList = $this->moviesDAOMySQL->getGenresByMovieId($movieId);
         return $genresList;
     }
+    
+    private function filterMovieList($moviesList){
+        $list = array();
+
+        foreach($moviesList as $value){
+            if(!in_array($value,$list)){
+                array_push($list,$value);
+            }
+        }
+
+        return $list;
+    }
 
     public function showList(){
 
         $movieShowList = $this->movieshowDAO->getAll();
-        $moviesList = $this->movieshowDAO->getMovies();
+        $moviesList = $this->filterMovieList($this->movieshowDAO->getMovies());
         $genresList = $this->moviesDAOMySQL->getGenreList();
         
         require_once(VIEWS_PATH . "Billboard-list.php");

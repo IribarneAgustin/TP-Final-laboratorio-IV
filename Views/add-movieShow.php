@@ -32,8 +32,7 @@ include('nav-bar.php');
         </div>
         <form action="<?php echo FRONT_ROOT ?>MovieShow/add" method="get" class="form-group">
 
-            <input type="hidden" value="<?php echo $movie->getId(); ?>" name="movieId" size="30" class="form-control"
-                required>
+            <input type="hidden" value="<?php echo $movie->getId(); ?>" name="movieId" size="30" class="form-control" required>
 
             <div class="bg-dark-alpha p-3">
                 <div class="row">
@@ -41,14 +40,13 @@ include('nav-bar.php');
                         <label for="roomId" style="color:white">Room</label>
                         <select name="roomId" class="form-control" style="width: 100%;" placeholder="Select Room">
                             <?php foreach ($roomList as $room) { ?>
-                            <?php $roomId = $room->getId(); ?>
-                            <option name="roomId" value="<?php echo $roomId ?>" required>
-                                <?php echo $room->getName(); ?></option>
+                                <?php $roomId = $room->getId(); ?>
+                                <option name="roomId" value="<?php echo $roomId ?>" required>
+                                    <?php echo $room->getName(); ?></option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="col-lg-3">
-
                         <label for="date" style="color:white">Date</label>
                         <input name="date" class="form-control" type="date" id="date" value="" required>
                     </div>
