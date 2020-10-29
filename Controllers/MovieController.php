@@ -45,7 +45,6 @@ class MovieController
         foreach ($moviesList as $movie) {
             $genres = $movie->getGenres();
             foreach ($genres as $genre) {
-
                 $this->moviesDAOMySQL->addGenreXmovie($movie->getId(), $genre->getId());
             }
         }

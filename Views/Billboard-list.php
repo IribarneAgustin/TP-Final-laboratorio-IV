@@ -24,8 +24,8 @@ include('nav-bar.php');
                         <select name="genre" id="genreId" class="form-control" placeholder="Select genre">
                             <option selected="true" disable="disabled" value="">All genres</option>
                             <?php foreach ($genresList as $value) { ?>
-                            <option value="<?php echo $value->getId() ?>" required><?php echo $value->getName(); ?>
-                            </option>
+                                <option value="<?php echo $value->getId() ?>" required><?php echo $value->getName(); ?>
+                                </option>
                             <?php } ?>
                         </select>
                     </div>
@@ -37,61 +37,62 @@ include('nav-bar.php');
             <table class="table table-striped table-dark">
                 <br>
                 <?php foreach ($moviesList as $movie) { ?>
-                <thead class="thead-dark">
-                    <tr>
-                        <th style="width: 15%;"></th>
-                        <th style="width: 15%;">Movie</th>
-                        <th style="width: 15%;">Overview</th>
-                        <th style="width: 10%;">Language</th>
-                        <th style="width: 10%;">Genres</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
-                        </td>
-                        <td> <?php echo $movie->getTitle(); ?> </td>
-                        <td> <?php echo $movie->getOverview(); ?> </td>
-                        <td> <?php echo $movie->getLanguage(); ?> </td>
-                        <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
-                        <td><?php foreach ($genres as $value) {
-                        echo $value->getName() . " ";
-                        }
-                        ?></td>
-                </tbody>
+
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 15%;"></th>
+                            <th style="width: 15%;">Movie</th>
+                            <th style="width: 15%;">Overview</th>
+                            <th style="width: 10%;">Language</th>
+                            <th style="width: 10%;">Genres</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
+                            </td>
+                            <td> <?php echo $movie->getTitle(); ?> </td>
+                            <td> <?php echo $movie->getOverview(); ?> </td>
+                            <td> <?php echo $movie->getLanguage(); ?> </td>
+                            <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
+                            <td><?php foreach ($genres as $value) {
+                                    echo $value->getName() . " ";
+                                }
+                                ?></td>
+                    </tbody>
 
             </table>
             <h3 style="color:white">Available Screening Rooms</h3>
             <?php foreach ($movieShowList as $show) { ?>
-            <table class="table table-striped table-dark">
-                <?php if ($movie->getId() == $show->getMovie()->getId()) { ?>
-                <thead class="thead-dark">
-                    <tr>
-                        <th style="width: 10%;">Cinema</th>
-                        <th style="width: 10%;">Room</th>
-                        <th style="width: 15%;">Date</th>
-                        <th style="width: 15%;">Time</th>
-                        <th style="width: 10%;">Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> <?php echo $this->cinemaDAO->getById($show->getRoom()->getId())->getName(); ?> </td>
-                        <td> <?php echo $show->getRoom()->getName(); ?> </td>
-                        <td> <?php echo $show->getDate();  ?> </td>
-                        <td> <?php echo $show->getTime();  ?> </td>
-                        <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
-                        <?php }  ?>
-                    </tr>
-                </tbody>
+                <table class="table table-striped table-dark">
+                    <?php if ($movie->getId() == $show->getMovie()->getId()) { ?>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="width: 10%;">Cinema</th>
+                                <th style="width: 10%;">Room</th>
+                                <th style="width: 15%;">Date</th>
+                                <th style="width: 15%;">Time</th>
+                                <th style="width: 10%;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <?php echo $this->cinemaDAO->getById($show->getRoom()->getId())->getName(); ?> </td>
+                                <td> <?php echo $show->getRoom()->getName(); ?> </td>
+                                <td> <?php echo $show->getDate();  ?> </td>
+                                <td> <?php echo $show->getTime();  ?> </td>
+                                <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
+                            <?php }  ?>
+                            </tr>
+                        </tbody>
+                    <?php } ?>
                 <?php } ?>
-                <?php } ?>
-            </table>
-            <?php
+                </table>
+                <?php
                 if (isset($message) && $message != "") {
                     echo "<div class='alert alert-primary' role='alert'> $message </div>";
                 }
-            ?>
+                ?>
         </div>
     </section>
 </main>

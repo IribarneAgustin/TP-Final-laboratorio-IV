@@ -58,7 +58,8 @@ class MovieShowController
 
             $id = $this->roomDAO->getCinemaId($value->getRoom()->getId());
             $t = strtotime($value->getTime());
-            $t2 = strtotime($time);
+            $t2 = strtotime("+15 minutes",$time);
+
             
             if ($value->getDate() == $date && $id == $cinemaId && $t == $t2) {
                 $flag = false;
@@ -101,13 +102,13 @@ class MovieShowController
         require_once(VIEWS_PATH . "billboard-admin.php");
     }
 
-    /*   
+       
     public function remove($movieShowId)
     {
         $this->movieShowDAO->remove($movieShowId);
         $this->showList($message = "Movie Show removed succesfully");
     }
-
+/*
 
     public function modify($id, $field, $newContent)
     {
