@@ -6,7 +6,7 @@ include('nav-bar.php');
 <main class="py-4">
   <section id="listado" class="mb-5">
     <div class="container">
-      <h2 class="mb-4">Room List</h2>
+      <h2 class="mb-4" style="color:white">Room List</h2>
       <form action="<?php echo FRONT_ROOT ?>Room/remove" method="post" class="bg-light-alpha">
         <table class="table table-striped table-dark">
           <thead class="thead-dark">
@@ -35,8 +35,8 @@ include('nav-bar.php');
           </tbody>
         </table>
       </form>
-      <h2 class="mb-4">Modify</h2>
-      <form action="<?php echo FRONT_ROOT . "Room/modify" ?>" class="bg-light-alpha p-3">
+      <h2 class="mb-4" style="color:white">Modify</h2>
+      <form action="<?php echo FRONT_ROOT . "Room/modify" ?>" class="bg-dark-alpha p-3">
         <div class="form-row">
           <div class="col">
             <input type="number" name="id" min=0 class="form-control" placeholder="ID">

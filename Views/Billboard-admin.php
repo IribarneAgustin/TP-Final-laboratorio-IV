@@ -45,7 +45,7 @@ include('nav-bar.php');
             </form>
             <?php
             if (isset($message) && $message != "") {
-                echo "<div class='alert alert-danger' role='alert'> $message </div>";
+                echo "<div class='alert alert-primary' role='alert'> $message </div>";
             }
             ?>
         </div>
