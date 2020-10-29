@@ -1,6 +1,5 @@
 CREATE DATABASE cinemadb;
 
-
 USE cinemadb;
 
 CREATE TABLE cinema
@@ -17,16 +16,24 @@ CREATE TABLE movie
     img VARCHAR(100) NOT NULL,
     realeseDate VARCHAR(100) NOT NULL,
     language VARCHAR(100) NOT NULL,
-    overview VARCHAR(100) NOT NULL,
-    genres VARCHAR(100) NOT NULL
+    overview VARCHAR(700) NOT NULL
 );
 
-insert into movie (id,title,img,realeseDate,language,overview,genres) values (413518,1,1,1,1,1,1);
-insert into movie (id,title,img,realeseDate,language,overview,genres) values (528085,1,1,1,1,1,1);
-
 CREATE TABLE genre
-(   id INT NOT NULL PRIMARY KEY,
+(   
+	id INT NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
+);
+select * from genresXmovie
+create table genresXmovie
+(
+id int not null auto_increment PRIMARY KEY,
+idGenre int not null,
+idMovie int not null,
+
+constraint fk_idGenre_gxm foreign key (idGenre) references genre (id),
+constraint fk_idMovie_gxm foreign key (idMovie) references movie (id)
+
 );
 
 

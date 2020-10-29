@@ -3,7 +3,7 @@ body, html {
   }
   .bg {
     /* The image used */
-    background-image:url(../img/home.png) no-repeat center center fixed;;
+    background-image:url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg") no-repeat center center fixed;
   
     /* Full height */
     height: 100%;
@@ -13,3 +13,6 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  
+  
