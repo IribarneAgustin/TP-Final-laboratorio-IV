@@ -82,6 +82,7 @@ class Movie{
         $this->releaseDate = $releaseDate;
 
     }
+    
     public function getGenresName(){
         $genres = $this->genres;
         $names = "";

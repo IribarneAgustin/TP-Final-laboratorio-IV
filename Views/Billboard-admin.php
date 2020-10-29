@@ -6,7 +6,7 @@ include('nav-bar.php');
 <main class="py-4">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Billboard Admin</h2>
+            <h2 class="mb-4" style="color:white">Billboard Admin</h2>
             <form action="<?php echo FRONT_ROOT ?>MovieShow/remove" method="post" class="bg-light-alpha">
                 <table class="table table-striped table-dark">
                     <thead class="thead-dark">
