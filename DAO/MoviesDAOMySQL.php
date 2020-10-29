@@ -11,6 +11,8 @@
         private $key;
         private $connection;
         private $tableName = "movie";
+        private $tableGenre= "genre";
+        private $mxgTable = "moviexgenre";
 
         public function __construct()
         {
@@ -89,6 +91,63 @@
                 throw $ex;
             }
         }       
+
+
+        public function GetGenreList()
+        {
+            try
+            {
+                $genreList = array();
+
+                $query = "SELECT * FROM ".$this->tableGenre;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute('query', $query);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $genre = new Genre();
+                    
+                    $genre->setId($row["id"]);
+                    $genre->setName($row["name"]);
+
+                    array_push($genreList, $genre);
+                }
+
+                return $genreList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function GetGenreById($id)
+        {
+            try
+            {
+                $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableGenre . ".id ='$id'";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute('query', $query);
+                $genre = NULL;
+
+                foreach ($resultSet as $row)
+                {   
+                    $genre = new Genre();
+                    
+                    $genre->setId($row["id"]);
+                    $genre->setName($row["name"]);
+                }
+
+                return $genre;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+    }
         
         /*
         
