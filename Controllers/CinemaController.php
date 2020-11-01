@@ -37,6 +37,7 @@ class CinemaController
             $newCinema = new Cinema();
             $newCinema->setName($name);
             $newCinema->setAddress($address);
+            $newCinema->setStatus(true);
             $this->cinemaDAO->add($newCinema);
             $this->showAddView($message = "Cinema added succesfully");
             
@@ -45,9 +46,14 @@ class CinemaController
         }
     }
 
+    public function activate($cinemaId){
+        $this->cinemaDAO->activate($cinemaId);
+        $this->showList("Cinema actived succesfully");
+
+    }
+
     public function remove($cinemaId)
     {
-
         $this->cinemaDAO->remove($cinemaId);
         $this->showList($message = "Cinema removed succesfully");
     }

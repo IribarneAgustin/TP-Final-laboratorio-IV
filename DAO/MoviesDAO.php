@@ -40,7 +40,7 @@ class MoviesDAO implements IMoviesDAO
         $this->moviesList = array();
         $json = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=$this->key&language=en-US&page=1");
         $arrayToDecode = json_decode($json, true);
-
+    
         foreach ($arrayToDecode as $key => $value) {
 
             if (is_array($value)) {
@@ -62,6 +62,7 @@ class MoviesDAO implements IMoviesDAO
                 }
             }
         }
+        
     }
 
     public function getGenreById($id)

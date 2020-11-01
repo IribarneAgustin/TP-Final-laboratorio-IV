@@ -83,6 +83,7 @@ class MovieShowController
                 $newMovieShow->setDate($date);
                 $newMovieShow->setTime($time);
                 $newMovieShow->setTicketsSold(0);
+                $newMovieShow->setStatus(true);
                 $this->movieShowDAO->add($newMovieShow, $roomId, $movieId);
                 $this->showList("Movie show added succesfully");
             } else {
@@ -108,24 +109,5 @@ class MovieShowController
         $this->movieShowDAO->remove($movieShowId);
         $this->showList($message = "Movie Show removed succesfully");
     }
-/*
 
-    public function modify($id, $field, $newContent)
-    {
-
-        $toModify = $this->movieShowDAO->getById($id);
-
-        if (isset($toModify)) {
-
-            $myMethod = "set" . $field;
-            $toModify->$myMethod($newContent);
-            $this->movieShowDAO->update($toModify);
-            $roomId = $this->movieShowDAO->getRoomId($toModify->getId());
-            $this->showListByRoomId($roomId);
-        }else{
-            $this->showList();
-        }
-
-        
-    }*/
 }

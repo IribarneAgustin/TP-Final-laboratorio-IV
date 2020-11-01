@@ -2,11 +2,13 @@ CREATE DATABASE cinemadb;
 
 USE cinemadb;
 
+
 CREATE TABLE cinema
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    address VARCHAR(100) NOT NULL
+    address VARCHAR(100) NOT NULL,
+    status boolean not null
 );
 
 CREATE TABLE movie
@@ -24,7 +26,7 @@ CREATE TABLE genre
 	id INT NOT NULL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
-select * from genresXmovie
+
 create table genresXmovie
 (
 id int not null auto_increment PRIMARY KEY,
@@ -40,9 +42,9 @@ constraint fk_idMovie_gxm foreign key (idMovie) references movie (id)
 CREATE TABLE user
 (
     dni INT NOT NULL PRIMARY KEY,
-    nameUser VARCHAR(20) NOT NULL,
-    lastNameUser VARCHAR(20) NOT NULL,
-    age INT NOT NULL,
+    userName VARCHAR(20) NOT NULL,
+    firstName VARCHAR(20) NOT NULL,
+    lastName VARCHAR(20) NOT NULL,
     sex VARCHAR(10) NOT NULL,
     email VARCHAR(30) NOT NULL,
     pass VARCHAR(10) NOT NULL
@@ -55,20 +57,8 @@ CREATE TABLE room
     name VARCHAR(20) NOT NULL,
     capacity INT NOT NULL,
     price INT NOT NULL,
-    CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id)
-);
-
-
-CREATE TABLE movieXcinema
-(
-    idMovieXcinema INT NOT NULL auto_increment,
-    idMovie int not null,
-    idCinema int not null,
     status boolean not null,
-
-    CONSTRAINT pk_idMovieXcinema primary key (idMovieXcinema),
-    CONSTRAINT fk_idMovie_mxc foreign key (idMovie) references movie (id),
-    CONSTRAINT fk_idCinema_mxc foreign key (idCinema) references cinema (id)
+    CONSTRAINT fk_idCinema foreign key (idCinema) references cinema (id)
 );
 
 CREATE TABLE movieShow
@@ -79,6 +69,7 @@ CREATE TABLE movieShow
     date VARCHAR(100) NOT NULL,
     time VARCHAR(100) NOT NULL,
     ticketsSold INT NOT NULL,
+    status boolean not null,
     CONSTRAINT fk_idRoom foreign key (idRoom) references room (id),
     CONSTRAINT fk_idMovie foreign key (idMovie) references movie (id)
 );
@@ -89,6 +80,7 @@ idUser int not null,
 idMovieShow int not null,
 quantity int not null,
 total int not null,
+status boolean not null,
 
 CONSTRAINT fk_idUser_ticket foreign key (idUser) references user (dni),
 CONSTRAINT fk_idMovieShow_ticket foreign key (idMovieShow) references movieshow (id)
