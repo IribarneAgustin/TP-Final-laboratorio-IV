@@ -103,6 +103,29 @@ class CinemaDAOMySQL implements ICinemaDAO
         }
     }
 
+    public function getCinemaByRoomId($roomId){
+        try {
+            $query = "SELECT cinema.id, cinema.address, cinema.name from room join cinema on room.idCinema = cinema.id where room.id = 1";
+
+            $resultSet = $this->connection->execute('query',$query);
+            $cinema = NULL;
+            foreach ($resultSet as $row) {
+
+                $cinema = new Cinema();
+                $cinema->setId($row["id"]);
+                $cinema->setName($row["name"]);
+                $cinema->setAddress($row["address"]);
+            }
+            return $cinema;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+        
+
+    
+
     public function existsName($name)
     {
         $exists = false;

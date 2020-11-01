@@ -3,7 +3,7 @@ include_once('header.php');
 ?>
 
 <body>
-  <div class="bg">
+  <div class="bg-light-alpha">
     <div class="row">
       <div class="col-md-5 mx-auto">
         <div id="first">
@@ -39,9 +39,13 @@ include_once('header.php');
                 </div>
               </div>
               <div class="form-group">
-                <p class="text-center">Don't have account? <a href="#" id="signup">Sign up here</a></p>
+                <p class="text-center">Don't have account? <a href="<?php echo FRONT_ROOT ?>Home/registerUserView"  id="signup">Sign up here</a></p>
               </div>
             </form>
-
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>

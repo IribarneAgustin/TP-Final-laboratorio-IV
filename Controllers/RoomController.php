@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use DAO\CinemaDAOMySQL;
 use DAO\roomDAO;
 use DAO\RoomDAOMySQL;
 use Models\Room;
@@ -10,10 +11,12 @@ class RoomController
 {
 
     private $roomDAO;
+    private $cinemaDAO;
 
     public function __construct()
     {
         $this->roomDAO = new RoomDAOMySQL();
+        $this->cinemaDAO = new CinemaDAOMySQL();
     }
 
     public function showListByCinemaId($cinemaId, $message = "")
@@ -41,7 +44,11 @@ class RoomController
             $newRoom->setName($name);
             $newRoom->setCapacity($capacity);
             $newRoom->setPrice($price);
-            $this->roomDAO->add($newRoom,$cinemaId);
+
+            $cinema = $this->cinemaDAO->getById($cinemaId);
+
+
+            $this->roomDAO->add($newRoom,$cinema);
             $room = $this->roomDAO->getByName($name);
             $this->showAddView($cinemaId, "Room added succesfully");       
         } else {
