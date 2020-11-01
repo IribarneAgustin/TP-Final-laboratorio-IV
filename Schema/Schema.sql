@@ -82,3 +82,14 @@ CREATE TABLE movieShow
     CONSTRAINT fk_idRoom foreign key (idRoom) references room (id),
     CONSTRAINT fk_idMovie foreign key (idMovie) references movie (id)
 );
+
+CREATE TABLE ticket(
+id int not null PRIMARY KEY auto_increment,
+idUser int not null,
+idMovieShow int not null,
+quantity int not null,
+total int not null,
+
+CONSTRAINT fk_idUser_ticket foreign key (idUser) references user (dni),
+CONSTRAINT fk_idMovieShow_ticket foreign key (idMovieShow) references movieshow (id)
+);

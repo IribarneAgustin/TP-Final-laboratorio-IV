@@ -30,7 +30,7 @@ include('nav-bar.php');
                                 <td> <?php echo $value->getTime(); ?> </td>
                                 <td> <?php echo $value->getTicketsSold(); ?> </td>
                                 <td> <?php echo $value->getRoom()->getName(); ?> </td>
-                                <td> <?php echo $this->cinemasDAO->getById($value->getRoom()->getId())->getName(); ?> </td>
+                                <td> <?php echo $this->cinemasDAO->getCinemaByRoomId($value->getRoom()->getId())->getName(); ?> </td>
                                 <td> <?php echo $value->getMovie()->getTitle(); ?> </td>
                                 <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getMovie()->getImg() . '">' ?> </td>
                                 <td>

@@ -1,9 +1,9 @@
 <?php
 namespace DAO;
 use Models\Room;
+use Models\Cinema as Cinema;
 
-
-class RoomDAOMySQL// implements IRoomDAO
+class RoomDAOMySQL implements IRoomDAO
 {
 
 
@@ -15,12 +15,12 @@ class RoomDAOMySQL// implements IRoomDAO
         $this->connection = new Connection();
     }
 
-    public function add(Room $room, $idCinema)
+    public function add(Room $room, Cinema $cinema)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity, price) VALUES (:idCinema, :name, :capacity, :price);";
 
-            $parameters["idCinema"] = $idCinema;
+            $parameters["idCinema"] = $cinema->getId();
             $parameters["name"] = $room->getName();
             $parameters["capacity"] = $room->getCapacity();
             $parameters["price"] = $room->getPrice();

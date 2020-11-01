@@ -34,6 +34,7 @@ include('nav-bar.php');
                     </div>
                 </div>
             </form>
+
             <table class="table table-striped table-dark">
                 <br>
                 <?php foreach ($moviesList as $movie) { ?>
@@ -63,36 +64,41 @@ include('nav-bar.php');
 
             </table>
             <h3 style="color:white">Available Screening Rooms</h3>
-            <?php foreach ($movieShowList as $show) { ?>
-                <table class="table table-striped table-dark">
-                    <?php if ($movie->getId() == $show->getMovie()->getId()) { ?>
-                        <thead class="thead-dark">
-                            <tr>
-                                <th style="width: 10%;">Cinema</th>
-                                <th style="width: 10%;">Room</th>
-                                <th style="width: 15%;">Date</th>
-                                <th style="width: 15%;">Time</th>
-                                <th style="width: 10%;">Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> <?php echo $this->cinemaDAO->getById($show->getRoom()->getId())->getName(); ?> </td>
-                                <td> <?php echo $show->getRoom()->getName(); ?> </td>
-                                <td> <?php echo $show->getDate();  ?> </td>
-                                <td> <?php echo $show->getTime();  ?> </td>
-                                <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
-                            <?php }  ?>
-                            </tr>
-                        </tbody>
+            <form action="<?php echo FRONT_ROOT ?>Ticket/BuyTicket" method="post">
+                <?php foreach ($movieShowList as $show) { ?>
+                    <table class="table table-striped table-dark">
+                        <?php if ($movie->getId() == $show->getMovie()->getId()) { ?>
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th style="width: 10%;">Cinema</th>
+                                    <th style="width: 10%;">Room</th>
+                                    <th style="width: 15%;">Date</th>
+                                    <th style="width: 15%;">Time</th>
+                                    <th style="width: 10%;">Price</th>
+                                    <th style="width: 10%;">Buy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <?php echo $this->cinemaDAO->getCinemaByRoomId($show->getRoom()->getId())->getName(); ?> </td>
+                                    <td> <?php echo $show->getRoom()->getName(); ?> </td>
+                                    <td> <?php echo $show->getDate();  ?> </td>
+                                    <td> <?php echo $show->getTime();  ?> </td>
+                                    <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
+                                    <td> <button type="submit" class="btn btn-warning" name="movieShowId" value="<?php echo $show->getId(); ?>">BUY TICKET</button>  </td>
+                                <?php }  ?>
+                                </tr>
+                            </tbody>
+                        <?php } ?>
                     <?php } ?>
-                <?php } ?>
-                </table>
-                <?php
-                if (isset($message) && $message != "") {
-                    echo "<div class='alert alert-primary' role='alert'> $message </div>";
-                }
-                ?>
+                    </table>
+            </form>
+
+                    <?php
+                    if (isset($message) && $message != "") {
+                        echo "<div class='alert alert-primary' role='alert'> $message </div>";
+                    }
+                    ?>
         </div>
     </section>
 </main>

@@ -58,7 +58,7 @@ class MovieShowController
 
             $id = $this->roomDAO->getCinemaId($value->getRoom()->getId());
             $t = strtotime($value->getTime());
-            $t2 = strtotime("+15 minutes",$time);
+            $t2 = strtotime($time);
 
             
             if ($value->getDate() == $date && $id == $cinemaId && $t == $t2) {
@@ -79,7 +79,7 @@ class MovieShowController
             //2º valido que el comienzo de una funcion sea 15 minutos despues de la anterior
             if ($this->timeValidation($cinemaId, $date, $time) == true) {
 
-                $newMovieShow = new movieShow();
+                $newMovieShow = new MovieShow();
                 $newMovieShow->setDate($date);
                 $newMovieShow->setTime($time);
                 $newMovieShow->setTicketsSold(0);

@@ -137,23 +137,25 @@ class MovieShowDAO implements IMovieShowDAO
     }
 
 
-
     public function getAll()
     {
         try {
             $movieShowList = array();
 
-            $query = "SELECT * FROM movieshow join movie on movieshow.idmovie = movie.id join room on room.id = movieshow.idRoom";
+            $query = "SELECT ms.id, ms.date, ms.time, ms.ticketsSold, ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
+            r.name, r.capacity, r.price FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom";
             $resultSet = $this->connection->execute('query', $query);
 
             if (!empty($resultSet)) {
                 foreach ($resultSet as $row) {
+
 
                     $movieShow = new MovieShow();
                     $movieShow->setId($row["id"]);
                     $movieShow->setDate($row["date"]);
                     $movieShow->setTime($row["time"]);
                     $movieShow->setTicketsSold($row["ticketsSold"]);
+
 
                     $movie = new Movie();
                     $movie->setId($row["idMovie"]);
@@ -178,6 +180,50 @@ class MovieShowDAO implements IMovieShowDAO
             }
 
             return $movieShowList;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+    public function getById($movieShowId)
+    {
+
+        try {
+            
+            $query = "SELECT ms.id, ms.date, ms.time, ms.ticketsSold, ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
+            r.name, r.capacity, r.price FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom WHERE ms.id = $movieShowId";
+            $resultSet = $this->connection->execute('query', $query);
+            $movieShow = null;
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movieShow = new MovieShow();
+                    $movieShow->setId($row["id"]);
+                    $movieShow->setDate($row["date"]);
+                    $movieShow->setTime($row["time"]);
+                    $movieShow->setTicketsSold($row["ticketsSold"]);
+
+
+                    $movie = new Movie();
+                    $movie->setId($row["idMovie"]);
+                    $movie->setTitle($row["title"]);
+                    $movie->setImg($row["img"]);
+                    $movie->setReleaseDate($row["realeseDate"]);
+                    $movie->setLanguage($row["language"]);
+                    $movie->setOverview($row["overview"]);
+
+                    $room = new Room();
+                    $room->setId($row["idRoom"]);
+                    $room->setName($row["name"]);
+                    $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
+
+                    $movieShow->setMovie($movie);
+                    $movieShow->setRoom($room);
+                }
+            }
+
+            return $movieShow;
         } catch (\PDOException $ex) {
             throw $ex;
         }

@@ -48,11 +48,11 @@ include('nav-bar.php');
                     </div>
                     <div class="col-lg-3">
                         <label for="date" style="color:white">Date</label>
-                        <input name="date" class="form-control" type="date" id="date" value="" required>
+                        <input name="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" type="date" id="date" value="" required>
                     </div>
                     <div class="col-lg-3">
                         <label for="time" style="color:white">Time</label>
-                        <input name="time" class="form-control" type="time" id="time" required>
+                        <input name="time" class="form-control" type="time"  id="time" required>
 
                     </div>
                 </div>
