@@ -18,12 +18,13 @@ class RoomDAOMySQL implements IRoomDAO
     public function add(Room $room, Cinema $cinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity, price) VALUES (:idCinema, :name, :capacity, :price);";
+            $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity, price, status) VALUES (:idCinema, :name, :capacity, :price, :status);";
 
             $parameters["idCinema"] = $cinema->getId();
             $parameters["name"] = $room->getName();
             $parameters["capacity"] = $room->getCapacity();
             $parameters["price"] = $room->getPrice();
+            $parameters["status"] = $room->getStatus();
 
             $this->connection->execute("nonQuery",$query, $parameters);
 
@@ -49,6 +50,8 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
+                    $room->setStatus($row["status"]);
+                    
 
                     array_push($roomList, $room);
                 }
@@ -77,7 +80,7 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
-    
+                    $room->setStatus($row["status"]);
                 }
             }
 
@@ -104,6 +107,7 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setName($row["name"]);
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
+                    $room->setStatus($row["status"]);
     
                 }
             }
@@ -122,8 +126,9 @@ class RoomDAOMySQL implements IRoomDAO
             $name = $modifiedRoom->getName();
             $capacity = $modifiedRoom->getCapacity();
             $price = $modifiedRoom->getPrice();
+            $status = $modifiedRoom->getStatus();
 
-            $query = "UPDATE $this->tableName SET name='$name',capacity= '$capacity',price= '$price' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',capacity= '$capacity',price= '$price', status='$status' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -134,7 +139,7 @@ class RoomDAOMySQL implements IRoomDAO
     public function getRoomsByCinemaId($idCinema)
     {
         try {
-            $query = "SELECT room.id, room.name, room.capacity, room.price FROM room WHERE room.idCinema=$idCinema";
+            $query = "SELECT room.id, room.name, room.capacity, room.price, room.status FROM room WHERE room.idCinema=$idCinema";
 
             $resultSet = $this->connection->execute('query', $query);
 
@@ -148,6 +153,8 @@ class RoomDAOMySQL implements IRoomDAO
                 $room->setName($row["name"]);
                 $room->setCapacity($row["capacity"]);
                 $room->setPrice($row["price"]);
+                $room->setStatus($row["status"]);
+
                 array_push($roomList,$room);
             }
 
@@ -174,15 +181,28 @@ class RoomDAOMySQL implements IRoomDAO
             throw $ex;
         }
     }
-
+    
     public function remove($roomId)
     {
         try {
-            $query = "DELETE FROM " . $this->tableName . " WHERE " . $this->tableName . ".id ='$roomId'";
-            $this->connection->execute('nonQuery',$query);
+            
+            $query = "UPDATE $this->tableName SET status=false WHERE id='$roomId'";
+            $this->connection->execute('nonQuery', $query);
+
         } catch (\PDOException $ex) {
             throw $ex;
         }
+    }
+    public function activate($roomId){
+        try {
+            $status = true;
+            $query = "UPDATE $this->tableName SET status=true WHERE id='$roomId'";
+            $this->connection->execute('nonQuery', $query);
+
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+        
     }
 
 
@@ -199,7 +219,6 @@ class RoomDAOMySQL implements IRoomDAO
                 foreach ($resultSet as $row) {
                     
                     $idCinema = $row['idCinema'];
-
 
                 }
             }

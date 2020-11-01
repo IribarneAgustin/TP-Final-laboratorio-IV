@@ -49,17 +49,4 @@ class MovieController
             }
         }
     }
-/*
-    public function showFilteredList($genreId)
-    {
-        if ($genreId != "") {
-            $moviesList = $this->moviesDAO->getMoviesByGenre($genreId);
-            $genresList = $this->moviesDAO->getGenreList();
-            $key = $this->moviesDAO->getKey();
-            require_once(VIEWS_PATH . "movie-list.php");
-        } else {
-            $this->showList();
-        }
-    }
-*/
 }

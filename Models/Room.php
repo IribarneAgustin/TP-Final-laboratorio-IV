@@ -8,6 +8,7 @@ class Room
     private $name;
     private $price;
     private $capacity;
+    private $status;
 
     public function getId()
     {
@@ -48,5 +49,15 @@ class Room
     {
         $this->price = $price;
 
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

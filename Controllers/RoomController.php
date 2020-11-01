@@ -44,10 +44,8 @@ class RoomController
             $newRoom->setName($name);
             $newRoom->setCapacity($capacity);
             $newRoom->setPrice($price);
-
+            $newRoom->setStatus(true);
             $cinema = $this->cinemaDAO->getById($cinemaId);
-
-
             $this->roomDAO->add($newRoom,$cinema);
             $room = $this->roomDAO->getByName($name);
             $this->showAddView($cinemaId, "Room added succesfully");       
@@ -61,16 +59,18 @@ class RoomController
         $this->roomDAO->remove($roomId);
         $this->showList($message = "Room removed succesfully");
     }
+    public function activate($roomId){
+        $this->roomDAO->activate($roomId);
+        $this->showList("Room actived succesfully");
+    }
 
 
     public function modify($id, $field, $newContent)
     {
 
-        //Validar que no modifique el mismo nombre que las otras salas que estan en el mismo cine
         $toModify = $this->roomDAO->getById($id);
 
         if (isset($toModify)) {
-
             $myMethod = "set" . $field;
             $toModify->$myMethod($newContent);
             $this->roomDAO->update($toModify);

@@ -10,6 +10,7 @@ class MovieShow
     private $ticketsSold;
     private $room;
     private $movie;
+    private $status;
 
     public function getId()
     {
@@ -70,5 +71,16 @@ class MovieShow
     public function setMovie(Movie $movie)
     {
         $this->movie = $movie;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
     }
 }

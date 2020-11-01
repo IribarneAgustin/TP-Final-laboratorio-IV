@@ -8,6 +8,7 @@ class Cinema
     private $id;
     private $name;
     private $address;
+    private $status;
 
     public function __construct()
     {
@@ -46,4 +47,14 @@ class Cinema
     }
 
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+    }
 }

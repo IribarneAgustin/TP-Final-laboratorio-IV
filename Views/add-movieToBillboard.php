@@ -22,9 +22,11 @@ include('nav-bar.php');
                         <label for="cinemaId" style="color:white"> Select Cinema</label>
                         <select name="cinemaId" class="form-control" style="width: 100%;" placeholder="Select Cinema">
                             <?php foreach ($cinemaList as $cinema) { ?>
-                                <?php $cinemaId = $cinema->getId(); ?>
-                                <option name="cinemaId" value="<?php echo $cinemaId ?>" required>
-                                    <?php echo $cinema->getName(); ?></option>
+                                <?php if ($cinema->getStatus() == true) { ?>
+                                    <?php $cinemaId = $cinema->getId(); ?>
+                                    <option name="cinemaId" value="<?php echo $cinemaId ?>" required>
+                                        <?php echo $cinema->getName(); ?></option>
+                                <?php } ?>
                             <?php } ?>
                         </select>
                     </div>

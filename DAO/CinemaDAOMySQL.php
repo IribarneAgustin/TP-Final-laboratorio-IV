@@ -19,12 +19,13 @@ class CinemaDAOMySQL implements ICinemaDAO
     public function add(Cinema $cinema)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (name, address) VALUES (:name, :address);";
+            $query = "INSERT INTO " . $this->tableName . " (name, address, status) VALUES (:name, :address, :status);";
 
             $parameters["name"] = $cinema->getName();
             $parameters["address"] = $cinema->getAddress();
+            $parameters["status"] = $cinema->getStatus();
 
-            $this->connection->execute("nonQuery",$query, $parameters);
+            $this->connection->execute("nonQuery", $query, $parameters);
         } catch (\PDOException $ex) {
             throw $ex;
         }
@@ -37,8 +38,9 @@ class CinemaDAOMySQL implements ICinemaDAO
             $name = $modifiedCinema->getName();
             $address = $modifiedCinema->getAddress();
             $id = $modifiedCinema->getId();
+            $status = $modifiedCinema->getStatus();
 
-            $query = "UPDATE $this->tableName SET name='$name',address= '$address' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',address= '$address', status='$status' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -48,11 +50,24 @@ class CinemaDAOMySQL implements ICinemaDAO
     public function remove($cinemaId)
     {
         try {
-            $query = "DELETE FROM " . $this->tableName . " WHERE " . $this->tableName . ".id ='$cinemaId'";
-            $this->connection->execute('nonQuery',$query);
+            
+            $query = "UPDATE $this->tableName SET status=false WHERE id='$cinemaId'";
+            $this->connection->execute('nonQuery', $query);
+
         } catch (\PDOException $ex) {
             throw $ex;
         }
+    }
+    public function activate($cinemaId){
+        try {
+            $status = true;
+            $query = "UPDATE $this->tableName SET status=true WHERE id='$cinemaId'";
+            $this->connection->execute('nonQuery', $query);
+
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+        
     }
 
     public function getAll()
@@ -62,7 +77,7 @@ class CinemaDAOMySQL implements ICinemaDAO
 
             $query = "SELECT * FROM " . $this->tableName;
 
-            $resultSet = $this->connection->execute('query',$query);
+            $resultSet = $this->connection->execute('query', $query);
 
             if (!empty($resultSet)) {
                 foreach ($resultSet as $row) {
@@ -71,6 +86,7 @@ class CinemaDAOMySQL implements ICinemaDAO
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["name"]);
                     $cinema->setAddress($row["address"]);
+                    $cinema->setStatus($row["status"]);
 
                     array_push($cinemaList, $cinema);
                 }
@@ -88,7 +104,7 @@ class CinemaDAOMySQL implements ICinemaDAO
         try {
             $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".id ='$idCinema'";
 
-            $resultSet = $this->connection->execute('query',$query);
+            $resultSet = $this->connection->execute('query', $query);
             $cinema = NULL;
             foreach ($resultSet as $row) {
 
@@ -96,6 +112,7 @@ class CinemaDAOMySQL implements ICinemaDAO
                 $cinema->setId($row["id"]);
                 $cinema->setName($row["name"]);
                 $cinema->setAddress($row["address"]);
+                $cinema->setStatus($row["status"]);
             }
             return $cinema;
         } catch (\PDOException $ex) {
@@ -103,11 +120,12 @@ class CinemaDAOMySQL implements ICinemaDAO
         }
     }
 
-    public function getCinemaByRoomId($roomId){
+    public function getCinemaByRoomId($roomId)
+    {
         try {
-            $query = "SELECT cinema.id, cinema.address, cinema.name from room join cinema on room.idCinema = cinema.id where room.id = 1";
+            $query = "SELECT cinema.id, cinema.address, cinema.name, cinema.status from room join cinema on room.idCinema = cinema.id where room.id = 1";
 
-            $resultSet = $this->connection->execute('query',$query);
+            $resultSet = $this->connection->execute('query', $query);
             $cinema = NULL;
             foreach ($resultSet as $row) {
 
@@ -115,6 +133,7 @@ class CinemaDAOMySQL implements ICinemaDAO
                 $cinema->setId($row["id"]);
                 $cinema->setName($row["name"]);
                 $cinema->setAddress($row["address"]);
+                $cinema->setStatus($row["status"]);
             }
             return $cinema;
         } catch (\PDOException $ex) {
@@ -122,9 +141,6 @@ class CinemaDAOMySQL implements ICinemaDAO
         }
     }
 
-        
-
-    
 
     public function existsName($name)
     {
@@ -133,7 +149,7 @@ class CinemaDAOMySQL implements ICinemaDAO
         try {
             $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".name ='$name'";
 
-            $resultSet = $this->connection->execute('query',$query);
+            $resultSet = $this->connection->execute('query', $query);
 
             if (!empty($resultSet)) {
                 $exists = true;
