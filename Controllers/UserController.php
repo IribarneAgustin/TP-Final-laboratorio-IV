@@ -9,6 +9,7 @@ use Models\User;
 class UserController
 {
     private $userDAO;
+    private $home;
 
     public function __construct()
     {
@@ -20,18 +21,24 @@ class UserController
     {
         try{
             if (!isset($_SESSION)) {
-                session_start();
+                session_start();    
+            }
+            else{
+                session_unset();
             }
         }catch (Exception $ex) {
             throw $ex;
         }
-
         $user = $this->userDAO->getByUsername($username);
         if ($user!=null){
             if($user->getPassword() === $password) {
                 $_SESSION['user'] = $user;
             }
         }
+        else{
+            session_destroy();
+        }
+        
        
         $this->home->index();
     }
@@ -66,14 +73,13 @@ class UserController
     public function logout(){
 
         try{
-            if (!isset($_SESSION)) {
-                session_destroy();
+            if (isset($_SESSION)) {
                 session_unset();
+                session_destroy();
             }
         }catch (Exception $ex) {
             throw $ex;
         }
-
        $this->home->index();
     }
 }

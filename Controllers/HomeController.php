@@ -5,15 +5,9 @@ namespace Controllers;
 class HomeController
 {
 
-    public function construct()
+    public function __construct()
     {
-        try{
-            if (!isset($_SESSION)) {
-                session_start();
-              }
-        }catch (Exception $ex) {
-            throw $ex;
-       }
+        
     }
 
     public function index()

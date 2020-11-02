@@ -14,7 +14,7 @@ include_once('header.php');
                                 <h1 style="color:white">Login</h1>
                             </div>
                         </div>
-                        <form action="<?php echo FRONT_ROOT ?>User/login" method="get">
+                        <form action="<?php echo FRONT_ROOT ?>User/login" method="post">
                             <div class="form-group">
                                 <label for="exampleInputUsername" style="color:white">Username</label>
                                 <input type="username" name="username" class="form-control" id="username"

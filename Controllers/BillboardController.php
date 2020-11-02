@@ -6,6 +6,7 @@ use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
 use DAO\MoviesDAOMySQL;
 use DAO\MovieShowDAO;
+use Controllers\HomeController; 
 
 
 class BillboardController
@@ -15,13 +16,17 @@ class BillboardController
     private $cinemaDAO;
     private $movieshowDAO;
 
-
-
     public function __construct()
     {
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieshowDAO = new MovieShowDAO();
+        $this->home = new HomeController();
+        try{
+            session_start();   
+            }catch (Exception $ex) {
+                throw $ex;
+        }
     }
 
     public function showFilteredListByDate($date){
@@ -79,10 +84,15 @@ class BillboardController
 
     public function showAddView()
     {
-        $genresList = $this->moviesDAOMySQL->getGenreList();
-        $moviesList = $this->moviesDAOMySQL->getAll();
-        $cinemaList = $this->cinemaDAO->getAll();
-        require_once(VIEWS_PATH . "add-movieToBillboard.php");
+        if ($_SESSION['user']->getRole() === 'admin')
+        {
+            $genresList = $this->moviesDAOMySQL->getGenreList();
+            $moviesList = $this->moviesDAOMySQL->getAll();
+            $cinemaList = $this->cinemaDAO->getAll();
+            require_once(VIEWS_PATH . "add-movieToBillboard.php");
+        }else {
+            $this->home->index();
+        }  
     }
 
 
