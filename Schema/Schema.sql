@@ -29,25 +29,23 @@ CREATE TABLE genre
 
 create table genresXmovie
 (
-id int not null auto_increment PRIMARY KEY,
-idGenre int not null,
-idMovie int not null,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idGenre int not null,
+    idMovie int not null,
 
-constraint fk_idGenre_gxm foreign key (idGenre) references genre (id),
-constraint fk_idMovie_gxm foreign key (idMovie) references movie (id)
+    constraint fk_idGenre_gxm foreign key (idGenre) references genre (id),
+    constraint fk_idMovie_gxm foreign key (idMovie) references movie (id)
 
 );
 
 
 CREATE TABLE user
 (
-    dni INT NOT NULL PRIMARY KEY,
-    userName VARCHAR(20) NOT NULL,
-    firstName VARCHAR(20) NOT NULL,
-    lastName VARCHAR(20) NOT NULL,
-    sex VARCHAR(10) NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(20) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    pass VARCHAR(10) NOT NULL
+    password VARCHAR(10) NOT NULL,
+    role VARCHAR(15) NOT NULL,
 );
 
 CREATE TABLE room
@@ -63,7 +61,7 @@ CREATE TABLE room
 
 CREATE TABLE movieShow
 (
-    id INT NOT NULL PRIMARY KEY auto_increment,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idRoom INT NOT NULL,
     idMovie INT NOT NULL,
     date VARCHAR(100) NOT NULL,
@@ -75,12 +73,12 @@ CREATE TABLE movieShow
 );
 
 CREATE TABLE ticket(
-id int not null PRIMARY KEY auto_increment,
-idUser int not null,
-idMovieShow int not null,
-quantity int not null,
-total int not null,
-status boolean not null,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idUser int not null,
+    idMovieShow int not null,
+    quantity int not null,
+    total int not null,
+    status boolean not null,
 
 CONSTRAINT fk_idUser_ticket foreign key (idUser) references user (dni),
 CONSTRAINT fk_idMovieShow_ticket foreign key (idMovieShow) references movieshow (id)

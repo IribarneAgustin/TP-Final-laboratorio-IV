@@ -77,7 +77,6 @@ class BillboardController
         }
     }
 
-
     public function showAddView()
     {
         $genresList = $this->moviesDAOMySQL->getGenreList();

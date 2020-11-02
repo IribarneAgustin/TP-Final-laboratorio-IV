@@ -4,36 +4,22 @@ namespace Models;
 
 class User{
 
-    private $dni;
-    private $firstName;
-    private $lastName;
+    private $id;
     private $userName;
-    private $sex;
     private $email;
     private $password;
+    private $role;
 
     public function __construct(){}
 
-    
-
-    public function getDni()
+    public function getId()
     {
-        return $this->dni;
+        return $this->getId;
     }
 
-    public function setDni($dni)
+    public function setId()
     {
-        $this->dni = $dni;
-    }
-
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
+        $this->id = $id;
     }
 
     public function getUserName()
@@ -41,32 +27,9 @@ class User{
         return $this->userName;
     }
 
-
     public function setUserName($userName)
     {
         $this->userName = $userName;
-
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function getSex()
-    {
-        return $this->sex;
-    }
-
-
-    public function setSex($sex)
-    {
-        $this->sex = $sex;
 
     }
 
@@ -81,7 +44,6 @@ class User{
 
     }
 
-
     public function getPassword()
     {
         return $this->password;
@@ -90,6 +52,17 @@ class User{
     public function setPassword($password)
     {
         $this->password = $password;
+
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
 
     }
 }

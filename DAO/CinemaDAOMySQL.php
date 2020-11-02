@@ -20,7 +20,6 @@ class CinemaDAOMySQL implements ICinemaDAO
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (name, address, status) VALUES (:name, :address, :status);";
-
             $parameters["name"] = $cinema->getName();
             $parameters["address"] = $cinema->getAddress();
             $parameters["status"] = $cinema->getStatus();

@@ -56,6 +56,7 @@ include('nav-bar.php');
             <select name="field" class="form-control" placeholder="field">
               <option value="name">Name</option>
               <option value="address">Address</option>
+              <option value="name">Status</option>
             </select>
           </div>
           <div class="col">
@@ -66,7 +67,8 @@ include('nav-bar.php');
           </div>
         </div>
       </form>
-      <form action="<?php echo FRONT_ROOT ?>Cinema/activate" method="post" class="bg-light-alpha">
+      <br>
+      <form action="<?php echo FRONT_ROOT ?>Cinema/activate" method="post">
         <table class="table table-striped table-dark">
           <thead class="thead-dark">
             <tr>

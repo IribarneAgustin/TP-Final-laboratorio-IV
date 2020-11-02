@@ -114,7 +114,7 @@ class MovieShowDAO implements IMovieShowDAO
         try {
             $movieList = array();
 
-            $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie join movieShow on movieshow.idmovie = movie.id";
+            $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie join movieShow on movieshow.idmovie = movie.id WHERE movieshow.status = true";
             $resultSet = $this->connection->execute('query', $query);
 
             if (!empty($resultSet)) {

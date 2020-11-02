@@ -48,7 +48,7 @@ class CinemaController
 
     public function activate($cinemaId){
         $this->cinemaDAO->activate($cinemaId);
-        $this->showList("Cinema actived succesfully");
+        $this->showList("Cinema activated succesfully");
 
     }
 

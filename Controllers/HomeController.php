@@ -8,7 +8,7 @@ class HomeController
 
     public function construct()
     {
-        //   $this->userDAO = new UserDAO();
+        $this->userDAO = new UserDAO();
     }
 
     public function Index()

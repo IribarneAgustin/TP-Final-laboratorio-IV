@@ -88,10 +88,10 @@ class MovieShowController
                 $this->showList("Movie show added succesfully");
             } else {
 
-                $this->showList("The hour should be 15 minutes before the last show");
+                $this->showList("Time must be 15 minutes after last show");
             }
         } else {
-            $this->showList("The movie is already in a cinema for this day");
+            $this->showList("Movie is already in a cinema for this day");
         }
     }
 
@@ -100,7 +100,7 @@ class MovieShowController
     {
         $movieShowList = $this->movieShowDAO->getAll();
         $cinemaList = $this->cinemasDAO->getAll();
-        require_once(VIEWS_PATH . "billboard-admin.php");
+        require_once(VIEWS_PATH . "movieShow-admin.php");
     }
 
        

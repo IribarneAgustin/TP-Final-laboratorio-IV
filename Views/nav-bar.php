@@ -14,7 +14,7 @@
                <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Billboard/showAddView">Add to billboard</a>
           </li>
           <li class="nav-item">
-               <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>MovieShow/showList">Billboard admin</a>
+               <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>MovieShow/showList">Movie Show Admin</a>
           </li>
           <li class="nav-item">
                <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Billboard/showList">Billboard</a>
