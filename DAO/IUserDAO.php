@@ -1,13 +1,13 @@
 <?php
-namespace DAO;
+    namespace DAO;
 
-use Models\User as User;
+    use Models\User;
 
-interface IUserDAO{
+    interface IUserDAO{
     
-    function add(User $user);
-    function getAll();
-    function remove($userId);
-    function update(User $modifiedUser);
+        function add(User $user);
+        function getAll();
+        function remove($userId);
+        function update(User $modifiedUser);
 
 }

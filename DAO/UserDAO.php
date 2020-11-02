@@ -2,8 +2,8 @@
 
 namespace DAO;
 
-use Models\User;
-
+use Models\User as User;
+use DAO\IUserDAO as IUserDAO;
 
 class UserDAO implements IUserDAO
 {
@@ -20,12 +20,13 @@ class UserDAO implements IUserDAO
     {
         try {
 
-            $sql = "INSERT INTO user (username, email, password, role) VALUES (:username, :email, :password, :role)";
-            $parameters['username'] = $object->getUsername();
-            $parameters['email'] = $object->getEmail();
-            $parameters['password'] = $object->getPassword();
-            $parameters['role'] = $object->getRole();
-            $this->connection->execute("nonQuery", $query, $parameters);
+            $query = "INSERT INTO " . $this->tableName . " (username, email, password, role) VALUES (:username, :email, :password, :role)";
+            $parameters['username'] = $user->getUsername();
+            $parameters['email'] = $user->getEmail();
+            $parameters['password'] = $user->getPassword();
+            $parameters['role'] = $user->getRole();
+
+           $this->connection->execute("nonQuery", $query, $parameters);
 
         } catch (\PDOException $ex) {
             throw $ex;

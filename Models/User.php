@@ -10,16 +10,18 @@ class User{
     private $password;
     private $role;
 
-    public function __construct(){}
+    public function __construct(){
+
+    }
 
     public function getId()
     {
-        return $this->getId;
-    }
-
-    public function setId()
+        return $this->id;
+    } 
+    public function setId($id)
     {
         $this->id = $id;
+
     }
 
     public function getUserName()

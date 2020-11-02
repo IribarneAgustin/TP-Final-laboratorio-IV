@@ -14,29 +14,35 @@ include_once('header.php');
                                 <h1 style="color:white">Login</h1>
                             </div>
                         </div>
-                        <form action="<?php echo FRONT_ROOT ?>Home/login" method="post">
+                        <form action="<?php echo FRONT_ROOT ?>User/login" method="get">
                             <div class="form-group">
-                                <label for="exampleInputEmail1" style="color:white">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="exampleInputUsername" style="color:white">Username</label>
+                                <input type="username" name="username" class="form-control" id="username"
+                                    placeholder="Enter username">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1" style="color:white">Password</label>
-                                <input type="password" name="password" id="password" class="form-control"
-                                    aria-describedby="emailHelp" placeholder="Enter Password">
+                                <label for="exampleInputPassword" style="color:white">Password</label>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Enter password">
                             </div>
                             <div class="col-md-12 text-center ">
                                 <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                             </div>
+                        </form>
                     </div>
                     <br>
                     <div class="form-group">
                         <p class="text-center" style="color:white">Don't have account? <a
-                                href="<?php echo FRONT_ROOT ?>Home/registerUserView" id="signup"> Sign up
+                                href="<?php echo FRONT_ROOT ?>User/showSignupView" id="signup"> Sign up
                                 here</a></p>
                     </div>
                     </form>
                 </div>
+                <?php
+                        if (isset($message) && $message != "") {
+                            echo "<div class='alert alert-primary' role='alert'> $message </div>";
+                        }
+                        ?>
             </div>
         </div>
     </div>
