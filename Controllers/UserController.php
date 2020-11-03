@@ -81,6 +81,10 @@ class UserController
         }catch (Exception $ex) {
             throw $ex;
         }
-       $this->home->index();
+        $this->Message("Logged out", FRONT_ROOT."index.php");
+    }
+
+    public function Message($message,$location){
+        require_once(VIEWS_PATH."message.php");
     }
 }

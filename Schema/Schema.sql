@@ -45,7 +45,7 @@ CREATE TABLE user
     username VARCHAR(20) NOT NULL,
     email VARCHAR(30) NOT NULL,
     password VARCHAR(10) NOT NULL,
-    role VARCHAR(15) NOT NULL,
+    role VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE room

@@ -21,7 +21,7 @@ class BillboardController
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieshowDAO = new MovieShowDAO();
-        $this->home = new HomeController();
+        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {
@@ -84,15 +84,12 @@ class BillboardController
 
     public function showAddView()
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $genresList = $this->moviesDAOMySQL->getGenreList();
             $moviesList = $this->moviesDAOMySQL->getAll();
             $cinemaList = $this->cinemaDAO->getAll();
             require_once(VIEWS_PATH . "add-movieToBillboard.php");
-        }else {
-            $this->home->index();
-        }  
+    
     }
 
 

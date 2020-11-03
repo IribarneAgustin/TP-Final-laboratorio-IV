@@ -17,7 +17,7 @@ class MovieController
     {
         $this->moviesDAO = new MoviesDAO();
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
-        $this->home = new HomeController();
+        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {
@@ -27,15 +27,12 @@ class MovieController
 
     public function showList()
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $moviesList = $this->moviesDAO->getAll();
             $genresList = $this->moviesDAO->getGenreList();
             $key = $this->moviesDAO->getKey();
             require_once(VIEWS_PATH . "movie-list.php");
-        }else {
-            $this->home->index();
-        }   
+        
     }
     public function addAll()
     {

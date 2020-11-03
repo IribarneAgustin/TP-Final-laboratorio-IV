@@ -8,7 +8,7 @@ use DAO\MovieShowDAO;
 use DAO\MovieShowDAOMySQL;
 use DAO\RoomDAOMySQL;
 use Models\MovieShow;
-use Controllers\HomeController; 
+//use Controllers\HomeController; 
 
 class MovieShowController
 {
@@ -34,20 +34,16 @@ class MovieShowController
 
     public function addView($movieId, $cinemaId)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $movie = $this->moviesDAO->getById($movieId);
             $roomList = $this->roomDAO->getRoomsByCinemaId($cinemaId);
             require_once(VIEWS_PATH . "add-movieShow.php");
-        }else {
-            $this->home->index();
-        }
+        
     }
 
     public function dateAndCinemaValidation($movieId, $date)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $movieShowList = $this->movieShowDAO->getAll();
             $flag = true;
 
@@ -58,15 +54,12 @@ class MovieShowController
                 }
             }
             return $flag;
-        }else {
-            $this->home->index();
-        }
+        
     }
 
     public function timeValidation($cinemaId, $date, $time)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $movieShowList = $this->movieShowDAO->getAll();
             $flag = true;
 
@@ -82,16 +75,13 @@ class MovieShowController
                 }
             }
             return $flag;
-        }else {
-            $this->home->index();
-        }
+       
     }
 
 
     public function add($movieId, $roomId, $date, $time)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $cinemaId = $this->roomDAO->getCinemaId($roomId);
 
             //1º valido que la película solo pueda ser proyectada en un único cine por día
@@ -114,34 +104,26 @@ class MovieShowController
             } else {
                 $this->showList("Movie is already in a cinema for this day");
             }
-        }else {
-            $this->home->index();
-        }
+       
     }
 
 
     public function showList($message = '')
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $movieShowList = $this->movieShowDAO->getAll();
             $cinemaList = $this->cinemasDAO->getAll();
             require_once(VIEWS_PATH . "movieShow-admin.php");
-        }else {
-            $this->home->index();
-        }
+       
     }
 
        
     public function remove($movieShowId)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $this->movieShowDAO->remove($movieShowId);
             $this->showList($message = "Movie Show removed succesfully");
-        }else {
-            $this->home->index();
-        }
+       
     }
 
 }

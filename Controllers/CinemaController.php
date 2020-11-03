@@ -17,7 +17,7 @@ class CinemaController
     public function __construct()
     {
         $this->cinemaDAO = new CinemaDAOMySQL();
-        $this->home = new HomeController();
+        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {
@@ -27,29 +27,22 @@ class CinemaController
 
     public function showList($message = "")
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $cinemaList = $this->cinemaDAO->getAll();
             require_once(VIEWS_PATH . "cinema-list.php");
-        }else {
-            $this->home->index();
-        }  
+       
     }
 
     public function showAddView($message = "")
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             require_once(VIEWS_PATH . "add-cinema.php");
-        }else {
-            $this->home->index();
-        }  
+       
     }
 
     public function add($name, $address)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             if ($this->cinemaDAO->existsName($name) == false) {
 
                 $newCinema = new Cinema();
@@ -61,37 +54,28 @@ class CinemaController
             } else {
                 $this->showAddView($message = "Name already in use");
             }
-        }else {
-            $this->home->index();
-        }  
+        
     }
 
     public function activate($cinemaId){
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $this->cinemaDAO->activate($cinemaId);
             $this->showList("Cinema activated succesfully");
-        }else {
-            $this->home->index();
-        }  
+       
     }
 
     public function remove($cinemaId)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $this->cinemaDAO->remove($cinemaId);
             $this->showList($message = "Cinema removed succesfully");
-        }else {
-            $this->home->index();
-        }  
+       
     }
 
 
     public function modify($id, $field, $newContent)
     {
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             $toModify = $this->cinemaDAO->getById($id);
 
             if ($field == "name" && $this->cinemaDAO->existsName($newContent) == true) {
@@ -109,20 +93,15 @@ class CinemaController
 
                 $this->showList($message = "Cinema modified succesfully");
             }
-        }else {
-            $this->home->index();
-        }  
+        
     }
 
 
     public function showRoomList($message=''){
 
-        if ($_SESSION['user']->getRole() === 'admin')
-        {
+            require_once(VIEWS_PATH."validate-session-admin.php");
             require_once(VIEWS_PATH . "room-list.php");
-        }else {
-            $this->home->index();
-        } 
+       
     }
 
 }
