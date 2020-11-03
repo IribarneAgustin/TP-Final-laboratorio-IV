@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Controllers\HomeController; 
 use DAO\UserDAO;
 use Models\User;
 use \Exception as Exception;
@@ -10,12 +9,10 @@ use \Exception as Exception;
 class UserController
 {
     private $userDAO;
-    private $home;
 
     public function __construct()
     {
         $this->userDAO = new UserDAO();
-        $this->home = new HomeController();
     }
 
     public function login($username, $password)
@@ -37,11 +34,10 @@ class UserController
             }
         }
         else{
-            session_destroy();
+            $this->showLoginView("Username or password are incorrect");
         }
-        
        
-        $this->home->index();
+        $this->index();
     }
 
     public function showLoginView($message = "")
@@ -74,17 +70,29 @@ class UserController
     public function logout(){
 
         try{
+            if (!isset($_SESSION)) {
+                session_start();
+            }
             if (isset($_SESSION)) {
-                session_unset();
                 session_destroy();
+                session_unset();
             }
         }catch (Exception $ex) {
             throw $ex;
         }
-        $this->Message("Logged out", FRONT_ROOT."index.php");
+        $this->message("Logged out", FRONT_ROOT."index.php");
     }
 
-    public function Message($message,$location){
+    public function index()
+    {
+        if (isset($_SESSION['user'])) {
+            require(VIEWS_PATH . 'userHome.php');
+        } else {
+            require_once(VIEWS_PATH . "login.php");
+        }
+    }
+
+    public function message($message,$location){
         require_once(VIEWS_PATH."message.php");
     }
 }

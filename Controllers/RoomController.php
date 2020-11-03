@@ -6,20 +6,17 @@ use DAO\CinemaDAOMySQL;
 use DAO\roomDAO;
 use DAO\RoomDAOMySQL;
 use Models\Room;
-use Controllers\HomeController; 
 
 class RoomController
 {
 
     private $roomDAO;
     private $cinemaDAO;
-    //private $home;
 
     public function __construct()
     {
         $this->roomDAO = new RoomDAOMySQL();
         $this->cinemaDAO = new CinemaDAOMySQL();
-        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {

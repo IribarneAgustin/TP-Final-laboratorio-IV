@@ -5,19 +5,16 @@ namespace Controllers;
 use DAO\CinemaDAOJson;
 use DAO\CinemaDAOMySQL;
 use Models\Cinema;
-use Controllers\HomeController; 
 use \Exception as Exception;
 
 class CinemaController
 {
 
     private $cinemaDAO;
-    private $home;
 
     public function __construct()
     {
         $this->cinemaDAO = new CinemaDAOMySQL();
-        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {

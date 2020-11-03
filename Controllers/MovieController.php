@@ -4,20 +4,17 @@ namespace Controllers;
 
 use DAO\MoviesDAO;
 use DAO\MoviesDAOMySQL;
-use Controllers\HomeController; 
 
 class MovieController
 {
 
     private $moviesDAO;
     private $moviesDAOMySQL;
-    private $home;
 
     public function __construct()
     {
         $this->moviesDAO = new MoviesDAO();
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
-        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {

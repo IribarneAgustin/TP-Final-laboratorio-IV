@@ -6,7 +6,6 @@ use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAO;
 use DAO\MoviesDAOMySQL;
 use DAO\MovieShowDAO;
-use Controllers\HomeController; 
 use \Exception as Exception;
 
 class BillboardController
@@ -21,7 +20,6 @@ class BillboardController
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieshowDAO = new MovieShowDAO();
-        //$this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {

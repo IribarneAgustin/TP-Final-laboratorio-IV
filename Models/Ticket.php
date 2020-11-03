@@ -7,8 +7,8 @@ class Ticket
     private $id;
     private $quantity;
     private $total;
-    private User $user;
-    private MovieShow $movieShow;
+    private $user;
+    private $movieShow;
     private $status;
 
     public function __construct()
