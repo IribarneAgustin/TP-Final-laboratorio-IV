@@ -176,4 +176,32 @@ class MoviesDAOMySQL implements IMoviesDAO
             throw $ex;
         }
     }
+
+    public function getById($id){
+        try {
+
+            $movie = null;
+
+            $query = "SELECT * FROM " . $this->tableName. " WHERE id=$id";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute('query', $query);
+
+            foreach ($resultSet as $row) {
+                $movie = new Movie();
+                $movie->setId($row["id"]);
+                $movie->setTitle($row["title"]);
+                $movie->setImg($row["img"]);
+                $movie->setReleaseDate($row["realeseDate"]);
+                $movie->setLanguage($row["language"]);
+                $movie->setOverview($row["overview"]);
+
+            }
+
+            return $movie;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 }

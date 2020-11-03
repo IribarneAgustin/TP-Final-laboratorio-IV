@@ -62,7 +62,7 @@ include('nav-bar.php');
                         <td></td>
                 </tbody>
 
-                <form action="<?php echo FRONT_ROOT ?>Ticket/BuyTicket" method="post">
+                <form action="<?php echo FRONT_ROOT ?>Ticket/buyTicketView" method="post">
                     <?php foreach ($movieShowList as $show) { ?>
                     <?php if ($movie->getId() == $show->getMovie()->getId() && $show->getStatus() == true) { ?>
                     <thead class="thead-dark">

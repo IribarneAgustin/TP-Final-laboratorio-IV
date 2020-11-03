@@ -234,4 +234,19 @@ class MovieShowDAO implements IMovieShowDAO
             throw $ex;
         }
     }
+
+    public function updateTicketsSold(MovieShow $modifiedMovieShow){
+
+        try {
+            
+            $id = $modifiedMovieShow->getId();
+            $ticketsSold = $modifiedMovieShow->getTicketsSold();
+            
+            $query = "UPDATE $this->tableName SET ticketsSold='$ticketsSold' WHERE id='$id'";
+            $this->connection->execute('nonQuery', $query);
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+
+    }
 }

@@ -6,6 +6,7 @@ use DAO\CinemaDAOJson;
 use DAO\CinemaDAOMySQL;
 use Models\Cinema;
 use Controllers\HomeController; 
+use \Exception as Exception;
 
 class CinemaController
 {

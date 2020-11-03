@@ -7,7 +7,7 @@ use DAO\MoviesDAO;
 use DAO\MoviesDAOMySQL;
 use DAO\MovieShowDAO;
 use Controllers\HomeController; 
-
+use \Exception as Exception;
 
 class BillboardController
 {

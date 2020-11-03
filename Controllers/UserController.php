@@ -5,6 +5,7 @@ namespace Controllers;
 use Controllers\HomeController; 
 use DAO\UserDAO;
 use Models\User;
+use \Exception as Exception;
 
 class UserController
 {
