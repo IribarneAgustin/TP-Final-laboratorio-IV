@@ -21,12 +21,13 @@ class TicketDAO implements ITicketDAO
     public function add(Ticket $ticket)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (idUser, idMovieShow, quantity, total) VALUES (:idUser, :idMovieShow, :quantity, :total);";
+            $query = "INSERT INTO " . $this->tableName . " (idUser, idMovieShow, quantity, total, status) VALUES (:idUser, :idMovieShow, :quantity, :total, :status);";
 
-            $parameters["idUser"] = $ticket->getUser()->getDni();
+            $parameters["idUser"] = $ticket->getUser()->getId();
             $parameters["idMovieShow"] = $ticket->getMovieShow()->getId();
             $parameters["quantity"] = $ticket->getQuantity();
             $parameters["total"] = $ticket->getTotal();
+            $parameters["status"] = $ticket->getStatus();
 
             $this->connection->execute("nonQuery", $query, $parameters);
         } catch (\PDOException $ex) {

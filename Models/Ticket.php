@@ -9,6 +9,7 @@ class Ticket
     private $total;
     private User $user;
     private MovieShow $movieShow;
+    private $status;
 
     public function __construct()
     {        
@@ -67,6 +68,18 @@ class Ticket
     public function setUser($user)
     {
         $this->user = $user;
+
+    }
+
+ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+ 
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
     }
 }
