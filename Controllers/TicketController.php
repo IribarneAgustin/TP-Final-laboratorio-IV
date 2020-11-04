@@ -88,9 +88,6 @@ class TicketController
 
     public function showShoppingCart($message = '')
     {
-        if (!isset($_SESSION['user'])) {
-            session_start();
-        }
 
         $ticketToPayList = array();
         $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
