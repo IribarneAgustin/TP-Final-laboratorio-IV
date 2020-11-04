@@ -4,8 +4,7 @@ namespace Controllers;
 
 use DAO\CinemaDAOJson;
 use DAO\CinemaDAOMySQL;
-use Models\Cinema;
-use Controllers\HomeController; 
+use Models\Cinema; 
 use \Exception as Exception;
 
 class CinemaController

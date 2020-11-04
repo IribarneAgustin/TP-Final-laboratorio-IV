@@ -26,7 +26,10 @@
         </li>
         <?php } ?>
         <li class="nav-item">
-            <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Billboard/showList">Billboard</a>
+            <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?	>Billboard/showList">Billboard</a>
+        </li>
+	<li class="nav-item">
+            <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?	>Ticket/showShoppingCart">Shopping Cart</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>User/logout">Logout</a>
