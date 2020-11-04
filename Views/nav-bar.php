@@ -23,5 +23,8 @@
         <li class="nav-item">
             <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>User/logout">Logout</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Ticket/showShoppingCart">Shopping Cart</a>
+        </li>
     </ul>
 </nav>
