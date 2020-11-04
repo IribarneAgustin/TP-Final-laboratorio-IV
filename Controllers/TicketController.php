@@ -36,7 +36,7 @@ class TicketController
         require_once(VIEWS_PATH . "buy-ticket.php");
     }
 
-    public function generateTicket($movieShowId, $quantity)
+    public function processPurchase($movieShowId, $quantity)
     {
 
         $movieShow = $this->movieshowDAO->getById($movieShowId);
@@ -49,23 +49,62 @@ class TicketController
         $ticket->setTotal($total);
         $ticket->setMovieShow($movieShow);
         $ticket->setQuantity($quantity);
-        $ticket->setStatus(true);
+        $ticket->setStatus(0);
 
+        //Valido la capacidad segun las entradas solicitadas
         if ($this->validateCapacity($movieShow, $ticket->getQuantity())) {
-            //Mostrar total y pedir datos de tarjeta
-            //$this->add($ticket,$movieShow);
 
+            //Guardo temporalmente la posible compra en sesion.
+            $_SESSION['purchase'] = $ticket;
+
+            //Muestro total
+            $this->showTotal($movieShow, $ticket);
         } else {
             $this->buyTicketView($movieShow->getId(), "Tickets sold out!");
         }
     }
 
-    public function validationCard(Ticket $ticket,MovieShow $movieShow)
+    public function showTotal(MovieShow $movieShow, Ticket $ticket)
     {
-        
-
-
+        require_once(VIEWS_PATH . "addToCartView.php");
     }
+
+    public function addToCart($confirm = 0)
+    {
+        //Si el usuario la confirma, la guardo en base de datos
+        if ($confirm == 1) {
+
+            session_start();
+            $ticket = $_SESSION['purchase'];
+            $this->add($ticket);
+            $this->showShoppingCart("Movie show added succesfully");
+        } else {
+            $_SESSION['purchase'] = null;
+            require_once(VIEWS_PATH . "userHome.php");
+        }
+    }
+
+    public function showShoppingCart($message = '')
+    {
+        if (!isset($_SESSION['user'])) {
+            session_start();
+        }
+
+        $ticketToPayList = array();
+        $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
+        foreach ($ticketList as $value) {
+            if ($value->getStatus() == false) {
+                array_push($ticketToPayList, $value);
+            }
+        }
+        require_once(VIEWS_PATH . "shoppingCart.php");
+    }
+
+    public function validateCard()
+    {
+        require_once(VIEWS_PATH . "validation-card.php");
+    }
+
 
     public function validateCapacity(MovieShow $movieShow, $quantity)
     {
@@ -82,11 +121,11 @@ class TicketController
         return $capacity;
     }
 
-    public function add(Ticket $ticket, MovieShow $movieShow)
+    public function add(Ticket $ticket)
     {
+        $movieShow = $ticket->getMovieShow();
         $this->ticketDAO->add($ticket);
         $movieShow->setTicketsSold($movieShow->getTicketsSold() + $ticket->getQuantity());
         $this->movieshowDAO->updateTicketsSold($movieShow);
-        $this->buyTicketView($movieShow->getId(), "Operation completed succesfully");
     }
 }

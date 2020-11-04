@@ -30,7 +30,7 @@ include('nav-bar.php');
                 </tbody>
             </table>
             <h2 class="mb-4" style="color:white">Buy ticket</h2>
-            <form action="<?php echo FRONT_ROOT ?>Ticket/generateTicket" method="post" class="bg-dark-alpha p-3">
+            <form action="<?php echo FRONT_ROOT ?>Ticket/processPurchase" method="post" class="bg-dark-alpha p-3">
                 <input type="hidden" name="movieShowId" value="<?php echo $movieShow->getId(); ?>" size="30" class="form-control" required>
                 <div class="row">
                     <div class="col-lg-3">
@@ -40,9 +40,11 @@ include('nav-bar.php');
                         </div>
                     </div>
                 </div>
+                
                 <button type="submit" name="button" class="btn btn-warning ml-auto d-block">Generate Ticket</button>
 
             </form>
+            
 
             <?php
             if (isset($message) && $message != "") {
