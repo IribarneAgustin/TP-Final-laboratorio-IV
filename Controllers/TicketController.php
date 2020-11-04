@@ -22,6 +22,11 @@ class TicketController
         $this->movieshowDAO = new MovieShowDAO();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieDAO = new MoviesDAOMySQL();
+        try{
+            session_start();   
+        }catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
 
@@ -41,7 +46,6 @@ class TicketController
 
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         $total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
-        session_start();
         $user = $_SESSION['user'];
 
         $ticket = new Ticket();
@@ -73,11 +77,9 @@ class TicketController
     {
         //Si el usuario la confirma, la guardo en base de datos
         if ($confirm == 1) {
-
-            session_start();
             $ticket = $_SESSION['purchase'];
             $this->add($ticket);
-            $this->showShoppingCart("Movie show added succesfully");
+            $this->showShoppingCart("Ticket added to cart succesfully");
         } else {
             $_SESSION['purchase'] = null;
             require_once(VIEWS_PATH . "userHome.php");
