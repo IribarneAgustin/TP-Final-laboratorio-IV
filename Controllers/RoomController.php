@@ -70,13 +70,16 @@ class RoomController
     {
             require_once(VIEWS_PATH."validate-session-admin.php");
             $this->roomDAO->remove($roomId);
-            $this->showList($message = "Room removed succesfully");
+            $cinemaId = $this->roomDAO->getCinemaId($roomId);
+            $this->showListByCinemaId($cinemaId, "Room removed succesfully");
       
     }
+    
     public function activate($roomId){
             require_once(VIEWS_PATH."validate-session-admin.php");
             $this->roomDAO->activate($roomId);
-            $this->showList("Room actived succesfully");
+            $cinemaId = $this->roomDAO->getCinemaId($roomId);
+            $this->showListByCinemaId($cinemaId, "Room actived succesfully");
        
     }
 

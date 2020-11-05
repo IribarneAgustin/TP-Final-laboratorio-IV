@@ -235,6 +235,18 @@ class MovieShowDAO implements IMovieShowDAO
         }
     }
 
+    //Borro peliculas repetidas
+    public function filterMovieList($moviesList){
+        $list = array();
+        foreach($moviesList as $value){
+            if(!in_array($value,$list)){
+                array_push($list,$value);
+            }
+        }
+    
+        return $list;
+    }
+
     public function updateTicketsSold(MovieShow $modifiedMovieShow){
 
         try {

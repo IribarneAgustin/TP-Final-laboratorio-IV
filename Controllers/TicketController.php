@@ -32,18 +32,20 @@ class TicketController
 
     public function calculateTotal($roomPrice, $quantity)
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         return ($roomPrice * $quantity);
     }
 
     public function buyTicketView($movieShowId, $message = "")
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         require_once(VIEWS_PATH . "buy-ticket.php");
     }
 
     public function processPurchase($movieShowId, $quantity)
     {
-
+        require_once(VIEWS_PATH."validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         $total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
         $user = $_SESSION['user'];
@@ -70,11 +72,13 @@ class TicketController
 
     public function showTotal(MovieShow $movieShow, Ticket $ticket)
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         require_once(VIEWS_PATH . "addToCartView.php");
     }
 
     public function addToCart($confirm = 0)
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         //Si el usuario la confirma, la guardo en base de datos
         if ($confirm == 1) {
             $ticket = $_SESSION['purchase'];
@@ -88,7 +92,7 @@ class TicketController
 
     public function showShoppingCart($message = '')
     {
-
+        require_once(VIEWS_PATH."validate-session-logged.php");
         $ticketToPayList = array();
         $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
         foreach ($ticketList as $value) {
@@ -101,13 +105,14 @@ class TicketController
 
     public function validateCard()
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         require_once(VIEWS_PATH . "validation-card.php");
     }
 
 
     public function validateCapacity(MovieShow $movieShow, $quantity)
     {
-
+        require_once(VIEWS_PATH."validate-session-logged.php");
         $capacity = false;
 
         $ticketsSold = $movieShow->getTicketsSold();
@@ -122,6 +127,7 @@ class TicketController
 
     public function add(Ticket $ticket)
     {
+        require_once(VIEWS_PATH."validate-session-logged.php");
         $movieShow = $ticket->getMovieShow();
         $this->ticketDAO->add($ticket);
         $movieShow->setTicketsSold($movieShow->getTicketsSold() + $ticket->getQuantity());
