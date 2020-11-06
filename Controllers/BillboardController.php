@@ -91,3 +91,4 @@ class BillboardController
         require_once(VIEWS_PATH . "add-movieToBillboard.php");
     }
 }
+
