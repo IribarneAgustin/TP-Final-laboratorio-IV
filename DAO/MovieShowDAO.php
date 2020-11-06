@@ -63,7 +63,7 @@ class MovieShowDAO implements IMovieShowDAO
     {
         try {
             $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie JOIN genresxmovie ON movie.id = genresxmovie.idmovie JOIN movieShow ON movieShow.idMovie = movie.id WHERE genresXmovie.idGenre =$genreId";
-            $this->connection = Connection::GetInstance();
+
             $resultSet = $this->connection->Execute('query', $query);
             $movie = NULL;
             $moviesList = array();

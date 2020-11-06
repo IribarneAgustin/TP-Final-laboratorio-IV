@@ -17,6 +17,7 @@ include_once('nav-bar.php');
             <div class="col text-center">
                 <a href="<?php echo FRONT_ROOT ?>Ticket/addToCart/1" class="btn btn-primary">Add to car</a>
             </div>
+            <br>
             <div class="col text-center">
                 <a href="<?php echo FRONT_ROOT ?>Ticket/addToCart/" class="btn btn-primary">Cancel</a>
             </div>

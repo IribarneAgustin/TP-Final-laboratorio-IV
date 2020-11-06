@@ -1,3 +1,4 @@
+  
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
     <span class="navbar-text" style="color:white">
         MoviePass
@@ -32,6 +33,9 @@
             <li class="nav-item">
                 <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Ticket/showShoppingCart">Shopping
                     Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>Ticket/showTicketList">Ticket List</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" style="color:white" href="<?php echo FRONT_ROOT;?>User/logout">Logout</a>

@@ -6,6 +6,7 @@ use DAO\CinemaDAOMySQL;
 use DAO\roomDAO;
 use DAO\RoomDAOMySQL;
 use Models\Room;
+use \FFI\Exception as Exception;
 
 class RoomController
 {

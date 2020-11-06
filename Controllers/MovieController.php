@@ -4,6 +4,7 @@ namespace Controllers;
 
 use DAO\MoviesDAO;
 use DAO\MoviesDAOMySQL;
+use \Exception as Exception;
 
 class MovieController
 {
