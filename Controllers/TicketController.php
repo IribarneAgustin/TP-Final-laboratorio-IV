@@ -8,6 +8,7 @@ use DAO\MovieShowDAO;
 use DAO\TicketDAO;
 use Models\MovieShow;
 use Models\Ticket as Ticket;
+use \FFI\Exception as Exception;
 
 class TicketController
 {
@@ -22,26 +23,32 @@ class TicketController
         $this->movieshowDAO = new MovieShowDAO();
         $this->cinemaDAO = new CinemaDAOMySQL();
         $this->movieDAO = new MoviesDAOMySQL();
+        try {
+            session_start();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
 
     public function calculateTotal($roomPrice, $quantity)
     {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         return ($roomPrice * $quantity);
     }
 
     public function buyTicketView($movieShowId, $message = "")
     {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         require_once(VIEWS_PATH . "buy-ticket.php");
     }
 
     public function processPurchase($movieShowId, $quantity)
     {
-
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         $total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
-        session_start();
         $user = $_SESSION['user'];
 
         $ticket = new Ticket();
@@ -49,13 +56,13 @@ class TicketController
         $ticket->setTotal($total);
         $ticket->setMovieShow($movieShow);
         $ticket->setQuantity($quantity);
-        $ticket->setStatus(0);
+        $ticket->setStatus(1);
 
         //Valido la capacidad segun las entradas solicitadas
         if ($this->validateCapacity($movieShow, $ticket->getQuantity())) {
 
             //Guardo temporalmente la posible compra en sesion.
-            $_SESSION['purchase'] = $ticket;
+            $_SESSION['ticket'] = $ticket;
 
             //Muestro total
             $this->showTotal($movieShow, $ticket);
@@ -66,49 +73,89 @@ class TicketController
 
     public function showTotal(MovieShow $movieShow, Ticket $ticket)
     {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         require_once(VIEWS_PATH . "addToCartView.php");
     }
 
     public function addToCart($confirm = 0)
     {
-        //Si el usuario la confirma, la guardo en base de datos
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+        //Si el usuario la confirma, la guardo en sesión
         if ($confirm == 1) {
 
-            session_start();
-            $ticket = $_SESSION['purchase'];
-            $this->add($ticket);
-            $this->showShoppingCart("Movie show added succesfully");
+            if (!isset($_SESSION['purchase'])) {
+                $purchase = array();
+                array_push($purchase, $_SESSION['ticket']);
+                $_SESSION['purchase'] = $purchase;
+            } else {
+                array_push($_SESSION['purchase'], $_SESSION['ticket']);
+            }
+            $this->showShoppingCart("Ticket added to cart succesfully");
         } else {
-            $_SESSION['purchase'] = null;
+            $_SESSION['ticket'] = null;
             require_once(VIEWS_PATH . "userHome.php");
         }
     }
 
     public function showShoppingCart($message = '')
     {
-        if (!isset($_SESSION['user'])) {
-            session_start();
-        }
-
-        $ticketToPayList = array();
-        $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
-        foreach ($ticketList as $value) {
-            if ($value->getStatus() == false) {
-                array_push($ticketToPayList, $value);
-            }
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+        if (!isset($_SESSION['purchase'])) {
+            $ticketList = array();
+        } else {
+            $ticketList = $_SESSION['purchase'];
         }
         require_once(VIEWS_PATH . "shoppingCart.php");
     }
 
-    public function validateCard()
+    public function calculateTotalShoppingCart($ticketList)
     {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+
+        $total = 0;
+        foreach ($ticketList as $value) {
+            $total += $value->getTotal();
+        }
+
+        return $total;
+    }
+
+    public function validationCardView()
+    {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+
+        $total = $this->calculateTotalShoppingCart($_SESSION['purchase']);
         require_once(VIEWS_PATH . "validation-card.php");
+    }
+
+    public function validationCard($total, $cardOwner, $cardNumber, $expirationMM, $expirationYY, $cvv)
+    {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+
+        if ($total != 0) {
+
+            $ticketList = $_SESSION['purchase'];
+            foreach ($ticketList as $value) {
+                $this->add($value);
+            }
+            unset($_SESSION['purchase']);
+            $this->showTicketList();
+        } else {
+            $this->showShoppingCart("The shopping cart are empty!");
+        }
+    }
+
+    public function showTicketList()
+    {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+        $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
+        require_once(VIEWS_PATH . "ticketList.php");
     }
 
 
     public function validateCapacity(MovieShow $movieShow, $quantity)
     {
-
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         $capacity = false;
 
         $ticketsSold = $movieShow->getTicketsSold();
@@ -123,9 +170,29 @@ class TicketController
 
     public function add(Ticket $ticket)
     {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $ticket->getMovieShow();
         $this->ticketDAO->add($ticket);
         $movieShow->setTicketsSold($movieShow->getTicketsSold() + $ticket->getQuantity());
         $this->movieshowDAO->updateTicketsSold($movieShow);
+    }
+
+    public function removeShoppingCart($movieShowId)
+    {
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+        if (!isset($_SESSION['purchase'])) {
+            session_start();
+        }
+        $ticketList = $_SESSION['purchase'];
+        $newTicketList = array();
+        foreach ($ticketList as $value) {
+            if ($value->getMovieShow()->getId() != $movieShowId) {
+                array_push($newTicketList, $value);
+            }
+        }
+
+        $_SESSION['purchase'] = $newTicketList;
+
+        $this->showShoppingCart();
     }
 }

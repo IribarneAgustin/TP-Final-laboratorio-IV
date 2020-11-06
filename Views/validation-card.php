@@ -18,15 +18,20 @@ include_once('nav-bar.php');
                         <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
                             <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Credit Card (Visa/Master)</a> </li>
                         </ul>
-                    </div> 
+                    </div>
                     <!-- Credit card form content -->
                     <div class="tab-content">
                         <!-- credit card info-->
                         <div id="credit-card" class="tab-pane fade show active pt-3">
-                            <form action="<?php echo FRONT_ROOT ?>Ticket/processPurchase">
-                                <div class="form-group"> <label for="username">
+                            <form action="<?php echo FRONT_ROOT ?>Ticket/validationCard" method="post">
+
+                                <div class="form-group"> <label for="total">
+                                        <h6>TOTAL</h6>
+                                    </label>
+                                    <input type="number" name="total" value="<?php echo $total ?>" class="form-control " > </div>
+                                <div class="form-group"> <label for="cardOwner">
                                         <h6>Card Owner</h6>
-                                    </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                    </label> <input type="text" name="cardOwner" placeholder="Card Owner Name" required class="form-control "> </div>
                                 <div class="form-group"> <label for="cardNumber">
                                         <h6>Card number</h6>
                                     </label>
@@ -39,16 +44,16 @@ include_once('nav-bar.php');
                                         <div class="form-group"> <label><span class="hidden-xs">
                                                     <h6>Expiration Date</h6>
                                                 </span></label>
-                                            <div class="input-group"> <input type="number" placeholder="MM" name="" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required> </div>
+                                            <div class="input-group"> <input type="number" placeholder="MM" name="expirationMM" class="form-control" required> <input type="number" placeholder="YYYY" name="expirationYY" class="form-control" required> </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
+                                        <div class="form-group mb-4"> <label data-toggle="tooltip" for="cvv" title="Three digit CV code on the back of your card">
                                                 <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                                            </label> <input type="text" required class="form-control"> </div>
+                                            </label> <input type="text" name="cvv" required class="form-control"> </div>
                                     </div>
                                 </div>
-                                <div class="card-footer"> <button type="button" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
+                                <div class="card-footer"> <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Confirm Payment </button>
                             </form>
                         </div>
                     </div>
