@@ -64,7 +64,7 @@ include('nav-bar.php');
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td> <?php echo $this->cinemaDAO->getCinemaByRoomId($show->getRoom()->getId())->getName(); ?>
+                                        <td> <?php echo $show->getRoom()->getCinema()->getName();//$this->cinemaDAO->getCinemaByRoomId($show->getRoom()->getId())->getName(); ?>
                                         </td>
                                         <td> <?php echo $show->getRoom()->getName(); ?> </td>
                                         <td> <?php echo $show->getDate();  ?> </td>

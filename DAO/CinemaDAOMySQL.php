@@ -122,7 +122,7 @@ class CinemaDAOMySQL implements ICinemaDAO
     public function getCinemaByRoomId($roomId)
     {
         try {
-            $query = "SELECT cinema.id, cinema.address, cinema.name, cinema.status from room join cinema on room.idCinema = cinema.id where room.id = 1";
+            $query = "SELECT cinema.id, cinema.name, cinema.address, cinema.status from room join cinema on room.idCinema = cinema.id where room.id = $roomId";
 
             $resultSet = $this->connection->execute('query', $query);
             $cinema = NULL;

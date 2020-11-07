@@ -58,7 +58,8 @@ class RoomController
                 $newRoom->setPrice($price);
                 $newRoom->setStatus(true);
                 $cinema = $this->cinemaDAO->getById($cinemaId);
-                $this->roomDAO->add($newRoom,$cinema);
+                $newRoom->setCinema($cinema);
+                $this->roomDAO->add($newRoom);
                 $room = $this->roomDAO->getByName($name);
                 $this->showAddView($cinemaId, "Room added succesfully");       
             } else {

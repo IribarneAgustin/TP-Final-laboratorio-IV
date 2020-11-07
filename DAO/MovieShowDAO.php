@@ -6,6 +6,7 @@ use Models\MovieShow;
 use Models\Room;
 use Models\Movie;
 use \Exception as Exception;
+use Models\Cinema;
 
 class MovieShowDAO implements IMovieShowDAO
 {
@@ -19,12 +20,69 @@ class MovieShowDAO implements IMovieShowDAO
         $this->connection = new Connection();
     }
 
+    public function getByDate($date)
+    {
+        try {
+
+            $query = "SELECT c.id as idCinema,c.address,c.name as cname, ms.id, ms.date, ms.time, ms.ticketsSold, ms.status as statusms, ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
+            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom
+            join cinema as c on c.id = r.idCinema WHERE ms.date ='$date'";
+
+            $resultSet = $this->connection->Execute('query', $query);
+            $movieShowList = array();
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movieShow = new MovieShow();
+                    $movieShow->setId($row["id"]);
+                    $movieShow->setDate($row["date"]);
+                    $movieShow->setTime($row["time"]);
+                    $movieShow->setTicketsSold($row["ticketsSold"]);
+                    $movieShow->setStatus($row["status"]);
+
+
+                    $movie = new Movie();
+                    $movie->setId($row["idMovie"]);
+                    $movie->setTitle($row["title"]);
+                    $movie->setImg($row["img"]);
+                    $movie->setReleaseDate($row["realeseDate"]);
+                    $movie->setLanguage($row["language"]);
+                    $movie->setOverview($row["overview"]);
+
+                    $room = new Room();
+                    $room->setId($row["idRoom"]);
+                    $room->setName($row["name"]);
+                    $room->setCapacity($row["capacity"]);
+                    $room->setPrice($row["price"]);
+                    $room->setStatus($row["status"]);
+
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $cinema->setName($row["cname"]);
+                    $cinema->setAddress($row["address"]);
+
+                    $room->setCinema($cinema);
+
+                    $movieShow->setMovie($movie);
+                    $movieShow->setRoom($room);
+
+
+                    array_push($movieShowList, $movieShow);
+                }
+            }
+            return $movieShowList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function getMoviesByDate($date)
     {
         try {
 
             $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview FROM movie JOIN movieshow on movieshow.idmovie = movie.id WHERE movieshow.date ='$date'";
-            $this->connection = Connection::GetInstance();
+
             $resultSet = $this->connection->Execute('query', $query);
             $movie = NULL;
             $moviesList = array();
@@ -50,10 +108,9 @@ class MovieShowDAO implements IMovieShowDAO
     public function remove($id)
     {
         try {
-            
+
             $query = "UPDATE $this->tableName SET status=false WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
-
         } catch (\PDOException $ex) {
             throw $ex;
         }
@@ -144,8 +201,9 @@ class MovieShowDAO implements IMovieShowDAO
         try {
             $movieShowList = array();
 
-            $query = "SELECT ms.id, ms.date, ms.time, ms.ticketsSold, ms.status as statusms, ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
-            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom";
+            $query = "SELECT c.id as idCinema,c.address,c.name as cname, ms.id, ms.date, ms.time, ms.ticketsSold, ms.status as statusms, ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
+            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom
+            join cinema as c on c.id = r.idCinema";
             $resultSet = $this->connection->execute('query', $query);
 
             if (!empty($resultSet)) {
@@ -175,6 +233,13 @@ class MovieShowDAO implements IMovieShowDAO
                     $room->setPrice($row["price"]);
                     $room->setStatus($row["status"]);
 
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $cinema->setName($row["cname"]);
+                    $cinema->setAddress($row["address"]);
+
+                    $room->setCinema($cinema);
+
                     $movieShow->setMovie($movie);
                     $movieShow->setRoom($room);
 
@@ -192,9 +257,9 @@ class MovieShowDAO implements IMovieShowDAO
     {
 
         try {
-            
-            $query = "SELECT ms.id, ms.date, ms.time, ms.ticketsSold, ms.status ,ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
-            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom WHERE ms.id = $movieShowId";
+
+            $query = "SELECT c.id as idCinema,c.address,c.name as cname, ms.id, ms.date, ms.time, ms.ticketsSold, ms.status ,ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview,
+            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom join cinema as c on c.id = r.idCinema WHERE ms.id = $movieShowId";
             $resultSet = $this->connection->execute('query', $query);
             $movieShow = null;
 
@@ -224,6 +289,13 @@ class MovieShowDAO implements IMovieShowDAO
                     $room->setPrice($row["price"]);
                     $room->setStatus($row["status"]);
 
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $cinema->setName($row["cname"]);
+                    $cinema->setAddress($row["address"]);
+
+                    $room->setCinema($cinema);
+
                     $movieShow->setMovie($movie);
                     $movieShow->setRoom($room);
                 }
@@ -236,29 +308,30 @@ class MovieShowDAO implements IMovieShowDAO
     }
 
     //Borro peliculas repetidas
-    public function filterMovieList($moviesList){
+    public function filterMovieList($moviesList)
+    {
         $list = array();
-        foreach($moviesList as $value){
-            if(!in_array($value,$list)){
-                array_push($list,$value);
+        foreach ($moviesList as $value) {
+            if (!in_array($value, $list)) {
+                array_push($list, $value);
             }
         }
-    
+
         return $list;
     }
 
-    public function updateTicketsSold(MovieShow $modifiedMovieShow){
+    public function updateTicketsSold(MovieShow $modifiedMovieShow)
+    {
 
         try {
-            
+
             $id = $modifiedMovieShow->getId();
             $ticketsSold = $modifiedMovieShow->getTicketsSold();
-            
+
             $query = "UPDATE $this->tableName SET ticketsSold='$ticketsSold' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
         }
-
     }
 }
