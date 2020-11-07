@@ -49,7 +49,9 @@ class TicketController
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
-        $total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
+        $total = $movieShow->getRoom()->getPrice();
+        //Calculate total nos va a servir para cuando apliquemos descuentos
+        //$total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
         $user = $_SESSION['user'];
 
         $ticket = new Ticket();
@@ -124,7 +126,6 @@ class TicketController
     public function validationCardView()
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
-
         $total = $this->calculateTotalShoppingCart($_SESSION['purchase']);
         require_once(VIEWS_PATH . "validation-card.php");
     }
@@ -182,6 +183,11 @@ class TicketController
         require_once(VIEWS_PATH . "ticketList.php");
     }
 
+    public function showOrderedList($order){
+        require_once(VIEWS_PATH . "validate-session-logged.php");
+        $ticketList = $this->ticketDAO->getTicketsByUserOrdered($_SESSION['user']->getId(),$order);
+        require_once(VIEWS_PATH . "ticketList.php");
+    }
 
     public function validateCapacity(MovieShow $movieShow, $quantity)
     {
@@ -224,5 +230,12 @@ class TicketController
         $_SESSION['purchase'] = $newTicketList;
 
         $this->showShoppingCart();
+    }
+
+    public function showSalesView()
+    {
+        require_once(VIEWS_PATH . "validate-session-admin.php");
+        $movieShowList = $this->movieshowDAO->getAll();
+        require_once(VIEWS_PATH . "sales-stats.php");
     }
 }

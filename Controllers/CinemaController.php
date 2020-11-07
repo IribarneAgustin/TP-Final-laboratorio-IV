@@ -37,6 +37,14 @@ class CinemaController
        
     }
 
+    public function showModifyView($cinemaId, $message = '')
+    {
+            $cinema = $this->cinemaDAO->getById($cinemaId);
+            require_once(VIEWS_PATH."validate-session-admin.php");
+            require_once(VIEWS_PATH . "modify-cinema.php");
+       
+    }
+
     public function add($name, $address)
     {
             require_once(VIEWS_PATH."validate-session-admin.php");
@@ -76,7 +84,7 @@ class CinemaController
             $toModify = $this->cinemaDAO->getById($id);
 
             if ($field == "name" && $this->cinemaDAO->existsName($newContent) == true) {
-                $this->showList($message = "Name already in use");
+                $this->showModifyView($id, "Name already in use");
 
             } else {
 

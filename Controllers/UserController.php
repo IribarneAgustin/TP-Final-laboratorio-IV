@@ -13,6 +13,11 @@ class UserController
     public function __construct()
     {
         $this->userDAO = new UserDAO();
+        try{
+            session_start();   
+            }catch (Exception $ex) {
+                throw $ex;
+        }
     }
 
     public function login($username, $password)

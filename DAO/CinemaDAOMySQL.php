@@ -39,7 +39,7 @@ class CinemaDAOMySQL implements ICinemaDAO
             $id = $modifiedCinema->getId();
             $status = $modifiedCinema->getStatus();
 
-            $query = "UPDATE $this->tableName SET name='$name',address= '$address', status='$status' WHERE id='$id'";
+            $query = "UPDATE $this->tableName SET name='$name',address= '$address',status='$status' WHERE id='$id'";
             $this->connection->execute('nonQuery', $query);
         } catch (\PDOException $ex) {
             throw $ex;
@@ -147,6 +147,24 @@ class CinemaDAOMySQL implements ICinemaDAO
 
         try {
             $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".name ='$name'";
+
+            $resultSet = $this->connection->execute('query', $query);
+
+            if (!empty($resultSet)) {
+                $exists = true;
+            }
+            return $exists;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+    public function existsAddress($address)
+    {
+        $exists = false;
+
+        try {
+            $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".address ='$address'";
 
             $resultSet = $this->connection->execute('query', $query);
 

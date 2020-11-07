@@ -48,6 +48,13 @@ class RoomController
         
     }
 
+    public function showModifyView($roomId, $message = '')
+    {
+            $room = $this->roomDAO->getById($roomId);
+            require_once(VIEWS_PATH."validate-session-admin.php");
+            require_once(VIEWS_PATH . "modify-room.php");
+    }
+
     public function add($cinemaId, $name, $price, $capacity)
     {
             require_once(VIEWS_PATH."validate-session-admin.php");
@@ -81,7 +88,7 @@ class RoomController
             require_once(VIEWS_PATH."validate-session-admin.php");
             $this->roomDAO->activate($roomId);
             $cinemaId = $this->roomDAO->getCinemaId($roomId);
-            $this->showListByCinemaId($cinemaId, "Room actived succesfully");
+            $this->showListByCinemaId($cinemaId, "Room activated succesfully");
        
     }
 
@@ -90,16 +97,22 @@ class RoomController
     {
             require_once(VIEWS_PATH."validate-session-admin.php");
             $toModify = $this->roomDAO->getById($id);
+            $cinemaId = $toModify->getCinema()->getId();
+            if ($field == "name" && $this->roomDAO->existsName($newContent,$cinemaId) == true) {
+                $this->showModifyView($id, "Name already in use");
 
-            if (isset($toModify)) {
-                $myMethod = "set" . $field;
-                $toModify->$myMethod($newContent);
-                $this->roomDAO->update($toModify);
-                $cinemaId = $this->roomDAO->getCinemaId($toModify->getId());
-                $this->showListByCinemaId($cinemaId);
-            }else{
-                $this->showList();
+            } else {
+
+                if (isset($toModify)) {
+
+                    $myMethod = "set" . $field;
+                    $toModify->$myMethod($newContent);
+
+                    $this->roomDAO->update($toModify);
+                }
+
+                $this->showListByCinemaId($cinemaId, "Room activated succesfully");
             }
-       
+        
     }
 }

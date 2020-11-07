@@ -27,21 +27,6 @@ class BillboardController
         }
     }
 
-    //Borro peliculas repetidas
-    private function filterMovieList($moviesList)
-    {
-        $list = array();
-
-        foreach ($moviesList as $value) {
-            if (!in_array($value, $list)) {
-                array_push($list, $value);
-            }
-        }
-
-        return $list;
-    }
-
-
     public function showFilteredList($date = '', $genreId = '')
     {
 
