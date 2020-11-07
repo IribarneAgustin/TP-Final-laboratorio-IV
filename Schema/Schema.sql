@@ -76,7 +76,6 @@ CREATE TABLE ticket(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     idUser int not null,
     idMovieShow int not null,
-    quantity int not null,
     total int not null,
     status boolean not null,
 

@@ -15,12 +15,12 @@ class RoomDAOMySQL implements IRoomDAO
         $this->connection = new Connection();
     }
 
-    public function add(Room $room, Cinema $cinema)
+    public function add(Room $room)
     {
         try {
             $query = "INSERT INTO " . $this->tableName . " (idCinema, name, capacity, price, status) VALUES (:idCinema, :name, :capacity, :price, :status);";
 
-            $parameters["idCinema"] = $cinema->getId();
+            $parameters["idCinema"] = $room->getCinema()->getId();
             $parameters["name"] = $room->getName();
             $parameters["capacity"] = $room->getCapacity();
             $parameters["price"] = $room->getPrice();
@@ -52,6 +52,10 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setPrice($row["price"]);
                     $room->setStatus($row["status"]);
                     
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $room->setCinema($cinema);
+                    
 
                     array_push($roomList, $room);
                 }
@@ -81,6 +85,10 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
                     $room->setStatus($row["status"]);
+
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $room->setCinema($cinema);
                 }
             }
 
@@ -108,6 +116,10 @@ class RoomDAOMySQL implements IRoomDAO
                     $room->setCapacity($row["capacity"]);
                     $room->setPrice($row["price"]);
                     $room->setStatus($row["status"]);
+
+                    $cinema = new Cinema();
+                    $cinema->setId($row["idCinema"]);
+                    $room->setCinema($cinema);
     
                 }
             }
@@ -139,7 +151,7 @@ class RoomDAOMySQL implements IRoomDAO
     public function getRoomsByCinemaId($idCinema)
     {
         try {
-            $query = "SELECT room.id, room.name, room.capacity, room.price, room.status FROM room WHERE room.idCinema=$idCinema";
+            $query = "SELECT room.id, room.name, room.capacity, room.price, room.status, room.idCinema FROM room WHERE room.idCinema=$idCinema";
 
             $resultSet = $this->connection->execute('query', $query);
 
@@ -154,6 +166,10 @@ class RoomDAOMySQL implements IRoomDAO
                 $room->setCapacity($row["capacity"]);
                 $room->setPrice($row["price"]);
                 $room->setStatus($row["status"]);
+
+                $cinema = new Cinema();
+                $cinema->setId($row["idCinema"]);
+                $room->setCinema($cinema);
 
                 array_push($roomList,$room);
             }

@@ -11,7 +11,7 @@ include('nav-bar.php');
                 <table class="table table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
-                            <th style="width: 15%;">status</th>
+
                             <th style="width: 15%;">Id</th>
                             <th style="width: 15%;">Date</th>
                             <th style="width: 15%;">Time</th>
@@ -27,13 +27,14 @@ include('nav-bar.php');
                         <?php foreach ($movieShowList as $value) { ?>
                             <?php if ($value->getStatus() == true) { ?>
                                 <tr>
-                                    <td> <?php echo $value->getStatus(); ?> </td>
+
                                     <td> <?php echo $value->getId(); ?> </td>
                                     <td> <?php echo $value->getDate(); ?> </td>
                                     <td> <?php echo $value->getTime(); ?> </td>
                                     <td> <?php echo $value->getTicketsSold(); ?> </td>
                                     <td> <?php echo $value->getRoom()->getName(); ?> </td>
-                                    <td> <?php echo $this->cinemasDAO->getCinemaByRoomId($value->getRoom()->getId())->getName(); ?> </td>
+                                    <td> <?php echo $value->getRoom()->getCinema()->getName(); //$this->cinemasDAO->getCinemaByRoomId($value->getRoom()->getId())->getName(); 
+                                            ?> </td>
                                     <td> <?php echo $value->getMovie()->getTitle(); ?> </td>
                                     <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $value->getMovie()->getImg() . '">' ?> </td>
                                     <td>

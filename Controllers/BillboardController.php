@@ -41,12 +41,13 @@ class BillboardController
         return $list;
     }
 
+
     public function showFilteredList($date = '', $genreId = '')
     {
 
         if ($date != "") {
             $moviesList = $this->filterMovieList($this->movieshowDAO->getMoviesByDate($date));
-            $movieShowList =  $this->movieshowDAO->getAll();
+            $movieShowList =  $this->movieshowDAO->getByDate($date);
             $genresList = $this->moviesDAOMySQL->getGenreList();
         }
         if ($genreId != "") {

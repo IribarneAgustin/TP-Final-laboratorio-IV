@@ -6,7 +6,7 @@
 
     interface IRoomDAO
     {
-        function add(Room $room, Cinema $cinema);
+        function add(Room $room);
         function getAll();
         function remove($idRoom);
         function update(Room $modifiedRoom);

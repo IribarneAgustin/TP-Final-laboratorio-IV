@@ -9,6 +9,7 @@ use DAO\TicketDAO;
 use Models\MovieShow;
 use Models\Ticket as Ticket;
 use \FFI\Exception as Exception;
+use QRcode;
 
 class TicketController
 {
@@ -128,16 +129,45 @@ class TicketController
         require_once(VIEWS_PATH . "validation-card.php");
     }
 
+    public function generateQr(Ticket $ticket)
+    {
+
+        require_once("Data/qrcode/qrlib.php");
+
+        $dir = "Data/qrs/";
+
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+        
+        $fileName = $dir . "qr" . $ticket->getId() . ".png";
+        $size = 10;
+        $level = 'M';
+        $frameSize = 1;
+        $content = "Ticket Number: " . $ticket->getId() . " " . $ticket->getMovieShow()->getMovie()->getTitle() . " " . $ticket->getMovieShow()->getRoom()->getCinema()->getName() . " " . $ticket->getMovieShow()->getDate() . " " . $ticket->getMovieShow()->getTime();
+        QRcode::png($content, $fileName, $level, $size, $frameSize);
+        
+
+    }
+
     public function validationCard($total, $cardOwner, $cardNumber, $expirationMM, $expirationYY, $cvv)
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
 
         if ($total != 0) {
-
             $ticketList = $_SESSION['purchase'];
+
             foreach ($ticketList as $value) {
-                $this->add($value);
+                $count = 0;
+                while ($value->getQuantity() > $count) {
+                    
+                    $this->add($value);
+                    $ticket = $this->ticketDAO->getLastTicketByUserIdAndShowId($_SESSION['user']->getId(), $value->getMovieShow()->getId());
+                    $this->generateQr($ticket);
+                    $count++;
+                }
             }
+
             unset($_SESSION['purchase']);
             $this->showTicketList();
         } else {

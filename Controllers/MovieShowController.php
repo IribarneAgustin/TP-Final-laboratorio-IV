@@ -8,7 +8,7 @@ use DAO\MovieShowDAO;
 use DAO\MovieShowDAOMySQL;
 use DAO\RoomDAOMySQL;
 use Models\MovieShow;
-//use Controllers\HomeController; 
+use \FFI\Exception as Exception;
 
 class MovieShowController
 {
@@ -16,7 +16,7 @@ class MovieShowController
     private $movieShowDAO;
     private $moviesDAO;
     private $cinemasDAO;
-    private $home;
+ 
 
     public function __construct()
     {
@@ -24,7 +24,6 @@ class MovieShowController
         $this->moviesDAO = new MoviesDAO();
         $this->roomDAO = new RoomDAOMySQL();
         $this->cinemasDAO = new CinemaDAOMySQL();
-        $this->home = new HomeController();
         try{
             session_start();   
             }catch (Exception $ex) {
@@ -83,6 +82,7 @@ class MovieShowController
     {
             require_once(VIEWS_PATH."validate-session-admin.php");
             $cinemaId = $this->roomDAO->getCinemaId($roomId);
+            
 
             //1º valido que la película solo pueda ser proyectada en un único cine por día
             if ($this->dateAndCinemaValidation($movieId, $date) == true) {

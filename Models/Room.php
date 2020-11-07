@@ -9,6 +9,7 @@ class Room
     private $price;
     private $capacity;
     private $status;
+    private $cinema;
 
     public function getId()
     {
@@ -59,5 +60,17 @@ class Room
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+
+    public function getCinema()
+    {
+        return $this->cinema;
+    }
+ 
+    public function setCinema($cinema)
+    {
+        $this->cinema = $cinema;
+
     }
 }
