@@ -45,7 +45,7 @@ include('nav-bar.php');
 
             <div class="bg-dark-alpha p-3">
                 <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-lg-3">
+                    <div class="col">
                         <label for="roomId" style="color:white">Room</label>
                         <select name="roomId" class="form-control" style="width: 100%;" placeholder="Select Room">
                             <?php foreach ($roomList as $room) { ?>
@@ -55,12 +55,12 @@ include('nav-bar.php');
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col">
                         <label for="date" style="color:white">Date</label>
                         <input name="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" type="date" id="date"
                             value="" required>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col">
                         <label for="time" style="color:white">Time</label>
                         <input name="time" class="form-control" type="time" id="time" required>
 
