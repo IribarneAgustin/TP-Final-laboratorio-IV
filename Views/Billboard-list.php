@@ -51,7 +51,7 @@ include('nav-bar.php');
 
                     <form action="<?php echo FRONT_ROOT ?>Ticket/buyTicketView" method="post">
                         <?php foreach ($movieShowList as $show) { ?>
-                            <?php if ($movie->getId() == $show->getMovie()->getId() && $show->getStatus() == true) { ?>
+                            <?php if ($movie->getId() == $show->getMovie()->getId() && $show->getStatus() == true && $show->getDate() >= date('Y-m-d')) { ?>
                                 <thead class="thead-dark">
                                     <tr>
                                         <th style="width: 10%;">Cinema</th>
