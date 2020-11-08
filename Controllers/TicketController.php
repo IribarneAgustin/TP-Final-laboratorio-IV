@@ -171,12 +171,11 @@ class TicketController
         $frameSize = 1;
         $content = "Ticket Number: " . $ticket->getId() . " " . $ticket->getMovieShow()->getMovie()->getTitle() . " " . $ticket->getMovieShow()->getRoom()->getCinema()->getName() . " " . $ticket->getMovieShow()->getDate() . " " . $ticket->getMovieShow()->getTime();
         QRcode::png($content, $fileName, $level, $size, $frameSize);
-        /*
-        if(!isset($_SESSION['qrTickets'])){
+
+        if (!isset($_SESSION['qrTickets'])) {
             $_SESSION['qrTickets'] = array();
         }
-        array_push($_SESSION['qrTickets'],$fileName);
-    */
+        array_push($_SESSION['qrTickets'], $fileName);
     }
 
     public function sendTicketToEmail()
@@ -184,6 +183,24 @@ class TicketController
         require_once("Data/PHPMailer/src/Exception.php");
         require_once("Data/PHPMailer/src/PHPMailer.php");
         require_once("Data/PHPMailer/src/SMTP.php");
+
+
+        $emailRecipient = $_SESSION['user']->getEmail();
+        $qrCodes = $_SESSION['qrTickets'];
+
+        $filesToSendList = array();
+        $count = 0;
+
+        foreach ($qrCodes as $qr) {
+
+            $fileToSend =  "Data/qrs/email" . $count . ".png";
+            fopen($fileToSend, "w");
+            $img = file_get_contents("$qr"); //"Data/qrs/qr1.png");
+            file_put_contents($fileToSend, $img);
+            $count++;
+
+            array_push($filesToSendList, $fileToSend);
+        }
 
         $mail = new PHPMailer(true);
 
@@ -193,29 +210,30 @@ class TicketController
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'moviepasslab@hotmail.com';                     // SMTP username
+            $mail->Username   = 'moviepasslabiv@gmail.com';                     // SMTP username
             $mail->Password   = 'laboratorio4';                               // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('moviepasslab@hotmail.com', 'MoviePass');
-            $mail->addAddress($_SESSION['user']->getEmail(), 'MoviePass');     // Add a recipient
+            $mail->setFrom('moviepasslabiv@gmail.com', 'MoviePass');
+            $mail->addAddress($emailRecipient, 'MoviePass');     // Add a recipient
 
             // Attachments
-            //$mail->addAttachment('Data/qrs/qr1.png');         // Add attachments
+            foreach ($filesToSendList as $file) {
+                $mail->addAttachment($file);
+            }
 
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'Augssss <b>in bold!</b>';
+            $mail->Subject = 'MoviePass Tickets!';
+            $mail->Body    = 'Thanks for buying your tickets in <b>MoviePass</b>';
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
-            echo 'Message has been sent';
         } catch (MailerException $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            $this->showTicketList("Tickets could not be sent to the mail");
         }
     }
 
@@ -240,15 +258,19 @@ class TicketController
                 $this->generateQr($ticket);
             }
 
+            $this->sendTicketToEmail();
+
+            unset($_SESSION['qrTickets']);
             unset($_SESSION['purchase']);
             unset($_SESSION['ticketList']);
-            $this->showTicketList();
+            
+            $this->showTicketList("Thanks for buying your tickets in MoviePass!");
         } else {
             $this->showShoppingCart("The shopping cart are empty!");
         }
     }
 
-    public function showTicketList()
+    public function showTicketList($message = "")
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
         $ticketList = $this->ticketDAO->getTicketsByUserId($_SESSION['user']->getId());
