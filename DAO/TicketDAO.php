@@ -162,12 +162,40 @@ class TicketDAO implements ITicketDAO
 
     }
 
-    public function getEarningsByMovieBetweenDates($date1, $date2){
+    public function getSalesByMovieBetweenDates($date1, $date2){
+        
+        $query ="SELECT SUM(t.total),COUNT(t.id),movie.title
+                FROM ticket as t 
+                JOIN movieshow as ms 
+                ON ms.id = t.idMovieShow 
+                JOIN movie
+                ON ms.idMovie = movie.id
+                WHERE ms.date >= '$date1' AND ms.date <= '$date2'
+                GROUP BY movie.id 
+                ORDER BY SUM(t.total) 
+                DESC";
+        $resultSet = $this->connection->execute('query',$query);
 
+        return $resultSet;
     }
 
-    public function getEarningsByCinemaBetweenDates($date1, $date2){
+    public function getSalesByCinemaBetweenDates($date1, $date2){
         
+        $query ="SELECT SUM(t.total),COUNT(t.id),cinema.name
+                FROM ticket as t 
+                JOIN movieshow as ms 
+                ON ms.id = t.idMovieShow 
+                JOIN room as r
+                ON ms.idRoom = r.id
+                JOIN cinema
+                ON r.idCinema = cinema.id
+                WHERE ms.date >= '$date1' AND ms.date <= '$date2'
+                GROUP BY cinema.id 
+                ORDER BY SUM(t.total) 
+                DESC";
+        $resultSet = $this->connection->execute('query',$query);
+
+        return $resultSet;
     }
 
 

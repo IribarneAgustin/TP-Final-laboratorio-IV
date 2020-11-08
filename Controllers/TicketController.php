@@ -332,6 +332,32 @@ class TicketController
     {
         require_once(VIEWS_PATH . "validate-session-admin.php");
         $movieShowList = $this->movieshowDAO->getAll();
+        $date1= '1000-01-01';
+        $date2= '3000-01-01';
+        $movieList = $this->ticketDAO->getSalesByMovieBetweenDates($date1,$date2);
+        $cinemaList = $this->ticketDAO->getSalesByCinemaBetweenDates($date1,$date2);
+        require_once(VIEWS_PATH . "sales-stats.php");
+    }
+
+    public function showSalesByMovieBetweenDates($date1,$date2)
+    {
+        require_once(VIEWS_PATH . "validate-session-admin.php");
+        $movieShowList = $this->movieshowDAO->getAll();
+        $movieList = $this->ticketDAO->getSalesByMovieBetweenDates($date1,$date2);
+        $date1= '1000-01-01';
+        $date2= '3000-01-01';
+        $cinemaList = $this->ticketDAO->getSalesByCinemaBetweenDates($date1,$date2);
+        require_once(VIEWS_PATH . "sales-stats.php");
+    }
+
+    public function showSalesByCinemaBetweenDates($date1,$date2)
+    {
+        require_once(VIEWS_PATH . "validate-session-admin.php");
+        $movieShowList = $this->movieshowDAO->getAll();
+        $cinemaList = $this->ticketDAO->getSalesByCinemaBetweenDates($date1,$date2);
+        $date1= '1000-01-01';
+        $date2= '3000-01-01';
+        $movieList = $this->ticketDAO->getSalesByMovieBetweenDates($date1,$date2);
         require_once(VIEWS_PATH . "sales-stats.php");
     }
 }

@@ -111,7 +111,7 @@ class RoomController
                     $this->roomDAO->update($toModify);
                 }
 
-                $this->showListByCinemaId($cinemaId, "Room activated succesfully");
+                $this->showListByCinemaId($cinemaId, "Room modified succesfully");
             }
         
     }
