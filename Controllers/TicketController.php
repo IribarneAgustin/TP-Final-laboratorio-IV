@@ -2,6 +2,10 @@
 
 namespace Controllers;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception as MailerException;
+
 use DAO\CinemaDAOMySQL;
 use DAO\MoviesDAOMySQL;
 use DAO\MovieShowDAO;
@@ -10,6 +14,8 @@ use Models\MovieShow;
 use Models\Ticket as Ticket;
 use \FFI\Exception as Exception;
 use QRcode;
+use Models\Purchase;
+use PHPMailer\PHPMailer\PHPMailer as PHPMailerPHPMailer;
 
 class TicketController
 {
@@ -58,25 +64,39 @@ class TicketController
         $ticket->setUser($user);
         $ticket->setTotal($total);
         $ticket->setMovieShow($movieShow);
-        $ticket->setQuantity($quantity);
         $ticket->setStatus(1);
 
         //Valido la capacidad segun las entradas solicitadas
-        if ($this->validateCapacity($movieShow, $ticket->getQuantity())) {
+        if ($this->validateCapacity($movieShow, $quantity)) {
+
+            $purchase = new Purchase();
+            $purchase->setTicket($ticket);
+            $purchase->setQuantity($quantity);
+            $purchase->setTotal($this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity));
+
+            //Verifico si aplica el descuento
+            $dayOfTheWeek = date('w', strtotime($movieShow->getDate()));
+            if ($quantity >= 2 &&  $dayOfTheWeek == 2 ||  $dayOfTheWeek == 3) {
+                $ticket->setTotal($this->discountPrice($ticket->getTotal()));
+                $purchase->setTicket($ticket);
+                $purchase->setTotal($ticket->getTotal() * $purchase->getQuantity());
+            }
 
             //Guardo temporalmente la posible compra en sesion.
-            $_SESSION['ticket'] = $ticket;
+            $_SESSION['purchase'] = $purchase;
 
             //Muestro total
-            $this->showTotal($movieShow, $ticket);
+            $this->showTotal($purchase);
         } else {
             $this->buyTicketView($movieShow->getId(), "Tickets sold out!");
         }
     }
 
-    public function showTotal(MovieShow $movieShow, Ticket $ticket)
+    public function showTotal(Purchase $purchase)
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
+        $movieShow = $purchase->getTicket()->getMovieShow();
+        $total = $purchase->getTotal();
         require_once(VIEWS_PATH . "addToCartView.php");
     }
 
@@ -86,16 +106,20 @@ class TicketController
         //Si el usuario la confirma, la guardo en sesión
         if ($confirm == 1) {
 
-            if (!isset($_SESSION['purchase'])) {
-                $purchase = array();
-                array_push($purchase, $_SESSION['ticket']);
-                $_SESSION['purchase'] = $purchase;
-            } else {
-                array_push($_SESSION['purchase'], $_SESSION['ticket']);
+            $purchase = $_SESSION['purchase'];
+            $count = 0;
+
+            if (!isset($_SESSION['ticketList'])) {
+                $_SESSION['ticketList'] = array();
             }
+            while ($purchase->getQuantity() > $count) {
+                array_push($_SESSION['ticketList'], $purchase->getTicket());
+                $count++;
+            }
+
             $this->showShoppingCart("Ticket added to cart succesfully");
         } else {
-            $_SESSION['ticket'] = null;
+            unset($_SESSION['purchase']);
             require_once(VIEWS_PATH . "userHome.php");
         }
     }
@@ -103,10 +127,10 @@ class TicketController
     public function showShoppingCart($message = '')
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
-        if (!isset($_SESSION['purchase'])) {
+        if (!isset($_SESSION['ticketList'])) {
             $ticketList = array();
         } else {
-            $ticketList = $_SESSION['purchase'];
+            $ticketList = $_SESSION['ticketList'];
         }
         require_once(VIEWS_PATH . "shoppingCart.php");
     }
@@ -126,7 +150,7 @@ class TicketController
     public function validationCardView()
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
-        $total = $this->calculateTotalShoppingCart($_SESSION['purchase']);
+        $total = $this->calculateTotalShoppingCart($_SESSION['ticketList']);
         require_once(VIEWS_PATH . "validation-card.php");
     }
 
@@ -140,15 +164,66 @@ class TicketController
         if (!file_exists($dir)) {
             mkdir($dir);
         }
-        
+
         $fileName = $dir . "qr" . $ticket->getId() . ".png";
         $size = 10;
         $level = 'M';
         $frameSize = 1;
         $content = "Ticket Number: " . $ticket->getId() . " " . $ticket->getMovieShow()->getMovie()->getTitle() . " " . $ticket->getMovieShow()->getRoom()->getCinema()->getName() . " " . $ticket->getMovieShow()->getDate() . " " . $ticket->getMovieShow()->getTime();
         QRcode::png($content, $fileName, $level, $size, $frameSize);
-        
+        /*
+        if(!isset($_SESSION['qrTickets'])){
+            $_SESSION['qrTickets'] = array();
+        }
+        array_push($_SESSION['qrTickets'],$fileName);
+    */
+    }
 
+    public function sendTicketToEmail()
+    {
+        require_once("Data/PHPMailer/src/Exception.php");
+        require_once("Data/PHPMailer/src/PHPMailer.php");
+        require_once("Data/PHPMailer/src/SMTP.php");
+
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                      // Enable verbose debug output
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'moviepasslab@hotmail.com';                     // SMTP username
+            $mail->Password   = 'laboratorio4';                               // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+            //Recipients
+            $mail->setFrom('moviepasslab@hotmail.com', 'MoviePass');
+            $mail->addAddress($_SESSION['user']->getEmail(), 'MoviePass');     // Add a recipient
+
+            // Attachments
+            //$mail->addAttachment('Data/qrs/qr1.png');         // Add attachments
+
+
+            // Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body    = 'Augssss <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (MailerException $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+
+    public function discountPrice($price)
+    {
+
+        $discount = $price * 0.25;
+        return ($price - $discount);
     }
 
     public function validationCard($total, $cardOwner, $cardNumber, $expirationMM, $expirationYY, $cvv)
@@ -156,20 +231,17 @@ class TicketController
         require_once(VIEWS_PATH . "validate-session-logged.php");
 
         if ($total != 0) {
-            $ticketList = $_SESSION['purchase'];
+            $ticketList = $_SESSION['ticketList'];
 
             foreach ($ticketList as $value) {
-                $count = 0;
-                while ($value->getQuantity() > $count) {
-                    
-                    $this->add($value);
-                    $ticket = $this->ticketDAO->getLastTicketByUserIdAndShowId($_SESSION['user']->getId(), $value->getMovieShow()->getId());
-                    $this->generateQr($ticket);
-                    $count++;
-                }
+
+                $this->add($value);
+                $ticket = $this->ticketDAO->getLastTicketByUserIdAndShowId($_SESSION['user']->getId(), $value->getMovieShow()->getId());
+                $this->generateQr($ticket);
             }
 
             unset($_SESSION['purchase']);
+            unset($_SESSION['ticketList']);
             $this->showTicketList();
         } else {
             $this->showShoppingCart("The shopping cart are empty!");
@@ -183,9 +255,10 @@ class TicketController
         require_once(VIEWS_PATH . "ticketList.php");
     }
 
-    public function showOrderedList($order){
+    public function showOrderedList($order)
+    {
         require_once(VIEWS_PATH . "validate-session-logged.php");
-        $ticketList = $this->ticketDAO->getTicketsByUserOrdered($_SESSION['user']->getId(),$order);
+        $ticketList = $this->ticketDAO->getTicketsByUserOrdered($_SESSION['user']->getId(), $order);
         require_once(VIEWS_PATH . "ticketList.php");
     }
 
@@ -209,25 +282,26 @@ class TicketController
         require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $ticket->getMovieShow();
         $this->ticketDAO->add($ticket);
-        $movieShow->setTicketsSold($movieShow->getTicketsSold() + $ticket->getQuantity());
+        $movieShow->setTicketsSold($movieShow->getTicketsSold() + 1);
         $this->movieshowDAO->updateTicketsSold($movieShow);
     }
 
     public function removeShoppingCart($movieShowId)
     {
         require_once(VIEWS_PATH . "validate-session-logged.php");
-        if (!isset($_SESSION['purchase'])) {
+        if (!isset($_SESSION['ticketList'])) {
             session_start();
         }
-        $ticketList = $_SESSION['purchase'];
-        $newTicketList = array();
+        $ticketList = $_SESSION['ticketList'];
         foreach ($ticketList as $value) {
-            if ($value->getMovieShow()->getId() != $movieShowId) {
-                array_push($newTicketList, $value);
+            if ($value->getMovieShow()->getId() == $movieShowId) {
+                $key = array_search($value, $ticketList);
+                unset($ticketList[$key]);
+                break;
             }
         }
+        $_SESSION['ticketList'] = $ticketList;
 
-        $_SESSION['purchase'] = $newTicketList;
 
         $this->showShoppingCart();
     }

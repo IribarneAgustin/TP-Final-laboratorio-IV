@@ -14,31 +14,28 @@ include('nav-bar.php');
                             <th style="width: 15%;">Movie</th>
                             <th style="width: 15%;">Time</th>
                             <th style="width: 15%;">Date</th>
-                            <th style="width: 15%;">Quantity</th>
                             <th style="width: 10%;">Total</th>
                             <th style="width: 10%;">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($ticketList as $value) { ?>
-                        <?php  ?>
-                        <tr>
-                            <td> <?php echo $value->getMovieShow()->getMovie()->getTitle(); ?> </td>
-                            <td> <?php echo $value->getMovieShow()->getTime(); ?> </td>
-                            <td> <?php echo $value->getMovieShow()->getDate(); ?> </td>
-                            <td> <?php echo $value->getQuantity(); ?> </td>
-                            <td> <?php echo ($value->getTotal()*$value->getQuantity()); ?> </td>
-                            <td><button type="submit" name="Delete"
-                                    value="<?php echo $value->getMovieShow()->getId(); ?>" class="btn btn-danger">
-                                    Remove </button></td>
-                        </tr>
+                            <?php  ?>
+                            <tr>
+                                <td> <?php echo $value->getMovieShow()->getMovie()->getTitle(); ?> </td>
+                                <td> <?php echo $value->getMovieShow()->getTime(); ?> </td>
+                                <td> <?php echo $value->getMovieShow()->getDate(); ?> </td>
+                                <td> <?php echo $value->getTotal(); ?> </td>
+                                <td><button type="submit" name="Delete" value="<?php echo $value->getMovieShow()->getId(); ?>" class="btn btn-danger">
+                                        Remove </button></td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>
                 <li class="list-group">
-                    <?php if($ticketList){ ?>
-                    <a class="btn btn-warning btn-block" href="<?php echo FRONT_ROOT; ?>Ticket/validationCardView">
-                        Pay!</a>
+                    <?php if ($ticketList) { ?>
+                        <a class="btn btn-warning btn-block" href="<?php echo FRONT_ROOT; ?>Ticket/validationCardView">
+                            Pay!</a>
                     <?php } ?>
                 </li>
             </form>

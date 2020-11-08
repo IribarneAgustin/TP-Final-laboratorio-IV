@@ -5,7 +5,6 @@ namespace Models;
 class Ticket
 {
     private $id;
-    private $quantity;
     private $total;
     private $user;
     private $movieShow;
@@ -24,18 +23,6 @@ class Ticket
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-
     }
 
     public function getTotal()

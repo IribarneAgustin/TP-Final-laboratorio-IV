@@ -64,7 +64,7 @@ class MovieShowController
 
             foreach ($movieShowList as $value) {
 
-                $id = $this->roomDAO->getCinemaId($value->getRoom()->getId());
+                $id = $value->getRoom()->getCinema()->getId();//$this->roomDAO->getCinemaId($value->getRoom()->getId());
                 $t = strtotime($value->getTime());
                 $t2 = strtotime($time);
 
