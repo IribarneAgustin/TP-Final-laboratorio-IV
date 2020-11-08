@@ -11,10 +11,10 @@ include_once('nav-bar.php');
             <div class="card-body">
                 <h5 class="card-title" style="color:white;text-align:center">Ticket to
                     <?php echo $movieShow->getMovie()->getTitle(); ?></h5>
-                <p class="card-text" style="color:white;text-align:center">Total $<?php if (isset($ticket)) {
-                                            echo ($ticket->getTotal()*$ticket->getQuantity());
-                                        } ?> </p>
-                <p class="card-text" style="color:white;text-align:center">Seats <?php echo $ticket->getQuantity(); ?>
+                <p class="card-text" style="color:white;text-align:center">Total $<?php 
+                                            echo $total;
+                                         ?> </p>
+                <p class="card-text" style="color:white;text-align:center">Seats <?php echo $purchase->getQuantity(); ?>
                 </p>
                 <div class="col text-center">
                     <a href="<?php echo FRONT_ROOT ?>Ticket/addToCart/1" class="btn btn-warning">Add to cart</a>

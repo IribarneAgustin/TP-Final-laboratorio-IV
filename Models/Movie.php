@@ -10,6 +10,7 @@ class Movie{
     private $language;
     private $overview;
     private $genres;
+    private $runtime;
 
 
     public function __construct()
@@ -102,6 +103,16 @@ class Movie{
     {
         $this->genres = $genres;
 
+    }
+
+    public function getRuntime()
+    {
+        return $this->runtime;
+    }
+
+    public function setRuntime($runtime)
+    {
+        $this->runtime = $runtime;
     }
 }
 
