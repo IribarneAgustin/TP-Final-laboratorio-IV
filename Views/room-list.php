@@ -9,6 +9,7 @@ include('nav-bar.php');
             <h2 class="mb-4" style="color:white">Room List</h2>
             <a class="btn btn-success" href="<?php echo FRONT_ROOT; ?>Room/showAddView/<?php echo $cinemaId ?>">Add a
                 Room</a>
+
             <form action="<?php echo FRONT_ROOT ?>Room/remove" method="post">
                 <table class="table table-striped table-dark">
                     <thead class="thead-dark">
@@ -24,24 +25,22 @@ include('nav-bar.php');
                     </thead>
                     <tbody>
                         <?php foreach ($roomList as $value) { ?>
-                        <?php if($value->getStatus() == true) {?>
-                        <tr>
-                            <td> <?php echo $value->getId(); ?> </td>
-                            <td> <?php echo $value->getName(); ?> </td>
-                            <td> <?php echo $value->getCapacity(); ?> </td>
-                            <td> <?php echo $value->getPrice(); ?> </td>
-                            <td>
-                                <a class="btn btn-warning btn-block"
-                                    href="<?php echo FRONT_ROOT; ?>Room/showModifyView/<?php echo $value->getId(); ?>">Modify</a>
-                            </td>
-                            <td>
-                                <button type="submit" name="remove" class="btn btn-danger btn-block"
-                                    value="<?php echo $value->getId(); ?>"> Remove </button>
+                            <?php if ($value->getStatus() == true) { ?>
+                                <tr>
+                                    <td> <?php echo $value->getId(); ?> </td>
+                                    <td> <?php echo $value->getName(); ?> </td>
+                                    <td> <?php echo $value->getCapacity(); ?> </td>
+                                    <td> <?php echo $value->getPrice(); ?> </td>
+                                    <td>
+                                        <a class="btn btn-warning btn-block" href="<?php echo FRONT_ROOT; ?>Room/showModifyView/<?php echo $value->getId(); ?>">Modify</a>
+                                    </td>
+                                    <td>
+                                        <button type="submit" name="remove" class="btn btn-danger btn-block" value="<?php echo $value->getId(); ?>"> Remove </button>
 
-                            </td>
+                                    </td>
 
-                        </tr>
-                        <?php } ?>
+                                </tr>
+                            <?php } ?>
 
                         <?php } ?>
 
@@ -64,18 +63,17 @@ include('nav-bar.php');
                     </thead>
                     <tbody>
                         <?php foreach ($roomList as $value) { ?>
-                        <?php if($value->getStatus() == false) {?>
-                        <tr>
-                            <td> <?php echo $value->getId(); ?> </td>
-                            <td> <?php echo $value->getName(); ?> </td>
-                            <td> <?php echo $value->getCapacity(); ?> </td>
-                            <td> <?php echo $value->getPrice(); ?> </td>
-                            <td>
-                                <button type="submit" name="remove" class="btn btn-warning btn-block"
-                                    value="<?php echo $value->getId(); ?>">Activate</button>
-                            </td>
-                        </tr>
-                        <?php } ?>
+                            <?php if ($value->getStatus() == false) { ?>
+                                <tr>
+                                    <td> <?php echo $value->getId(); ?> </td>
+                                    <td> <?php echo $value->getName(); ?> </td>
+                                    <td> <?php echo $value->getCapacity(); ?> </td>
+                                    <td> <?php echo $value->getPrice(); ?> </td>
+                                    <td>
+                                        <button type="submit" name="remove" class="btn btn-warning btn-block" value="<?php echo $value->getId(); ?>">Activate</button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
 
                         <?php } ?>
 
@@ -83,10 +81,10 @@ include('nav-bar.php');
                 </table>
             </form>
             <?php
-      if (isset($message) && $message != "") {
-        echo "<div class='alert alert-primary' role='alert'> $message </div>";
-      }
-      ?>
+            if (isset($message) && $message != "") {
+                echo "<div class='alert alert-primary' role='alert'> $message </div>";
+            }
+            ?>
         </div>
         </div>
         <!-- / main body -->

@@ -9,12 +9,12 @@ use \Exception as Exception;
 class MovieController
 {
 
-    private $moviesDAO;
+    private $moviesDAO; //API MOVIES
     private $moviesDAOMySQL;
 
     public function __construct()
     {
-        $this->moviesDAO = new MoviesDAO();
+        $this->moviesDAO = new MoviesDAO(); //API MOVIES
         $this->moviesDAOMySQL = new MoviesDAOMySQL();
         try{
             session_start();   
@@ -23,15 +23,6 @@ class MovieController
         }
     }
 
-    public function showList()
-    {
-            require_once(VIEWS_PATH."validate-session-admin.php");
-            $moviesList = $this->moviesDAO->getAll();
-            $genresList = $this->moviesDAO->getGenreList();
-            $key = $this->moviesDAO->getKey();
-            require_once(VIEWS_PATH . "movie-list.php");
-        
-    }
     public function addAll()
     {
         $moviesList = $this->moviesDAO->getAll();
@@ -39,6 +30,7 @@ class MovieController
             $this->moviesDAOMySQL->add($value);
         }
     }
+
     public function addGenres()
     {
         $moviesList = $this->moviesDAO->getAll();
@@ -56,4 +48,7 @@ class MovieController
             }
         }
     }
+
+
+
 }

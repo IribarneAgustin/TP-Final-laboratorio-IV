@@ -227,7 +227,7 @@ class TicketController
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'MoviePass Tickets!';
+            $mail->Subject = 'MoviePass!';
             $mail->Body    = 'Thanks for buying your tickets in <b>MoviePass</b>';
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
