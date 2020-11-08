@@ -50,6 +50,8 @@ CREATE TABLE user
     role VARCHAR(15) NOT NULL
 );
 
+INSERT INTO user (username, email, password, role) values ('admin', 'admin@admin', '123', 'admin');
+
 
 CREATE TABLE room
 (

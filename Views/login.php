@@ -10,7 +10,7 @@ include_once('header.php');
                 <div id="first">
                     <div class="myform form ">
                         <div class="logo mb-3">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12">
                                 <h1 style="color:white">Login</h1>
                             </div>
                         </div>
@@ -25,8 +25,8 @@ include_once('header.php');
                                 <input type="password" name="password" class="form-control" id="password"
                                     placeholder="Enter password">
                             </div>
-                            <div class="col-md-12 text-center ">
-                                <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-dark">Login</button>
                             </div>
                         </form>
                     </div>

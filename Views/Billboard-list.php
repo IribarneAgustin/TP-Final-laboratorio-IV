@@ -32,7 +32,6 @@ include('nav-bar.php');
                             <th style="width: 10%;">Language</th>
                             <th style="width: 15%;">Runtime</th>
                             <th style="width: 10%;">Genres</th>
-                            <th style="width: 1%;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +47,6 @@ include('nav-bar.php');
                                     echo $value->getName() . " ";
                                 }
                                 ?></td>
-                            <td></td>
                     </tbody>
 
                     <form action="<?php echo FRONT_ROOT ?>Ticket/buyTicketView" method="post">

@@ -4,8 +4,8 @@ include('nav-bar.php');
 ?>
 
 <main class="py-4">
-    <div class="container">
-        <h2 class="mb-4" style="color:white">Add MovieShow</h2>
+    <h2 class="mb-4" style="color:white">Add MovieShow</h2>
+    <div class="d-flex justify-content-center align-items-center container">
         <div class="form-group">
             <table class="table table-striped table-dark">
                 <thead>
@@ -30,29 +30,33 @@ include('nav-bar.php');
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center container">
         <form action="<?php echo FRONT_ROOT ?>MovieShow/add" method="get" class="form-group">
 
-            <input type="hidden" value="<?php echo $movie->getId(); ?>" name="movieId" size="30" class="form-control" required>
+            <input type="hidden" value="<?php echo $movie->getId(); ?>" name="movieId" size="30" class="form-control"
+                required>
 
             <div class="bg-dark-alpha p-3">
-                <div class="row">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-3">
                         <label for="roomId" style="color:white">Room</label>
                         <select name="roomId" class="form-control" style="width: 100%;" placeholder="Select Room">
                             <?php foreach ($roomList as $room) { ?>
-                                <?php $roomId = $room->getId(); ?>
-                                <option name="roomId" value="<?php echo $roomId ?>" required>
-                                    <?php echo $room->getName(); ?></option>
+                            <?php $roomId = $room->getId(); ?>
+                            <option name="roomId" value="<?php echo $roomId ?>" required>
+                                <?php echo $room->getName(); ?></option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="col-lg-3">
                         <label for="date" style="color:white">Date</label>
-                        <input name="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" type="date" id="date" value="" required>
+                        <input name="date" class="form-control" min="<?php echo date('Y-m-d'); ?>" type="date" id="date"
+                            value="" required>
                     </div>
                     <div class="col-lg-3">
                         <label for="time" style="color:white">Time</label>
-                        <input name="time" class="form-control" type="time"  id="time" required>
+                        <input name="time" class="form-control" type="time" id="time" required>
 
                     </div>
                 </div>

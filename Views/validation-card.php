@@ -12,9 +12,9 @@ include_once('nav-bar.php');
     </div>
     <div class="row">
         <div class="col-lg-6 mx-auto">
-            <div class="card">
+            <div class="card bg-dark">
                 <div class="card-header">
-                    <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
+                    <div class="shadow-sm pt-4 pl-2 pr-2 pb-2">
                         <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
                             <img class="img-fluid cc-img"
                                 src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
@@ -27,20 +27,20 @@ include_once('nav-bar.php');
                             <form action="<?php echo FRONT_ROOT ?>Ticket/validationCard" method="post">
 
                                 <div class="form-group"> <label for="total">
-                                        <h6>TOTAL</h6>
+                                        <h6 style="color:white">TOTAL</h6>
                                     </label>
                                     <input type="number" name="total" value="<?php echo $total ?>"
-                                        class="form-control ">
+                                        class="form-control text-center">
                                 </div>
                                 <div class="form-group"> <label for="cardOwner">
-                                        <h6>Card Owner</h6>
+                                        <h6 style="color:white">Card Owner</h6>
                                     </label> <input type="text" name="cardOwner" placeholder="Card Owner Name" required
-                                        class="form-control "> </div>
+                                        class="form-control text-center"> </div>
                                 <div class="form-group"> <label for="cardNumber">
-                                        <h6>Card number</h6>
+                                        <h6 style="color:white">Card number</h6>
                                     </label>
                                     <div class="input-group"> <input type="text" name="cardNumber"
-                                            placeholder="Valid card number" class="form-control " required>
+                                            placeholder="Valid card number" class="form-control text-center" required>
                                         <div class="input-group-append"> <span class="input-group-text text-muted">
                                                 <i class="fa fa-credit-card mx-1"></i> </div>
                                     </div>
@@ -48,19 +48,20 @@ include_once('nav-bar.php');
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <div class="form-group"> <label><span class="hidden-xs">
-                                                    <h6>Expiration Date</h6>
+                                                    <h6 style="color:white">Expiration Date</h6>
                                                 </span></label>
                                             <div class="input-group"> <input type="number" placeholder="MM"
-                                                    name="expirationMM" class="form-control" required> <input
-                                                    type="number" placeholder="YYYY" name="expirationYY"
-                                                    class="form-control" required> </div>
+                                                    name="expirationMM" class="form-control text-center" required>
+                                                <input type="number" placeholder="YYYY" name="expirationYY"
+                                                    class="form-control text-center" required> </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group mb-4"> <label data-toggle="tooltip" for="cvv"
                                                 title="Three digit CV code on the back of your card">
-                                                <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                                            </label> <input type="text" name="cvv" required class="form-control">
+                                                <h6 style="color:white">CVV <i
+                                                        class="fa fa-question-circle d-inline"></i></h6>
+                                            </label> <input type="text" name="cvv" required class="form-control text-center">
                                         </div>
                                     </div>
                                 </div>

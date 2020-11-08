@@ -1,9 +1,10 @@
 <?php 
 namespace Models;
 
+
 class Purchase{
 
-    private Ticket $ticket;
+    private $ticket;
     private $quantity;
     private $total;
 

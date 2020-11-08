@@ -4,7 +4,7 @@ include('nav-bar.php');
 ?>
 
 <main class="py-4">
-    <section id="listado" class="mb-5">
+    <section id="section1" class="mb-5">
         <div class="container">
             <h2 class="mb-4" style="color:white">User Info</h2>
             <div class="bg-dark-alpha p-3">

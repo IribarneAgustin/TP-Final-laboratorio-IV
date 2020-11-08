@@ -7,7 +7,7 @@ include('nav-bar.php');
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4" style="color:white">Cinema List</h2>
-            <form action="<?php echo FRONT_ROOT ?>Cinema/remove" method="post" class="bg-light-alpha">
+            <form action="<?php echo FRONT_ROOT ?>Cinema/remove" method="post">
                 <table class="table table-striped table-dark">
                     <thead class="thead-dark">
                         <tr>
