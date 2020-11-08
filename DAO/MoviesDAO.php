@@ -40,7 +40,7 @@ class MoviesDAO implements IMoviesDAO
         $this->moviesList = array();
         $json = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=$this->key&language=en-US&page=1");
         $arrayToDecode = json_decode($json, true);
-    
+
         foreach ($arrayToDecode as $key => $value) {
 
             if (is_array($value)) {
@@ -55,6 +55,7 @@ class MoviesDAO implements IMoviesDAO
                         $newMovie->setLanguage($movie['original_language']);
                         $newMovie->setOverview($movie['overview']);
                         $newMovie->setReleaseDate($movie['release_date']);
+                        $newMovie->setRuntime($this->getRuntimeById($movie["id"]));
                         $genresToAdd = $this->getGenresByIds($movie['genre_ids']);
                         $newMovie->setGenres($genresToAdd);
                         array_push($this->moviesList, $newMovie);
@@ -62,7 +63,6 @@ class MoviesDAO implements IMoviesDAO
                 }
             }
         }
-        
     }
 
     public function getGenreById($id)
@@ -81,6 +81,24 @@ class MoviesDAO implements IMoviesDAO
             }
         }
         return $genreToSearch;
+    }
+
+    public function getRuntimeById($movieId)
+    {
+
+        $runtime = 0;
+        $json = file_get_contents("https://api.themoviedb.org/3/movie/$movieId?api_key=$this->key&language=en-US");
+        $arrayToDecode = json_decode($json, true);
+
+
+        foreach ($arrayToDecode as $key => $details) {
+
+            if ($key == "runtime") {
+                $runtime = $details;
+            }
+        }
+
+        return $runtime;
     }
 
 
@@ -124,10 +142,10 @@ class MoviesDAO implements IMoviesDAO
     {
         $this->retrieveDataNowPlaying();
         $genreFilteredList = array();
-        foreach ($this->moviesList as $value){
+        foreach ($this->moviesList as $value) {
             $movieGenres = $value->getGenres();
-            foreach($movieGenres as $movieGenre) {
-                if($movieGenre->getId() == $genreId){
+            foreach ($movieGenres as $movieGenre) {
+                if ($movieGenre->getId() == $genreId) {
                     array_push($genreFilteredList, $value);
                 }
             }
@@ -135,18 +153,17 @@ class MoviesDAO implements IMoviesDAO
         return $genreFilteredList;
     }
 
-    public function getById($id){
+    public function getById($id)
+    {
         $this->retrieveDataNowPlaying();
         $movie = false;
 
-        foreach($this->moviesList as $movie){
-            if($movie->getId() == $id){
+        foreach ($this->moviesList as $movie) {
+            if ($movie->getId() == $id) {
                 $moovie = $movie;
-                break;                 
+                break;
             }
         }
         return $movie;
-
     }
-
 }

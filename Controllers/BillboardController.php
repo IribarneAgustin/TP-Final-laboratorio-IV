@@ -26,18 +26,21 @@ class BillboardController
             throw $ex;
         }
     }
+    
 
     public function showFilteredList($date = '', $genreId = '')
     {
 
         if ($date != "") {
-            $moviesList = $this->filterMovieList($this->movieshowDAO->getMoviesByDate($date));
+            $movieList = $this->movieshowDAO->getMoviesByDate($date);
+            $moviesList = $this->movieshowDAO->filterMovieList($movieList); //Elimino repetidos
             $movieShowList =  $this->movieshowDAO->getByDate($date);
             $genresList = $this->moviesDAOMySQL->getGenreList();
         }
         if ($genreId != "") {
 
-            $moviesList = $this->filterMovieList($this->movieshowDAO->getMoviesByGenre($genreId));
+            $movieList = $this->movieshowDAO->getMoviesByGenre($genreId);
+            $moviesList = $this->movieshowDAO->filterMovieList($movieList); //Elimino repetidos
             $movieShowList = $this->movieshowDAO->getAll();
             $genresList = $this->moviesDAOMySQL->getGenreList();
         }

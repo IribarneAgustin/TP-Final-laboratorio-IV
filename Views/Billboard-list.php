@@ -30,6 +30,7 @@ include('nav-bar.php');
                             <th style="width: 25%;">Movie</th>
                             <th style="width: 35%;">Overview</th>
                             <th style="width: 10%;">Language</th>
+                            <th style="width: 15%;">Runtime</th>
                             <th style="width: 10%;">Genres</th>
                             <th style="width: 1%;"></th>
                         </tr>
@@ -41,6 +42,7 @@ include('nav-bar.php');
                             <td> <?php echo $movie->getTitle(); ?> </td>
                             <td> <?php echo $movie->getOverview(); ?> </td>
                             <td> <?php echo $movie->getLanguage(); ?> </td>
+                            <td> <?php echo $movie->getRuntime(). " minutes" ?> </td>
                             <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
                             <td><?php foreach ($genres as $value) {
                                     echo $value->getName() . " ";

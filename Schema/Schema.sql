@@ -18,8 +18,10 @@ CREATE TABLE movie
     img VARCHAR(100) NOT NULL,
     realeseDate VARCHAR(100) NOT NULL,
     language VARCHAR(100) NOT NULL,
-    overview VARCHAR(700) NOT NULL
+    overview VARCHAR(700) NOT NULL,
+    runtime int not null
 );
+
 
 CREATE TABLE genre
 (   
@@ -47,6 +49,7 @@ CREATE TABLE user
     password VARCHAR(10) NOT NULL,
     role VARCHAR(15) NOT NULL
 );
+
 
 CREATE TABLE room
 (
@@ -79,6 +82,6 @@ CREATE TABLE ticket(
     total int not null,
     status boolean not null,
 
-CONSTRAINT fk_idUser_ticket foreign key (idUser) references user (dni),
+CONSTRAINT fk_idUser_ticket foreign key (idUser) references user (id),
 CONSTRAINT fk_idMovieShow_ticket foreign key (idMovieShow) references movieshow (id)
 );

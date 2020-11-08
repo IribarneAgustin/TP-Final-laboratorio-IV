@@ -50,13 +50,14 @@ class MoviesDAOMySQL implements IMoviesDAO
     public function add(Movie $movie)
     {
         try {
-            $query = "INSERT INTO " . $this->tableName . " (id, title, img, realeseDate, language, overview) VALUES (:id, :title, :img ,:realeseDate, :language, :overview);";
+            $query = "INSERT INTO " . $this->tableName . " (id, title, img, realeseDate, language, overview, runtime) VALUES (:id, :title, :img ,:realeseDate, :language, :overview, :runtime);";
             $parameters["id"] = $movie->getId();
             $parameters["title"] = $movie->getTitle();
             $parameters["img"] = $movie->getImg();
             $parameters["realeseDate"] = $movie->getReleaseDate();
             $parameters["language"] = $movie->getLanguage();
             $parameters["overview"] = $movie->getOverview();
+            $parameters["runtime"] = $movie->getRuntime();
 
 
             $this->connection = Connection::GetInstance();
@@ -166,6 +167,7 @@ class MoviesDAOMySQL implements IMoviesDAO
                 $movie->setReleaseDate($row["realeseDate"]);
                 $movie->setLanguage($row["language"]);
                 $movie->setOverview($row["overview"]);
+                $movie->setRuntime($row["runtime"]);
 
 
                 array_push($movieList, $movie);
@@ -196,6 +198,7 @@ class MoviesDAOMySQL implements IMoviesDAO
                 $movie->setReleaseDate($row["realeseDate"]);
                 $movie->setLanguage($row["language"]);
                 $movie->setOverview($row["overview"]);
+                $movie->setRuntime($row["runtime"]);
 
             }
 
@@ -204,4 +207,9 @@ class MoviesDAOMySQL implements IMoviesDAO
             throw $ex;
         }
     }
+
+
+
+
+
 }
