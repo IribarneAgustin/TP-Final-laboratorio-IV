@@ -338,4 +338,35 @@ class MovieShowDAO implements IMovieShowDAO
 
         return $list;
     }
+
+    public function getTimeToLastMovieShow(Room $room,$date)
+    {
+        try {
+
+            $roomId = $room->getId();
+            
+            $query = "SELECT ms.time, m.runtime FROM movieshow as ms JOIN room ON ms.idRoom = room.id JOIN movie as m ON m.id = ms.idMovie  where room.id = $roomId AND ms.date = $date AND ms.status = 1";
+
+            $resultSet = $this->connection->execute('query', $query);
+            $runtime = 0;
+            $endingTime = -1;
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+                    $time = $row['time'];
+                    $runtime = $row['runtime'];
+                }
+            }
+            
+            if(isset($time)){                                                
+            $inicTime = strtotime($time);
+            $minutesToAdd = 60*($runtime + 15); //Agrego 15 minutos
+            $endingTime = date("H:i",$inicTime+$minutesToAdd);
+            }
+
+            return $endingTime;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
 }

@@ -12,10 +12,11 @@ include('nav-bar.php');
                     <tr>
                         <th style="width: 10%;">Image</th>
                         <th style="width: 15%;">Title</th>
-                        <th style="width: 10%;">Genre</th>
                         <th style="width: 15%;">Release Date</th>
                         <th style="width: 10%;">Language</th>
                         <th style="width: 50%;">Overview</th>
+                        <th style="width: 50%;">Runtime</th>
+                        <th style="width: 10%;">Genres</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,10 +24,15 @@ include('nav-bar.php');
                         <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
                         </td>
                         <td> <?php echo $movie->getTitle(); ?> </td>
-                        <td> <?php echo $movie->getGenresName(); ?> </td>
                         <td> <?php echo $movie->getReleaseDate(); ?> </td>
                         <td> <?php echo $movie->getLanguage(); ?> </td>
                         <td> <?php echo $movie->getOverview(); ?> </td>
+                        <td> <?php echo $movie->getRuntime()." minutes"; ?> </td>
+                        <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
+                            <td><?php foreach ($genres as $value) {
+                                    echo $value->getName() . " ";
+                                }
+                                ?></td>
                 </tbody>
             </table>
         </div>
@@ -63,6 +69,7 @@ include('nav-bar.php');
             </div>
             <button type="submit" class="btn btn-dark btn-block">Add to billboard</button>
         </form>
+
         <?php
         if (isset($message) && $message != "") {
             echo "<div class='alert alert-primary' role='alert'> $message </div>";
