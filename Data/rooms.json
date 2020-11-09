@@ -1,0 +1,14 @@
+[
+    {
+        "id": 2,
+        "name": "Sala 4d",
+        "price": "11",
+        "capacity": "123121"
+    },
+    {
+        "id": 3,
+        "name": "Sala 2d",
+        "price": "123",
+        "capacity": "123"
+    }
+]

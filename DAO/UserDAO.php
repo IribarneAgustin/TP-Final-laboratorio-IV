@@ -1,0 +1,177 @@
+<?php
+
+namespace DAO;
+
+use Models\User as User;
+use DAO\IUserDAO as IUserDAO;
+
+class UserDAO implements IUserDAO
+{
+
+    private $connection;
+    private $tableName = "user";
+
+    public function __construct()
+    {
+        $this->connection = new Connection();
+    }
+
+    public function add(User $user)
+    {
+        try {
+
+            $query = "INSERT INTO " . $this->tableName . " (username, email, password, role) VALUES (:username, :email, :password, :role)";
+            $parameters['username'] = $user->getUsername();
+            $parameters['email'] = $user->getEmail();
+            $parameters['password'] = $user->getPassword();
+            $parameters['role'] = $user->getRole();
+
+           $this->connection->execute("nonQuery", $query, $parameters);
+
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+    
+    public function getByUsername($username)
+    {
+        try {
+            $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".username ='$username'";
+
+            $resultSet = $this->connection->execute('query', $query);
+            $user = NULL;
+            foreach ($resultSet as $row) {
+
+                $user = new User();
+                $user->setId($row["id"]);
+                $user->setUsername($row["username"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setRole($row["role"]);
+            }
+            return $user;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    
+    }
+
+    public function getByEmail($email)
+    {
+        try {
+            $query = "SELECT * FROM " . $this->tableName . " WHERE " . $this->tableName . ".email ='$email'";
+
+            $resultSet = $this->connection->execute('query', $query);
+            $user = NULL;
+            foreach ($resultSet as $row) {
+
+                $user = new User();
+                $user->setId($row["id"]);
+                $user->setUsername($row["username"]);
+                $user->setEmail($row["email"]);
+                $user->setPassword($row["password"]);
+                $user->setRole($row["role"]);
+            }
+            return $user;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getAll()
+    {
+        try {
+            $cinemaList = array();
+
+            $query = "SELECT * FROM " . $this->tableName;
+
+            $resultSet = $this->connection->execute('query', $query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $user = new User();
+                    $user->setId($row["id"]);
+                    $user->setUsername($row["username"]);
+                    $user->setEmail($row["email"]);
+                    $user->setPassword($row["password"]);
+                    $user->setRole($row["role"]);
+
+                    array_push($userList, $user);
+                }
+            }
+
+            return $userList;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+    public function update($modifiedUser){
+
+        try {
+            
+            $id = $modifiedUser->getId();
+            $username = $modifiedUser->getUsername();
+            $email = $modifiedUser->getEmail();
+            $password = $modifiedUser->getPassword();
+            $role = $modifiedUser->getRole();
+
+            $query = "UPDATE $this->tableName SET username='$username',email= '$email',password= '$password', role='$role' WHERE id='$id'";
+            $this->connection->execute('nonQuery', $query);
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+
+    }
+
+    public function remove($userId)
+    {
+
+    }
+
+    public function existsUser($username, $email)
+    {
+        $exists = false;
+        try {
+            $query = "SELECT * FROM user WHERE user.username ='$username' AND user.email ='$email'";
+            $resultSet = $this->connection->execute('query',$query);
+            if (!empty($resultSet)) {
+                $exists = true;
+            }
+            return $exists;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+    public function AddFacebook($username, $email,$first_name,$last_name)
+        {
+            try
+            {
+
+                
+                $query = "INSERT INTO ".$this->tableName." (username, email, password, idRole) 
+                            VALUES (:username, :email, :password, :idRole);";
+                
+                $parameters["username"] = $username;
+                $parameters["email"] = $email;
+                $parameters["password"] = "FACEBOOK".$email;
+                $parameters["idRole"] = 1;
+
+                $this->connection = Connection::getInstance();
+
+                $this->connection->execute("nonQuery",$query, $parameters);
+
+                $query= "SELECT LAST_INSERT_ID()";
+
+                $this->connection = Connection::getInstance();
+
+                $resultSet = $this->connection->execute('query',$query);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+}
