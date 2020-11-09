@@ -49,8 +49,8 @@ include('nav-bar.php');
                         <label for="roomId" style="color:white">Room</label>
                         <select name="roomId" class="form-control" style="width: 100%;" placeholder="Select Room">
                             <?php foreach ($roomList as $room) { ?>
-                            <?php $roomId = $room->getId(); ?>
-                            <option name="roomId" value="<?php echo $roomId ?>" required>
+                            
+                            <option name="roomId" value="<?php echo $room->getId(); ?>" required>
                                 <?php echo $room->getName(); ?></option>
                             <?php } ?>
                         </select>
