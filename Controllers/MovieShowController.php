@@ -67,12 +67,13 @@ class MovieShowController
         return $flag;
     }
 
+
     public function timeValidation($room, $date, $time)
     {
         $flag = false;
         $lastTime = $this->movieShowDAO->getTimeToLastMovieShow($room, $date);
-
-        if ($time >= $lastTime && $lastTime != -1) {
+       
+        if ($time >= $lastTime) {
             $flag = true;
         }
 
