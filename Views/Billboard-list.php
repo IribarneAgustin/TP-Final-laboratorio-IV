@@ -72,7 +72,7 @@ include('nav-bar.php');
                                         <td> <?php echo $show->getDate();  ?> </td>
                                         <td> <?php echo $show->getTime();  ?> </td>
                                         <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
-                                        <?php if ($show->getTicketsSold() < $show->getRoom()->getCapacity() && $show->getDate() >= date('Y-m-d') )  { ?>
+                                        <?php if ($show->getTicketsSold() < $show->getRoom()->getCapacity() && $show->getDate() >= date('Y-m-d'))  { ?>
                                             <td> <button type="submit" class="btn btn-warning" name="movieShowId" value="<?php echo $show->getId(); ?>">BUY TICKET</button> </td>
                                         <?php } else { ?>
                                             <td> TICKETS SOLD </td>

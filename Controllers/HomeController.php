@@ -24,7 +24,7 @@ class HomeController
     {
         $movieShowList = $this->movieshowDAO->getAll();
         $moviesList = $this->movieshowDAO->getMovies();
-        $moviesList = $this->movieshowDAO->filterMovieList($moviesList);
+        $moviesList = $this->filterMovieList($moviesList);
 
         if (isset($_SESSION['user'])) {
             require(VIEWS_PATH . 'userHome.php');
@@ -37,6 +37,19 @@ class HomeController
         $genresList = $this->moviesDAOMySQL->getGenresByMovieId($movieId);
         return $genresList;
     }
+    public function filterMovieList($moviesList)
+    {
+        $list = array();
+        foreach ($moviesList as $value) {
+            if (!in_array($value, $list)) {
+                array_push($list, $value);
+            }
+        }
+
+        return $list;
+    }
+
+
     
     
 }

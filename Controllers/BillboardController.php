@@ -26,6 +26,18 @@ class BillboardController
             throw $ex;
         }
     }
+
+    public function filterMovieList($moviesList)
+    {
+        $list = array();
+        foreach ($moviesList as $value) {
+            if (!in_array($value, $list)) {
+                array_push($list, $value);
+            }
+        }
+
+        return $list;
+    }
     
 
     public function showFilteredList($date = '', $genreId = '')
@@ -33,14 +45,14 @@ class BillboardController
 
         if ($date != "") {
             $movieList = $this->movieshowDAO->getMoviesByDate($date);
-            $moviesList = $this->movieshowDAO->filterMovieList($movieList); //Elimino repetidos
+            $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
             $movieShowList =  $this->movieshowDAO->getByDate($date);
             $genresList = $this->moviesDAOMySQL->getGenreList();
         }
         if ($genreId != "") {
 
             $movieList = $this->movieshowDAO->getMoviesByGenre($genreId);
-            $moviesList = $this->movieshowDAO->filterMovieList($movieList); //Elimino repetidos
+            $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
             $movieShowList = $this->movieshowDAO->getAll();
             $genresList = $this->moviesDAOMySQL->getGenreList();
         }
@@ -65,7 +77,7 @@ class BillboardController
         require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShowList = $this->movieshowDAO->getAll();
         $moviesList = $this->movieshowDAO->getMovies();
-        $moviesList = $this->movieshowDAO->filterMovieList($moviesList);
+        $moviesList = $this->filterMovieList($moviesList);
         $genresList = $this->moviesDAOMySQL->getGenreList();
 
         require_once(VIEWS_PATH . "Billboard-list.php");
