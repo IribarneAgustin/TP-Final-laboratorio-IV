@@ -326,18 +326,7 @@ class MovieShowDAO implements IMovieShowDAO
         }
     }
 
-    //Borro peliculas repetidas
-    public function filterMovieList($moviesList)
-    {
-        $list = array();
-        foreach ($moviesList as $value) {
-            if (!in_array($value, $list)) {
-                array_push($list, $value);
-            }
-        }
 
-        return $list;
-    }
     public function getTimeToLastMovieShow(Room $room, $date)
     {
         try {
@@ -361,6 +350,39 @@ class MovieShowDAO implements IMovieShowDAO
             }
 
             return $endingTime;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getMovieShowByRoom(Room $room)
+    {
+
+        try {
+            $idRoom = $room->getId();
+            
+            $query = "SELECT ms.id,ms.date,ms.time,ms.ticketsSold,ms.status from movieShow as ms where ms.idRoom = $idRoom ";
+
+            $resultSet = $this->connection->execute('query', $query);
+            $movieShowList = array();
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movieShow = new MovieShow();
+                    $movieShow->setId($row["id"]);
+                    $movieShow->setDate($row["date"]);
+                    $movieShow->setTime($row["time"]);
+                    $movieShow->setTicketsSold($row["ticketsSold"]);
+                    $movieShow->setStatus($row["status"]);
+
+                    array_push($movieShowList,$movieShow);
+                }
+            }
+            
+            return $movieShowList;
+
+
         } catch (\PDOException $ex) {
             throw $ex;
         }

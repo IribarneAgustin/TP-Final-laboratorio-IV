@@ -72,7 +72,7 @@ class MovieShowController
     {
         $flag = false;
         $lastTime = $this->movieShowDAO->getTimeToLastMovieShow($room, $date);
-       
+
         if ($time >= $lastTime) {
             $flag = true;
         }
@@ -119,11 +119,25 @@ class MovieShowController
         require_once(VIEWS_PATH . "movieShow-admin.php");
     }
 
+    public function validateTicketSold(MovieShow $movieShow)
+    {
+        $flag = false;
+        if ($movieShow->getTicketsSold() > 0) {
+            $flag = true;
+        }
+        return $flag;
+    }
+
 
     public function remove($movieShowId)
     {
-        require_once(VIEWS_PATH . "validate-session-admin.php");
-        $this->movieShowDAO->remove($movieShowId);
-        $this->showList($message = "Movie Show removed succesfully");
+        $movieShow = $this->movieShowDAO->getById($movieShowId);
+        if ($this->validateTicketSold($movieShow) == false) {
+            require_once(VIEWS_PATH . "validate-session-admin.php");
+            $this->movieShowDAO->remove($movieShowId);
+            $this->showList($message = "Movie Show removed succesfully");
+        }else{
+            $this->showList($message = "Movie Show cannot be remove because it has tickets sold");
+        }
     }
 }
