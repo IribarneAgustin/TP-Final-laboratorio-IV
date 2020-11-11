@@ -2,11 +2,20 @@
 include('header.php');
 include('nav-bar.php');
 ?>
-
-<main class="py-4">
+<main class="py-4" style="background-image: url('Assets/img/header.jpg');">>
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4" style="color:white">Welcome to Moviepass! Log in to buy your tickets!</h2>
+            <header>
+                <div class="p-5 text-center bg-image">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <div class="text-white">
+                                <h1 class="mb-3">Welcome to Moviepass!</h1>
+                                <h4 class="mb-3">Log in to buy your tickets!</h4>
+                                <a  class="btn btn-outline-light" href="<?php echo FRONT_ROOT;?>User/showLoginView" role="button">Login!</a>
+                            </div>
+                        </div>
+                </div>
+            </header>
             <br>
             <?php foreach ($moviesList as $movie) { ?>
                 <table class="table table-striped table-dark">
