@@ -85,7 +85,7 @@ class UserController
             'default_graph_version' => 'v2.4',
         ]);
 
-        $helper = $fb->getRedirectLoginHelper();
+        $helper = $fb->getRedirectLoginHelper("https://movie-pass-42800.firebaseapp.com/__/auth/handler");
 
         try {
             $accessToken = $helper->getAccessToken();

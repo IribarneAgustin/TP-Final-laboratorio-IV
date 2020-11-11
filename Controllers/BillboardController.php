@@ -42,19 +42,25 @@ class BillboardController
 
     public function showFilteredList($date = '', $genreId = '')
     {
-
-        if ($date != "") {
-            $movieList = $this->movieshowDAO->getMoviesByDate($date);
-            $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
+        if ($date != "" && $genreId != "") {
+            $moviesList =  $this->movieshowDAO->getMoviesByGenreAndDate($genreId, $date);
             $movieShowList =  $this->movieshowDAO->getByDate($date);
             $genresList = $this->moviesDAOMySQL->getGenreList();
-        }
-        if ($genreId != "") {
+        } else {
 
-            $movieList = $this->movieshowDAO->getMoviesByGenre($genreId);
-            $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
-            $movieShowList = $this->movieshowDAO->getAll();
-            $genresList = $this->moviesDAOMySQL->getGenreList();
+            if ($date != "") {
+                $movieList = $this->movieshowDAO->getMoviesByDate($date);
+                $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
+                $movieShowList =  $this->movieshowDAO->getByDate($date);
+                $genresList = $this->moviesDAOMySQL->getGenreList();
+            }
+            if ($genreId != "") {
+
+                $movieList = $this->movieshowDAO->getMoviesByGenre($genreId);
+                $moviesList = $this->filterMovieList($movieList); //Elimino repetidos
+                $movieShowList = $this->movieshowDAO->getAll();
+                $genresList = $this->moviesDAOMySQL->getGenreList();
+            }
         }
 
         if ($date == '' && $genreId == '') {

@@ -21,11 +21,13 @@ include('nav-bar.php');
                     </thead>
                     <tbody>
                         <tr>
-                            <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $this->movieDAO->getById($movieShow->getMovie()->getId())->getImg() . '">' ?>
+                            <?php $movie = $this->getMovieByMovieShow($movieShow); ?>
+                            <?php $cinema = $this->getCinemaByMovieShow($movieShow); ?>
+                            <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
                             </td>
-                            <td> <?php echo $this->movieDAO->getById($movieShow->getMovie()->getId())->getTitle(); ?>
+                            <td> <?php echo $movie->getTitle(); ?>
                             </td>
-                            <td> <?php echo $this->cinemaDAO->getCinemaByRoomId($movieShow->getRoom()->getId())->getName(); ?>
+                            <td> <?php echo $cinema->getName(); ?>
                             </td>
                             <td> <?php echo $movieShow->getRoom()->getName(); ?> </td>
                             <td> <?php echo $movieShow->getDate();  ?> </td>
@@ -37,8 +39,7 @@ include('nav-bar.php');
 
                 <div class="d-flex justify-content-center align-items-center container">
                     <form action="<?php echo FRONT_ROOT ?>Ticket/processPurchase" method="post">
-                        <input type="hidden" name="movieShowId" value="<?php echo $movieShow->getId(); ?>" size="30"
-                            class="form-control" required>
+                        <input type="hidden" name="movieShowId" value="<?php echo $movieShow->getId(); ?>" size="30" class="form-control" required>
                         <div class="form-group">
                             <label for="" style="color:white">Quantity</label>
                             <input type="number" name="quantity" size="30" min="1" class="form-control" required>
