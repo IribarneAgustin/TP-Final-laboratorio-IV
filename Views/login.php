@@ -19,7 +19,7 @@ include_once("Facebook/inicFacebook.php");
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only">Password</label>
-                                    <input name="password " type="text" class="form-control" placeholder="password">
+                                    <input name="password " type="password" class="form-control" placeholder="password">
                                 </div>
                                 <button type="submit" class="btn btn-outline-light">Login</button>
                             </form>

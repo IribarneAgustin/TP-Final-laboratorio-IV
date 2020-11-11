@@ -116,6 +116,35 @@ class MovieShowDAO implements IMovieShowDAO
             throw $ex;
         }
     }
+    public function getMoviesByGenreAndDate($genreId,$date)
+    {
+        try {
+
+            $query = "SELECT movie.id, movie.title, movie.img, movie.realeseDate, movie.language, movie.overview, movie.runtime FROM movie JOIN movieshow on movieshow.idmovie = movie.id 
+            JOIN genresXmovie as gxm ON gxm.idMovie = movie.id WHERE movieshow.date ='$date' AND gxm.idGenre = $genreId";
+
+            $resultSet = $this->connection->Execute('query', $query);
+            $movie = NULL;
+            $moviesList = array();
+            foreach ($resultSet as $row) {
+
+                $movie = new Movie();
+                $movie->setId($row['id']);
+                $movie->setTitle($row['title']);
+                $movie->setImg($row['img']);
+                $movie->setReleaseDate($row['realeseDate']);
+                $movie->setLanguage($row['language']);
+                $movie->setOverview($row['overview']);
+                $movie->setRuntime($row["runtime"]);
+
+                array_push($moviesList, $movie);
+            }
+
+            return $moviesList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 
     public function getMoviesByGenre($genreId)
     {

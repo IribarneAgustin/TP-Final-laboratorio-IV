@@ -2,7 +2,7 @@
 include('header.php');
 include('nav-bar.php');
 ?>
-<main class="py-4" style="background-image: url('Assets/img/header.jpg');">>
+<main class="py-4" style="background-image: url('Assets/img/header.jpg');">
     <section id="listado" class="mb-5">
         <div class="container">
             <header>

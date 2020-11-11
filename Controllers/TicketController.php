@@ -37,6 +37,15 @@ class TicketController
         }
     }
 
+    public function getMovieByMovieShow($movieShow){
+        $movie = $this->movieDAO->getById($movieShow->getMovie()->getId());
+        return $movie;        
+
+    }
+    public function getCinemaByMovieShow($movieShow){
+        $cinema = $this->cinemaDAO->getCinemaByRoomId($movieShow->getRoom()->getId());
+        return $cinema;
+    }
 
     public function calculateTotal($roomPrice, $quantity)
     {
@@ -56,8 +65,6 @@ class TicketController
         require_once(VIEWS_PATH . "validate-session-logged.php");
         $movieShow = $this->movieshowDAO->getById($movieShowId);
         $total = $movieShow->getRoom()->getPrice();
-        //Calculate total nos va a servir para cuando apliquemos descuentos
-        //$total =  $this->calculateTotal($movieShow->getRoom()->getPrice(), $quantity);
         $user = $_SESSION['user'];
 
         $ticket = new Ticket();
