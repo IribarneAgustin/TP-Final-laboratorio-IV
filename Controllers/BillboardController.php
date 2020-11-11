@@ -38,7 +38,7 @@ class BillboardController
 
         return $list;
     }
-    
+
 
     public function showFilteredList($date = '', $genreId = '')
     {
@@ -91,5 +91,20 @@ class BillboardController
         $cinemaList = $this->cinemaDAO->getAll();
         require_once(VIEWS_PATH . "add-movieToBillboard.php");
     }
-}
 
+    public function existMovieInActiveShow($movie)
+    {
+        $flag = false;
+
+        $movieShowList = $this->movieshowDAO->getAll();
+
+        foreach ($movieShowList as $ms) {
+
+            if ($ms->getMovie() == $movie && $ms->getStatus() == 1) {
+                $flag = true;
+            }
+        }
+
+        return $flag;
+    }
+}
