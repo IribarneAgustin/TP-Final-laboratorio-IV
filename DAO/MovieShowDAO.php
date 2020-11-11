@@ -262,7 +262,7 @@ class MovieShowDAO implements IMovieShowDAO
         try {
 
             $query = "SELECT c.id as idCinema,c.address,c.name as cname, ms.id, ms.date, ms.time, ms.ticketsSold, ms.status ,ms.idMovie, ms.idRoom, m.title, m.img, m.realeseDate, m.language, m.overview, m.runtime,
-            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom join cinema as c on c.id = r.idCinema WHERE ms.id = $movieShowId";
+            r.name, r.capacity, r.price, r.status FROM movieshow as ms join movie as m on ms.idmovie = m.id join room as r on r.id = ms.idRoom join cinema as c on c.id = r.idCinema WHERE ms.id = $movieShowId AND ms.status = 1";
             $resultSet = $this->connection->execute('query', $query);
             $movieShow = null;
 
@@ -387,4 +387,11 @@ class MovieShowDAO implements IMovieShowDAO
             throw $ex;
         }
     }
+
+    
+
+
+
+
+
 }

@@ -23,35 +23,38 @@ include('nav-bar.php');
             </form>
             <br>
             <?php foreach ($moviesList as $movie) { ?>
-                <table class="table table-striped table-dark">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th style="width: 20%;"></th>
-                            <th style="width: 25%;">Movie</th>
-                            <th style="width: 35%;">Overview</th>
-                            <th style="width: 10%;">Language</th>
-                            <th style="width: 15%;">Runtime</th>
-                            <th style="width: 10%;">Genres</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
-                            </td>
-                            <td> <?php echo $movie->getTitle(); ?> </td>
-                            <td> <?php echo $movie->getOverview(); ?> </td>
-                            <td> <?php echo $movie->getLanguage(); ?> </td>
-                            <td> <?php echo $movie->getRuntime() . " minutes" ?> </td>
-                            <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
-                            <td><?php foreach ($genres as $value) {
-                                    echo $value->getName() . " ";
-                                }
-                                ?></td>
-                    </tbody>
+                <?php if ($this->existMovieInActiveShow($movie) == true) { ?>
+                    <table class="table table-striped table-dark">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="width: 20%;"></th>
+                                <th style="width: 25%;">Movie</th>
+                                <th style="width: 35%;">Overview</th>
+                                <th style="width: 10%;">Language</th>
+                                <th style="width: 15%;">Runtime</th>
+                                <th style="width: 10%;">Genres</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <?php echo '<img src="https://image.tmdb.org/t/p/w220_and_h330_face/' . $movie->getImg() . '">' ?>
+                                </td>
+                                <td> <?php echo $movie->getTitle(); ?> </td>
+                                <td> <?php echo $movie->getOverview(); ?> </td>
+                                <td> <?php echo $movie->getLanguage(); ?> </td>
+                                <td> <?php echo $movie->getRuntime() . " minutes" ?> </td>
+                                <?php $genres = $this->getGenresByMovieId($movie->getId()); ?>
+                                <td><?php foreach ($genres as $value) {
+                                        echo $value->getName() . " ";
+                                    }
+                                    ?></td>
+                        </tbody>
+
+                    <?php } ?>
 
                     <form action="<?php echo FRONT_ROOT ?>Ticket/buyTicketView" method="post">
                         <?php foreach ($movieShowList as $show) { ?>
-                            <?php if ($movie->getId() == $show->getMovie()->getId() && $show->getStatus() == true){ //&& $show->getDate() >= date('Y-m-d')) { 
+                            <?php if ($movie->getId() == $show->getMovie()->getId() && $show->getStatus() == true) { //&& $show->getDate() >= date('Y-m-d')) { 
                             ?>
                                 <thead class="thead-dark">
                                     <tr>
@@ -72,7 +75,7 @@ include('nav-bar.php');
                                         <td> <?php echo $show->getDate();  ?> </td>
                                         <td> <?php echo $show->getTime();  ?> </td>
                                         <td> <?php echo $show->getRoom()->getPrice();  ?> </td>
-                                        <?php if ($show->getTicketsSold() < $show->getRoom()->getCapacity() && $show->getDate() >= date('Y-m-d'))  { ?>
+                                        <?php if ($show->getTicketsSold() < $show->getRoom()->getCapacity() && $show->getDate() >= date('Y-m-d')) { ?>
                                             <td> <button type="submit" class="btn btn-warning" name="movieShowId" value="<?php echo $show->getId(); ?>">BUY TICKET</button> </td>
                                         <?php } else { ?>
                                             <td> TICKETS SOLD </td>
@@ -81,16 +84,16 @@ include('nav-bar.php');
                                 </tbody>
                             <?php } ?>
                         <?php } ?>
-                </table>
-                <br>
-            <?php } ?>
-            </form>
+                    </table>
+                    <br>
+                <?php } ?>
+                </form>
 
-            <?php
-            if (isset($message) && $message != "") {
-                echo "<div class='alert alert-primary' role='alert'> $message </div>";
-            }
-            ?>
+                <?php
+                if (isset($message) && $message != "") {
+                    echo "<div class='alert alert-primary' role='alert'> $message </div>";
+                }
+                ?>
         </div>
     </section>
 </main>
