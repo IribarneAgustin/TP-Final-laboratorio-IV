@@ -186,6 +186,7 @@ class TicketController
 
 
         $emailRecipient = $_SESSION['user']->getEmail();
+        $username = $_SESSION['user']->getUserName();
         $qrCodes = $_SESSION['qrTickets'];
 
         $filesToSendList = array();
@@ -193,7 +194,7 @@ class TicketController
 
         foreach ($qrCodes as $qr) {
 
-            $fileToSend =  "Data/qrs/email" . $count . ".png";
+            $fileToSend =  "Data/qrs/ticket" . $count . ".png";
             fopen($fileToSend, "w");
             $img = file_get_contents("$qr"); //"Data/qrs/qr1.png");
             file_put_contents($fileToSend, $img);
@@ -206,18 +207,18 @@ class TicketController
 
         try {
             //Server settings
-            $mail->SMTPDebug = 0;                      // Enable verbose debug output
+            $mail->SMTPDebug = 0;                                       // Enable verbose debug output
             $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'moviepasslabiv@gmail.com';                     // SMTP username
-            $mail->Password   = 'laboratorio4';                               // SMTP password
+            $mail->Username   = 'moviepasslabiv@gmail.com';             // SMTP username
+            $mail->Password   = 'laboratorio4';                         // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
             $mail->setFrom('moviepasslabiv@gmail.com', 'MoviePass');
-            $mail->addAddress($emailRecipient, 'MoviePass');     // Add a recipient
+            $mail->addAddress($emailRecipient, $username);            // Add a recipient
 
             // Attachments
             foreach ($filesToSendList as $file) {
@@ -226,7 +227,7 @@ class TicketController
 
 
             // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->isHTML(true);                                         // Set email format to HTML
             $mail->Subject = 'MoviePass!';
             $mail->Body    = 'Thanks for buying your tickets in <b>MoviePass</b>';
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';

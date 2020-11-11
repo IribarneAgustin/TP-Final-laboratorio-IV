@@ -1,51 +1,40 @@
 <?php
 include_once('header.php');
 ?>
-
-<body>
-    <br>
-    <div class="bg-dark-alpha">
-        <div class="row">
-            <div class="col-md-5 mx-auto">
-                <div id="first">
-                    <div class="myform form ">
-                        <div class="logo mb-3">
-                            <div class="col-md-12 text-center">
-                                <h1 style="color:white">Sign up</h1>
-                            </div>
+<main class="py-4" style="background-image: url('<?php echo FRONT_ROOT ?>Assets/img/header.jpg');">
+    <br><br><br><br>
+    <section id="cover" class="min-vh-100">
+        <div id="cover-caption">
+            <div class="container">
+                <div class="row text-white">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                        <h1 class="display-4 py-2 text-truncate">Sign up</h1>
+                        <div class="px-2">
+                            <form action="<?php echo FRONT_ROOT ?>User/signup" method="post" class="justify-content-center">
+                                <div class="form-group">
+                                    <label class="sr-only">Userame</label>
+                                    <input name="username" type="text" class="form-control" placeholder="username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Email</label>
+                                    <input name="email" type="text" class="form-control" placeholder="email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Password</label>
+                                    <input name="password " type="password" class="form-control" placeholder="password">
+                                </div>
+                                <button type="submit" class="btn btn-outline-light">Sing up</button>
+                            </form>
                         </div>
-                        <form action="<?php echo FRONT_ROOT ?>User/signup" method="post">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1" style="color:white">Username</label>
-                                <input type="username" name="username" class="form-control" id="username"
-                                    aria-describedby="emailHelp" placeholder="Enter username">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1" style="color:white">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email"
-                                    aria-describedby="emailHelp" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1" style="color:white">Password</label>
-                                <input type="password" name="password" id="password" class="form-control"
-                                    aria-describedby="emailHelp" placeholder="Enter Password">
-                            </div>
-                            <div class="col-md-12 text-center ">
-                                <button type="submit" class="btn btn-dark">Sign up</button>
-                            </div>
-                        </form>
-                    </div>
-                    <br>
-                </div>
-                <?php
+                        <br>
+                        <?php
                         if (isset($message) && $message != "") {
                             echo "<div class='alert alert-primary' role='alert'> $message </div>";
                         }
                         ?>
+                    </div>
+                </div>
             </div>
-            
         </div>
-    </div>
-    </div>
-
-</body>
+    </section>
+</main>
