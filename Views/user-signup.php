@@ -23,7 +23,7 @@ include_once('header.php');
                                     <label class="sr-only">Password</label>
                                     <input name="password " type="password" class="form-control" placeholder="password">
                                 </div>
-                                <button type="submit" class="btn btn-outline-light">Sing up</button>
+                                <button type="submit" class="btn btn-outline-light">Sign up</button>
                             </form>
                         </div>
                         <br>
