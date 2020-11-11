@@ -10,6 +10,6 @@ $fb = new Facebook\Facebook([
 $helper = $fb->getRedirectLoginHelper();
 
 $permissions = ['email']; // Optional permissions
-$loginUrl = $helper->getLoginUrl('https:/localhost', $permissions);
+$loginUrl = $helper->getLoginUrl('https://localhost/tpcinema/TP-Final-laboratorio-IV/User/FBCallback', $permissions);
 echo '<a href="'. htmlspecialchars($loginUrl) . '">Iniciar sesión con Facebook!</a>';
 ?>

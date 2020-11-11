@@ -5,6 +5,7 @@ namespace Controllers;
 use DAO\UserDAO;
 use Models\User;
 use \Exception as Exception;
+use Facebook\Facebook as Facebook;
 
 class UserController
 {
