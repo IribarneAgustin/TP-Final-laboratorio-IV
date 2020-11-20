@@ -132,7 +132,7 @@ class MovieShowController
     public function remove($movieShowId)
     {
         $movieShow = $this->movieShowDAO->getById($movieShowId);
-        if ($this->validateTicketSold($movieShow) == false) {
+        if ($this->validateTicketSold($movieShow) == false || strtotime($movieShow->getDate()) < strtotime(date('y-m-d'))) {
             require_once(VIEWS_PATH . "validate-session-admin.php");
             $this->movieShowDAO->remove($movieShowId);
             $this->showList($message = "Movie Show removed succesfully");
